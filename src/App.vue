@@ -2,7 +2,7 @@
   <div class="ui pointing menu">
     <router-link to="/" class='active item'>Mealecule</router-link>
     <router-link to="/plp"  class='item'>Shop By</router-link>
-    <router-link to="/about" class='item'>Play Game</router-link>
+    <router-link to="/game" class='item'>Play Game</router-link>
     
     <div class="right menu">
       <div class="item">

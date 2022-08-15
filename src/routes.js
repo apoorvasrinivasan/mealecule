@@ -1,10 +1,12 @@
 import {createWebHashHistory,createRouter}  from 'vue-router';
 import HelloWorld from './components/HelloWorld.vue'
 import PLP from './components/PLP.vue'
+import GameArea from './components/Game.vue'
 
 const routes = [ 
   {path: '/about', component: HelloWorld },
   {path: '/plp', component: PLP },
+  {path: '/game', component: GameArea },
 ]
 
 const router = createRouter({
