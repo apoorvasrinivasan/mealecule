@@ -65,7 +65,7 @@ div.plp
           p {{ description }}  
 
       div.three.wide.column
-        div.ui.segment
+        div.ui.segment.cta-box
           form.ui.form
             div.ui.grouped.fields
               div.ui.radio.checkbox
@@ -158,5 +158,12 @@ export default {
   display: inline-block;
   margin-left: 10px;
   vertical-align: middle;
+}
+.cta-box {
+  position: fixed;
+  top:  84px;
+}
+.cta-box .checkbox {
+  width: 100%;
 }
 </style>
