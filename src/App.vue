@@ -31,7 +31,7 @@
   </div>
   <section id="homepage" class="home-banner" v-if="currentRouteName == 'home'">
   </section>
-   <div class="ui container">
+   <div class="ui container site-content">
     <router-view></router-view>
   </div>
 </template>
@@ -48,6 +48,10 @@ export default {
 </script>
 
 <style>
+.site-content {
+  margin-top: 54px;
+}
+
 .home-banner {
   background:url('assets/hero-image.png') no-repeat #dff7ce;
   background-attachment: fixed;

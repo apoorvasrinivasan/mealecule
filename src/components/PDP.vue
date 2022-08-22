@@ -24,7 +24,7 @@ div.plp
         
         div.ui.section.divider
         section#Nutrients
-          h3.ui.header Nuritiion information
+          h3.ui.header Mealecules information
           table.ui.table.definition
             thead
               tr
