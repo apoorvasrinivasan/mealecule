@@ -1,26 +1,63 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="ui menu" :class="{'secondary':currentRouteName == 'home'}">
+    <router-link to="/" class='item'>Mealecule</router-link>
+
+    <router-link to="pdp"  class='item'>PDP</router-link>
+    <router-link to="game" class='item'>Play Game</router-link>
+    
+    <div class="right menu">
+          <div  class='ui dropdown item'>
+      Shop By
+      <i class="dropdown icon"></i>
+      <div class="menu">
+      <router-link to="plp" class="item">Noodles</router-link>
+      <a class="item">Dairy</a>
+      <a class="item">Meat</a>
+    </div>
+  </div>
+      <div class="item">
+        <div class="ui transparent icon input">
+          <input type="text" placeholder="Search...">
+          <i class="search link icon"></i>
+        </div>
+      </div>
+      <router-link to="login" class='item'>Login</router-link>
+      <div class="item">
+        <i class="user circle icon"></i>
+        My account
+      </div>
+      <router-link to="myCart" class="item"> <i class="shopping cart icon"></i> </router-link>
+    </div>
+  </div>
+  <section id="homepage" class="home-banner" v-if="currentRouteName == 'home'">
+  </section>
+   <div class="ui container site-content">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  computed: {
+    currentRouteName() {
+        return this.$route.name;
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.site-content {
+  margin-top: 54px;
+}
+
+.home-banner {
+  background:url('assets/hero-image.png') no-repeat #dff7ce;
+  background-attachment: fixed;
+  background-size: cover;
+  width:100%;
+  height:100vh;
+  margin-top: -54px;
 }
 </style>
