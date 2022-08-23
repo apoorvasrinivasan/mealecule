@@ -1,0 +1,34 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#******************************This file is generated - please do not edit it. It will be regenerated after every build.********************************#
+# ImpEx template for Importing all Localisations for Products in the Electronics Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog=mealeculeProductCatalog
+$productCatalogName=Mealecule Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+$lang=en
+
+
+# Update allProducts with localisations
+UPDATE Product;code[unique=true];$catalogVersion;name[lang=$lang];summary[lang=$lang];description[lang=$lang]
+ ;123456;;Spicy Masala Maggi;Spicy Masala Maggi;Spicy Masala Maggi
+ ;501;;Cadbury Oreo Creame Biscuit - Chocolate, 46.3 g;Oreo chocolate crème cookie brings together the rich and smooth flavours of Chocolate creme filling with the bold taste of crunchy chocolate biscuits.
+;502;;Britannia NutriChoice Digestive High Fibre Biscuits 50 g Multipack;Britannia NutriChoice Digestive Biscuits are fibre rich biscuits packed with the richness of wheat flour (atta) and bran.
+;503;;Britannia Good Day Cashew Cookies;Britannia Good Day Cashew Cookies are delicious crunchy cookies made with rich cashews.
+;504;;Britannia NutriChoice 5 Grain Digestive, Healthy Snack;Britannia NutriChoice 5 Grain Digestive are multigrain high fibre healthy biscuits, that include Oats, Ragi, Wheat, Corn and Rice.
+;505;;Sunfeast Dark Fantasy - Choco Fills, Original Filled Cookies;A cookie for the purely indulgent, Sunfeast Dark Fantasy Choco Fills is your companion for the moments when you #CantWaitWontWait.
+;506;;Fresho Signature Cookies - Honey & Oats, Chewy;Rich in fibre and low in calories, oats also keep you fuller for a longer time and they contain complex fibers that boost metabolism.
+
+
+
+#;1209761;;8X25 IS;8X25 IS;Just 12 cm wide and weighing only 490g. the new 8x25 IS binoculars are the most compact and lightweight IS binoculars Canon has ever developed.<br/><br/>- Compact, lightweight design<br/>- Tilt Mechanism Image Stabiliser<br/>- 8x magnification power<br/>- Rounded shape<br/>- Field flattener lens<br/>- Simple and convenient to use<br/>- Battery allows 6 hours of continuous operation<br/>- Centrally mounted controls.<br/><br/>Canon's smallest and lightest IS Binoculars<br/><br/>The new IS binoculars have an appealing rounded shaped design for more comfortable handling. They owe their small size, low weight and superb image-stabilising ability to the latest in Image Stabilisation technology: the Tilt Mechanism. This mechanism keeps your subject steady by correcting movements, such as hand shake. Battery power is minimised because the IS optics only uses power when the IS button is pressed. Like the focusing knob, this button is centrally located on the binoculars, easily reachable by both left and right handed users. As a further refinement, the tilt-system Image Stabiliser of the 8x25 IS suppresses chromatic aberrations and reduces colour ‘smearing’ in order to keep your image clear. Being environmentally conscious Canon have used lead-free glass in the new IS binoculars.
