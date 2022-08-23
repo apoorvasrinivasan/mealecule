@@ -1,0 +1,29 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Products into Electronics Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog=mealeculeProductCatalog
+$productCatalogName=Mealecule Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+
+# Insert Products
+INSERT_UPDATE Product;code[unique=true];$supercategories;manufacturerName;manufacturerAID;unit(code);ean;variantType(code);$catalogVersion;$approved;weightInG;weightInML;totalCalories
+;123456;noodles;Maggi;MaggiID;pieces;;;;;
+;501;biscuits;Cadbury;CadburyID;pieces;;;;;46.3;;223.63
+;502;biscuits;Cadbury;CadburyID;pieces;;;;;50;;247
+;503;biscuits;Britannia;BritanniaID;pieces;;;;;50;;247
+;504;biscuits;Britannia;BritanniaID;pieces;;;;;100;;512
+;505;biscuits;Sunfeast;SunfeastID;pieces;;;;;75;;390
+;506;biscuits;FreshoSignature;FreshoSignatureID;pieces;;;;;150;;628.5

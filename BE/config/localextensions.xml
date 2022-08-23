@@ -1,0 +1,56 @@
+<hybrisconfig xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='../bin/platform/resources/schemas/extensions.xsd'>
+  <extensions>
+    <path dir='${HYBRIS_BIN_DIR}' autoload='false' />
+    <extension name='mcc'/>
+		<extension name='adaptivesearchsolr'/>
+		<extension name='adaptivesearchbackoffice'/>
+		<extension name='commerceservicesbackoffice'/>
+		<extension name='solrfacetsearchbackoffice'/>
+		<extension name='commercesearchbackoffice'/>
+		<extension name='solrserver'/>
+		<extension name='customersupportbackoffice'/>
+		<!--<extension name='customerticketingaddon'/>-->
+		<!--<extension name='commerceorgsamplesaddon'/>-->
+		<extension name='rulebuilderbackoffice'/>
+		<extension name='couponbackoffice'/>
+		<extension name='droolsruleengineservices'/>
+		<extension name='couponfacades'/>
+		<!--<extension name='promotionenginesamplesaddon'/>-->
+		<extension name='permissionswebservices'/>
+		<!--<extension name='personalizationsampledataaddon'/>-->
+		<extension name='personalizationpromotions'/>
+		<extension name='personalizationpromotionsweb'/>
+		<extension name='personalizationservicesbackoffice'/>
+		<extension name='personalizationpromotionsbackoffice'/>
+		<extension name='personalizationcmsbackoffice'/>
+		<extension name='textfieldconfiguratortemplatebackoffice'/>
+		<!--<extension name='textfieldconfiguratortemplateaddon'/>-->
+		<extension name='promotionengineatddtests'/>
+		<extension name='textfieldconfiguratortemplateatddtests'/>
+		<extension name='backoffice'/>
+		<extension name='npmancillary'/>
+		<extension name='platformbackoffice'/>
+		<extension name="commercesearchbackoffice"/>
+		<extension name="amazoncloud"/>
+
+		<extension name='mealeculefulfilmentprocess'/>
+		<extension name='mealeculecore'/>
+		<extension name='mealeculeinitialdata'/>
+		<extension name='mealeculefacades'/>
+		<extension name='mealeculetest'/>
+		<extension name='mealeculestorefront'/>
+		<extension name='mealeculecockpits' />
+		<extension name='mealeculecommercewebservices'/>
+		<extension name='mealeculecommercewebservicestest'/>
+		<extension name='mealeculecommercewebserviceshmc'/>
+		
+		<extension name='cmswebservices'/>
+		<extension name='cmsbackoffice'/>
+		<extension name='pcmbackofficesamplesaddon'/>
+		<extension name='pcmbackoffice'/>
+		<extension name='smartedit'/>
+		<extension name='smarteditaddon'/>
+		
+		
+  </extensions>
+</hybrisconfig>

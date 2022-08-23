@@ -1,0 +1,32 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Electronics Store Prices
+#% impex.setLocale( Locale.GERMAN ); 
+
+$productCatalog=mealeculeProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+$taxGroup=Europe1PriceFactory_PTG(code)[default=jp-vat-full]
+
+# Set product approval status to Approved only for those products that have prices.
+$approved=approvalstatus(code)[default='approved']
+
+UPDATE Product;code[unique=true];$approved;$catalogVersion;$taxGroup
+;123456
+
+INSERT_UPDATE PriceRow;productId[unique=true];unit(code[unique=true,default=pieces]);currency(isocode)[unique=true];price;minqtd;unitFactor;net
+;123456;pieces;USD;15;1;1;false
+;123456;pieces;JPY;130;1;1;false
+;501;pieces;USD;10;1;1;false
+;502;pieces;USD;112;1;1;false
+;503;pieces;USD;25;1;1;false
+;504;pieces;USD;75;1;1;false
+;505;pieces;USD;40;1;1;false
+;506;pieces;USD;149;1;1;false
