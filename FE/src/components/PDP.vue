@@ -1,26 +1,23 @@
 <template lang="pug">
 div.plp
-    div.ui.grid.product
+    div.ui.grid.product(v-if="product.code")
       div.ui.grid.thirteen.wide.column.product
         section.five.wide.column.product-image.ui.image
           img(src="https://www.maggi.in/sites/default/files/styles/product_image_desktop_617_900/public/maggi-2minutes-noodles-617x900.png?itok=GgDSaGCE")
         section.ten.wide.column.product-detail
-          div.ui.label Noodles
-          h1.header.ui MAGGI® 2-Minute Noodles
+          div.ui.label(v-for ='c in product.categories') {{ c.code }}
+          h1.header.ui {{ product.name }}
           div.ui.two.column.grid
             div.column
-              div.ui.label.teal Maggie
+              div.ui.label.teal {{ product.manufacturer }}
               br
               div.ui.statistic
-                div.value ₹150
+                div.value.price {{ product.price.value }}
             div.column
-              MQ(:nutrients="mq")
+              MQ(:nutrients="product.mq")
             p.product-description
-              | {{ description }}
-            ul.product-features
-              li(v-for="item in features")
-                b {{ item.key }}
-                span {{ item.value }}
+              | {{ product.summary }}
+
         
         div.ui.section.divider
         section#Nutrients
@@ -30,39 +27,14 @@ div.plp
               tr
                 th
                 th per 100g
-                th per serve
-                th %GDA per serve
-
             tbody
-              tr
-                td Energy (kcal)
-                td 427
-                td 299
-                td 15%
-              tr
-                td Protein (g)
-                td 427
-                td 299
-                td 15%
-              tr
-                td Carbohydrate (g)
-                td 427
-                td 299
-                td 15%
-              tr
-                td -Total sugars(g)
-                td 427
-                td 299
-                td 15%
-              tr
-                td Sugar (Sucrose)(g)
-                td 427
-                td 299
-                td 15%
+              tr(v-for ='k,v in product.mealeculeQuotientData')
+                td {{ v }}
+                td {{ k }}
         div.ui.section.divider
         section#Ingredients
           h3.ui.header Ingredients
-          p {{ description }}  
+          p {{ product.description }}  
 
       div.three.wide.column
         div.ui.segment.cta-box
@@ -70,13 +42,14 @@ div.plp
             div.ui.grouped.fields
               div.ui.radio.checkbox
                 input#fulPrice(type="radio" name="price")
-                label(for="fulPrice") Rs. 150
+                label(for="fulPrice") 
+                  span.price {{product.price.value }}
             
               div.ui.radio.checkbox
                 input#discountPrice(type="radio" name="price")
-                label(for="fulPrice") 
-                  span Rs. 130
-                  span.ui.yellow.circular.label.tiny.plutoCoin 20
+                label(for="discountPrice") 
+                  span.price {{product.price.discounted}}
+                  span.ui.yellow.circular.label.tiny.plutoCoin {{product.price.coins}}
             button.ui.button.fluid.primary Add to cart
     
 </template>
@@ -93,29 +66,21 @@ export default {
   },
   data(){
     return {
-      mq: {chart:[
-        {key:'fat', value:30},
-        {key:'fibre', value:20},
-        {key:'protien', value:50},
-      ]
-      ,cal: 250},
-      features: [
-        {key:'fat', value:30},
-        {key:'fat', value:30},
-        {key:'fat', value:30},
-        {key:'fat', value:30},
-        {key:'fibre', value:20},
-        {key:'protien', value:50}
-      ],
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus urna neque viverra justo nec ultrices dui sapien. Aliquet lectus proin nibh nisl condimentum id. Tristique senectus et netus et malesuada fames ac turpis. Neque ornare aenean euismod elementum nisi quis. Elit sed vulputate mi sit amet mauris."
+      product : {}
     }
   },
   mounted() {
-      Product.getProducts((data) => {
-        this.products = data
+      let code =  this.$route.params.code;
+      Product.getProduct(code,(data) => {
+        this.product = data; 
+        this.product.mq = Product.makeMQData(data.mealeculeQuotientData);
+        this.product.price.coins = Math.floor(data.value /10);
+        this.product.price.discounted = data.value - this.product.price.coins;
+          
       },
       (data) => {
         console.log("error");
+        this.product = data; 
         console.log(data);
       });
 
@@ -134,7 +99,7 @@ export default {
   margin:  24px;
 }
 .mq {
-  max-width: 100px;
+  max-width: 150px;
   margin-left: auto;
 }
 .product-features {
@@ -165,5 +130,9 @@ export default {
 }
 .cta-box .checkbox {
   width: 100%;
+}
+.price:before {
+  content:"Rs.";
+  font-size: .4em;
 }
 </style>

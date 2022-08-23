@@ -6,6 +6,7 @@ import PDP from './components/PDP.vue'
 import GameArea from './components/Game.vue'
 import Login from './components/Login.vue'
 import MyCart from './components/MyCart.vue'
+import NotFound from './components/NotFound.vue'
 
 const routes = [ 
   {
@@ -21,13 +22,13 @@ const routes = [
     meta: {title:"about"}
      },
   {
-    path: '/plp',
+    path: '/plp/:id',
     component: PLP , 
     name:"plp",
-    meta: {title:"plp"}
+    meta: {title:"plp/"}
   },
   {
-    path: '/pdp',
+    path: '/pdp/:code',
     component: PDP , 
     name:"pdp",
     meta: {title:"pdp"}
@@ -50,6 +51,10 @@ const routes = [
     name:"Login",
     meta: {title:"Login"}
   },
+  {
+  path: "/:catchAll(.*)",
+  component: NotFound,
+},
 ]
 
 const router = createRouter({

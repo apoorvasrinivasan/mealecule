@@ -1,18 +1,14 @@
 <template>
   <div class="ui menu" :class="{'secondary':currentRouteName == 'home'}">
     <router-link to="/" class='item'>Mealecule</router-link>
-
-    <router-link to="pdp"  class='item'>PDP</router-link>
     <router-link to="game" class='item'>Play Game</router-link>
     
-    <div class="right menu">
+    <div class="right menu" v-if="categories.length">
           <div  class='ui dropdown item'>
       Shop By
       <i class="dropdown icon"></i>
       <div class="menu">
-      <router-link to="plp" class="item">Noodles</router-link>
-      <a class="item">Dairy</a>
-      <a class="item">Meat</a>
+      <router-link :to="{name:'plp', params:{id:c.id}}" class="item" v-for="c in categories" :key="c.id">{{ c.id }}</router-link>
     </div>
   </div>
       <div class="item">
@@ -37,11 +33,34 @@
 </template>
 
 <script>
+import Product from './services/product';
 export default {
   name: 'App',
   computed: {
     currentRouteName() {
         return this.$route.name;
+    }
+  },
+  data(){
+    return {
+      categories:[]
+    }
+  },
+  created(){
+    this.getCategories()
+  },
+  methods:{
+    getCategories:function(){
+      let vm =this;
+      Product.getCategories((data) => {
+        vm.categories = data.categories
+          
+      },
+      (data) => {
+        console.log("error");
+        this.product = data; 
+        console.log(data);
+      });
     }
   }
 }

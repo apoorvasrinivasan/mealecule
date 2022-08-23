@@ -31,7 +31,7 @@ div.plp
           option(value="sugar") Sugar
 
       div.ui.link.cards
-         router-link.card.product-card(to="/pdp" v-for="p in filteredList" :key="p.code")
+         router-link.card.product-card(:to="{ name: 'pdp', params: { code: p.code }}" v-for="p in filteredList" :key="p.code")
           div.image
             img(src="https://www.maggi.in/sites/default/files/styles/product_image_desktop_617_900/public/maggi-2minutes-noodles-617x900.png?itok=GgDSaGCE" alt="productimage")
           
@@ -81,11 +81,12 @@ export default {
     }
   },
   mounted() {
-      Product.getProducts((data) => {
+      var category = this.$route.params.id;
+      Product.getProducts(category,(data) => {
         this.products = data.products.map((i)=>{
           i.mq = Product.makeMQData(i.mealeculeQuotientData);
           i.price.coins = Math.floor(i.price.value /10);
-          console.log(i.mq)
+          
           return i
         })
         this.category = data.id;
