@@ -1,7 +1,7 @@
 <template>
 
 <div class="mq">
-   <svg width="100%" height="100%" viewBox="0 0 40 40" class="donut">
+   <svg width="100%" height="100%" viewBox="0 0 40 39" class="donut">
     <circle class="donut-hole" cx="20" cy="20" r="15.91549430918954" fill="#fff"></circle>
     <circle class="donut-ring" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="3.5"></circle>
      <circle v-for="(item, index) in mqdata" :key="index" :class="'donut-segment donut-segment-'+index" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="3.5" :stroke-dasharray="item.value + ' ' + (100-item.value)" :data-key="item.key" :stroke-dashoffset="item.offset"></circle>
@@ -17,6 +17,14 @@
       </text>
     </g>
   </svg>
+
+<div class="mq-data">
+<template v-for="(item, index) in mqdata" :key="index">
+    <span> {{ item.key }}</span>
+    <span> {{  item.value }}g</span>
+</template>
+    
+ </div>
 </div>
 </template>
 <script>
@@ -157,5 +165,29 @@ html { text-align:center; }
 .svg-item {
   max-width:30%;
   display:inline-block;
+}
+
+.mq:hover > .mq-data{
+    display: grid;
+}
+.mq-data {
+    display: none;
+    position: absolute;
+    top:  0;
+    width:  95%;
+    max-width: fit-content;
+    margin: 0 auto;
+    grid-template-columns: auto 20px;
+    /*grid-gap: 2px;*/
+    background: var(--red);
+    justify-content: space-between;
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 10px;
+}
+.mq-data span:nth-child(2n-1) {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 </style>

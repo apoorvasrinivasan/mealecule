@@ -21,38 +21,47 @@ div.plp
         input(id="s6" type="checkbox" name="example")
         label(for="s6") Fibre
 
-
     div.ui.thirteen.wide.column  
       label.select-box(aria-label ="Sort by")
         select(v-model="sortKey")
-          option(value="userId") Price low to high
-          option(value="completed") Protien
-          option(value="title") Fat
-          option(value="id") Carb
-          option Fibre
+          option(value="energy") Calorie
+          option(value="protein") Protien
+          option(value="fat") Fat
+          option(value="carbohydrate") Carb
+          option(value="sugar") Sugar
+
       div.ui.link.cards
-        div.card(v-for="p in filteredList" :key="p.id")
+         router-link.card.product-card(to="/pdp" v-for="p in filteredList" :key="p.code")
           div.image
             img(src="https://www.maggi.in/sites/default/files/styles/product_image_desktop_617_900/public/maggi-2minutes-noodles-617x900.png?itok=GgDSaGCE" alt="productimage")
           
           div.content
-            div.header {{ p.userId }}
+            div.header {{ p.name }}
             div.meta
-              router-link(to="/pdp")  {{ p.completed }}
-            div.description  {{ p.title}}
+              MQ(:nutrients="p.mq")
+              div.ui.label.tiny {{ category}}
+              div.price-row
+                span.mrp {{ p.price.value }}
+                span.price {{ p.price.value }}
+                span.ui.circular.yellow.tiny.label {{ p.price.coins }}
+            button.cta-button.ui.fluid.primary.button  Add to cart
 </template>
 
 <script>
 
 import Product from '../services/product'
+import MQ from './MQ.vue'
 
 export default {
   name: 'PLP',
+  components:{
+    MQ
+  },
   data(){
     return {
     category: "Maggie",
     filterKeys : [],
-    sortKey:'id',
+    sortKey:'carbohydrate',
     products: []
   }
   },
@@ -67,13 +76,19 @@ export default {
           return vm.filterKeys.indexOf(i.userId.toString()) >=0;
         });
       return a.sort((a,b)=> {
-        return (a[vm.sortKey] < b[vm.sortKey])?-1:1;
+        return (parseFloat(a["mealeculeQuotientData"][vm.sortKey] )< parseFloat(b["mealeculeQuotientData"][vm.sortKey]))?-1:1;
       });
     }
   },
   mounted() {
       Product.getProducts((data) => {
-        this.products = data
+        this.products = data.products.map((i)=>{
+          i.mq = Product.makeMQData(i.mealeculeQuotientData);
+          i.price.coins = Math.floor(i.price.value /10);
+          console.log(i.mq)
+          return i
+        })
+        this.category = data.id;
       },
       (data) => {
         console.log("error");
@@ -151,4 +166,38 @@ export default {
   outline: 0;
 }
 
+.product-card > .content {
+  display: grid;
+  grid-gap: 10px;
+}
+.price-row {
+  width:50%;
+  margin-top: 5px;
+}
+.mrp:before, .price:before {
+  content: 'Rs.';
+  font-size: 10px;
+}
+
+.meta {
+  position: relative;
+}
+.mrp {
+  color: var(--lightgrey);
+   text-decoration: line-through;
+  display: block;
+}
+.price {
+  font-size: 1.4rem;
+  color: var(--red);
+}
+.cta-button{
+  margin-top: auto;
+}
+.mq{
+    position:absolute;
+    right: -10px;
+    bottom:-10px;
+    width: 60%;
+}
 </style>
