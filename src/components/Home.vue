@@ -45,7 +45,7 @@ h1.title {
   width: 394px;
 }
 h1.title b{
-	color:  #45ad00;
+	color:  var(--green) ;
 }
 section {
 	width:100%;

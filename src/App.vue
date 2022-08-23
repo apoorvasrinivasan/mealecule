@@ -2,15 +2,15 @@
   <div class="ui menu" :class="{'secondary':currentRouteName == 'home'}">
     <router-link to="/" class='item'>Mealecule</router-link>
 
-    <router-link to="/pdp"  class='item'>PDP</router-link>
-    <router-link to="/game" class='item'>Play Game</router-link>
+    <router-link to="pdp"  class='item'>PDP</router-link>
+    <router-link to="game" class='item'>Play Game</router-link>
     
     <div class="right menu">
           <div  class='ui dropdown item'>
       Shop By
       <i class="dropdown icon"></i>
       <div class="menu">
-      <router-link to="/plp" class="item">Noodles</router-link>
+      <router-link to="plp" class="item">Noodles</router-link>
       <a class="item">Dairy</a>
       <a class="item">Meat</a>
     </div>
@@ -21,12 +21,12 @@
           <i class="search link icon"></i>
         </div>
       </div>
-      <router-link to="/login" class='item'>Login</router-link>
+      <router-link to="login" class='item'>Login</router-link>
       <div class="item">
         <i class="user circle icon"></i>
         My account
       </div>
-      <div class="item"> <i class="shopping cart icon"></i> </div>
+      <router-link to="myCart" class="item"> <i class="shopping cart icon"></i> </router-link>
     </div>
   </div>
   <section id="homepage" class="home-banner" v-if="currentRouteName == 'home'">

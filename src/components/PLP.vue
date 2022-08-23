@@ -101,9 +101,9 @@ export default {
 }
 
 .filter-form input:checked +label:before {
-  background-color: #45ad00;
-  border-color: #45ad00;
-  box-shadow: 0 0 0 3px #fff inset;
+  background-color: var(--green) ;
+  border-color: var(--green) ;
+  box-shadow: 0 0 0 3px var(--white)  inset;
 }
 
 .filter-form label:before {
@@ -111,8 +111,8 @@ export default {
     display: inline-block;
     height: 15px;
     width: 15px;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 0 1px #ccc;
+    border: 1px solid var(--lightgrey) ;
+    box-shadow: 0 0 0 1px var(--lightgrey) ;
     border-radius: 2px;
     left: -13px;
     position: relative;
@@ -127,7 +127,7 @@ export default {
 .select-box {
     width: fit-content;
     display:block;
-    border: 1px solid #ccc;
+    border: 1px solid var(--lightgrey) ;
     margin-left: auto;
     margin-bottom: 27px;
     margin-top: -8px;
@@ -141,10 +141,10 @@ export default {
     position: absolute;
     font-size: 9px;
     top: -11px;
-    background: #fff;
+    background: var(--white) ;
     display: block;
     padding: 0 4px;
-    color: #45ad00;
+    color: var(--secondary) ;
 }
 .select-box select{
   border:0;

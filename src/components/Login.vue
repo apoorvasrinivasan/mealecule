@@ -19,7 +19,7 @@
             <i class="lock icon"></i>
           </div>
         </div>
-        <div class="ui blue submit button">Login</div>
+        <div class="ui blue primary button">Login</div>
       </div>
     </div>
     <div class="middle aligned column">
@@ -53,7 +53,7 @@
             <i class="lock icon"></i>
           </div>
         </div>
-        <div class="ui blue submit button">Register</div>
+        <div class="ui blue primary button">Register</div>
       </div>
     </div>
   </div>

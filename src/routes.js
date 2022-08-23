@@ -5,14 +5,51 @@ import PLP from './components/PLP.vue'
 import PDP from './components/PDP.vue'
 import GameArea from './components/Game.vue'
 import Login from './components/Login.vue'
+import MyCart from './components/MyCart.vue'
 
 const routes = [ 
-  {path: '/', component: Home, name:"home" },
-  {path: '/about', component: HelloWorld, name:'about' },
-  {path: '/plp', component: PLP , name:"plp"},
-  {path: '/pdp', component: PDP , name:"pdp"},
-  {path: '/game', component: GameArea , name:"game"},
-  {path: '/login', component: Login , name:"login"},
+  {
+    path: '/', 
+    component: Home,
+    name:"home",
+    meta: {title:"How healthy is your cart"}
+     },
+  {
+    path: '/about',
+    component: HelloWorld,
+    name:'about',
+    meta: {title:"about"}
+     },
+  {
+    path: '/plp',
+    component: PLP , 
+    name:"plp",
+    meta: {title:"plp"}
+  },
+  {
+    path: '/pdp',
+    component: PDP , 
+    name:"pdp",
+    meta: {title:"pdp"}
+  },
+  {
+    path: '/game',
+    component: GameArea , 
+    name:"game",
+    meta: {title:"Play game to win coins."}
+  },
+  {
+    path: '/mycart',
+    component: MyCart , 
+    name:"MyCart",
+    meta: {title:"MyCart"}
+  },
+  {
+    path: '/login',
+    component: Login , 
+    name:"Login",
+    meta: {title:"Login"}
+  },
 ]
 
 const router = createRouter({
@@ -21,6 +58,11 @@ const router = createRouter({
   routes, // short for `routes: routes`
   linkExactActiveClass: "active"
 })
+
+router.beforeEach((to, fromRoute, next) => {
+    window.document.title = 'Mealecule |' +to.meta && to.meta.title ? to.meta.title : 'How healthy is your cart';
+    next();
+});
 
 export default {
   router

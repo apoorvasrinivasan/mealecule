@@ -1,145 +1,175 @@
 <template lang="pug">
-div.game
-  h1 {{ myScore }}
-  button.ui.button(v-on:click='startGame') Start
-  input(v-on:keyup.down='movedown', v-on:keyup.up='moveup')
-  <br>
-  canvas#gameArea
-  p  The score will count one point for each frame you manage to "stay alive".
+div.gamearea
+  h1#score {{score }} 
+    div.ui.yellow.circular.label {{coins}} 
+  div#gameArea(:class="{'active':!gamepaused}")
+    div#obst
+    div.overlay( v-show="gamepaused")
+      button.startbutton.ui.primary.large.button(autofocus v-on:click="startGame()") {{ startButton}}
+    div#player(:style="'left:'+player + 'px'")
 </template>
 
 <script>
+import * as $ from 'jquery';
+let gameInterval;
+let gameInterval2;
 
-function component(width, height, color, x, y, type) {
-    this.type = type;
-    this.width = width;
-    this.height = height;
-    this.speedX = 0;
-    this.speedY = 0;    
-    this.x = x;
-    this.y = y;    
-    this.update = function() {
-        var ctx = myGameArea.context;
-        if (this.type == "text") {
-            ctx.font = this.width + " " + this.height;
-            ctx.fillStyle = color;
-            ctx.fillText(this.text, this.x, this.y);
-        } else {
-            ctx.fillStyle = color;
-            ctx.fillRect(this.x, this.y, this.width, this.height);
-        }
-    }
-    this.newPos = function() {
-        this.x += this.speedX;
-        this.y += this.speedY;        
-    }
-    this.crashWith = function(otherobj) {
-        var myleft = this.x;
-        var myright = this.x + (this.width);
-        var mytop = this.y;
-        var mybottom = this.y + (this.height);
-        var otherleft = otherobj.x;
-        var otherright = otherobj.x + (otherobj.width);
-        var othertop = otherobj.y;
-        var otherbottom = otherobj.y + (otherobj.height);
-        var crash = true;
-        if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
-            crash = false;
-        }
-        return crash;
-    }
-}
-
-var myGameArea;
-var myGamePiece;
 export default {
   name: 'GameArea',
   data(){
     return {
-      
-      myObstacles:[],
-      myScore: 0
-  }
+      speed: 9000,
+      player:300,
+      score:0,
+      coins:0,
+      obsticles:[],
+      gamepaused: true,
+      startButton: 'Start'
+    }
   },
   mounted() {
-    this.setGameArea();
+    // this.startGame();
   },
-  methods : {
-    startGame:()=>{
+  methods: {
+    startGame:function(){
+      let vm = this;
+      vm.gamepaused =false;
+      vm.createbox(0);
+      vm.createbox(1);
+      vm.createbox(2);
+      gameInterval = setInterval(()=>{ vm.score +=10; vm.checkCollision()},100);
+      gameInterval2 = setInterval(()=>{ vm.createCoins()},2000);
+      document.addEventListener('keydown',function(e){
+        if(e.keyCode =='37' && vm.player >0) // left arrow
+          vm.player -=100;
+        if(e.keyCode =='39' && vm.player <500) // right arrow
+          vm.player +=100;
+      });
+    },
+    stopGame: function(){
+      clearInterval(gameInterval);
+      clearInterval(gameInterval2);
+      $('#obst').empty();
+      this.gamepaused =true;
+      this.startButton = 'Play again'
+      $('startbutton').focus();
+    },
+    createbox:function(idx){
+      let vm=this;
+      let box = document.createElement('div');
+      $(box).addClass("obsticle");
+      $('#obst').append(box);
+      $(box).on('animationiteration',function(){
+        let randomNo = Math.floor(Math.random() * 6);
+        vm.obsticles[idx] = randomNo;
+        $(this).css('left', randomNo*100 + 'px');
+      })
+      
+    },
+    createCoins:function(){
+      let coin = document.createElement('div');
+      $(coin).addClass("coins");
+      $('#obst').append(coin);
+      let randomNo = Math.floor(Math.random() * 6);
+      console.log(randomNo)
+      $(coin).css('left', randomNo*100 + 'px');
 
-      myGamePiece = new component(30, 30, "red", 10, 120);
-      myGameArea.start();
+      
     },
-    setGameArea(){
-      var vm = this;
-       myGameArea = {
-        canvas : document.getElementById("gameArea"),
-        start : function() {
-          this.canvas.width = 480;
-          this.canvas.height = 270;
-          this.context = this.canvas.getContext("2d");
-          this.frameNo = 0;
-          this.interval = setInterval(function(){vm.updateGameArea()}, 20);
-        },
-        clear : function() {
-            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        },
-        stop : function() {
-            clearInterval(this.interval);
-            
-        }
-      }
-    },
-    updateGameArea(){
-      var x, height, gap, minHeight, maxHeight, minGap, maxGap;
-      var vm=this;
-      for (var i = 0; i < vm.myObstacles.length; i += 1) {
-        if (myGamePiece.crashWith(vm.myObstacles[i])) {
-            myGameArea.stop();
-            return;
+    checkCollision:function(){
+      let vm=this;
+      let left = $('#player').offset().left; 
+      let top = $('#player').offset().top;
+      $('.obsticle, .coins').each(function(){
+        let p = $(this).offset();
+        if(p.top + 100 >=top && p.left/100 == left/100 ){
+          if( $(this).hasClass('obsticle')){
+            vm.stopGame();
+            alert('gameover')
+            return
+          }
+          if( $(this).hasClass('coins')){
+            vm.coins ++;
+            $(this).remove();
+          }
         } 
-      }
-      myGameArea.clear();
-      myGameArea.frameNo += 1;
-      if (myGameArea.frameNo == 1 || vm.everyinterval(150)) {
-          x = myGameArea.canvas.width;
-          minHeight = 20;
-          maxHeight = 200;
-          height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
-          minGap = 50;
-          maxGap = 200;
-          gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
-          vm.myObstacles.push(new component(10, height, "green", x, 0));
-          vm.myObstacles.push(new component(10, x - height - gap, "green", x, height + gap));
-      }
-      for (i = 0; i < vm.myObstacles.length; i += 1) {
-          vm.myObstacles[i].speedX = -1;
-          vm.myObstacles[i].newPos();
-          vm.myObstacles[i].update();
-      }
-      vm.myScore=myGameArea.frameNo;
-      myGamePiece.newPos();    
-      myGamePiece.update();
-    },
-    everyinterval(n){
-      if ((myGameArea.frameNo / n) % 1 == 0) {return true;}
-      return false;
-    },
-    moveup(){
-      myGamePiece.speedY = -1; 
-    },
-    movedown() {
-      myGamePiece.speedY = 1; 
+      }) 
     }
   }
 }
 </script>
+<style>
+#gameArea {
+  width:600px;
+  height: 400px;
+  border:  1px solid #ccc;
+  margin:  0 auto;
+  position: relative;
+  overflow: hidden;
+  background: url(../assets/road.png);
+}
+#gameArea.active {
+  animation: move 6s linear infinite;
+  border:  solid #fff;
+  border-width: 0 3px;
+  outline: 4px solid #565852;
+}
+#obst{
+  background: red;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 4;
+  background: rgba(0,0,0,0.5);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#player{
+  height:  100px;
+  width: 100px;
+  background: url(https://i.pinimg.com/originals/05/c1/ab/05c1ab65b1b2e336fe3cb321b9d4ea46.png) no-repeat;
+  background-size:contain ;
+  position:  absolute;
+  bottom:  0;
+}
+.obsticle{
+  height:  90px;
+  width: 90px;
+  background: black;
+  border:  5px solid transparent;
+  position:  absolute;
+  color:  #fff;
+  z-index: 2;
+   animation: fall 6s linear infinite;
+}
+.coins{
+  height:  50px;
+  width: 50px;
+  background: #ebdc60;
+  border: 1px solid gold;
+box-shadow: 1px 2px 0 #ccc;
+  border-radius: 50%;
+  position:  absolute;
+  top:  -50px;
+  color:  #222;
+  animation: fall 5s linear 2;
+}
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
- #gameArea {
-  width:  480px;
-  height: 270px;
-  background: wheat;
- }
+#score{
+  position: absolute;
+}
+@keyframes fall {
+  from {top: -50px;}
+  to {top: 400px;}
+}
+@keyframes move {
+  from {background-position: 0 0}
+  from {background-position: 0 -100px}
+}
+
 </style>
