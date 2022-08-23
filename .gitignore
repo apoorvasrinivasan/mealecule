@@ -21,3 +21,6 @@ FE/pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+*.class
+BE/custom/mealecule/mealeculestorefront/web/addonsrc/*
+BE/custom/mealeculecommercewebservices/mealeculecommercewebservices/web/addonsrc/*
