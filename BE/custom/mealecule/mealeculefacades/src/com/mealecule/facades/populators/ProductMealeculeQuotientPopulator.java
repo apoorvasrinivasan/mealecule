@@ -50,6 +50,7 @@ public class ProductMealeculeQuotientPopulator implements Populator<ProductModel
 			target.setWeightInG(source.getWeightInG());
 			target.setWeightInML(source.getWeightInML());
 			target.setTotalCalories(source.getTotalCalories());
+			target.setManufacturer(source.getManufacturerName());
 		}
 	}
 

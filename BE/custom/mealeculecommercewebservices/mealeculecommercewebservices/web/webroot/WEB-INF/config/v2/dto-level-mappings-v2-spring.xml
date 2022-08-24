@@ -423,7 +423,7 @@
 				<entry key="DEFAULT"
 				       value="id,name,url,subcategories(DEFAULT)"/>
 				<entry key="FULL"
-				       value="pageSize,totalNumber,currentPage,numberOfPages,name,url,subcategories(FULL),products,pageSize,id,lastModified"/>
+				       value="pageSize,totalNumber,currentPage,numberOfPages,name,url,subcategories(FULL),products(FULL),pageSize,id,lastModified"/>
 			</map>
 		</property>
 	</bean>

@@ -108,7 +108,7 @@ public class ProductsController extends BaseController
 	private static final String PRODUCT_OPTIONS;
 	@Resource(name = "storeFinderStockFacade")
 	private StoreFinderStockFacade storeFinderStockFacade;
-	@Resource(name = "cwsProductFacade")
+	@Resource(name = "mqProductFacade")
 	private ProductFacade productFacade;
 	@Resource(name = "wsDateFormatter")
 	private WsDateFormatter wsDateFormatter;

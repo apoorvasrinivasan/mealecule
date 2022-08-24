@@ -13,6 +13,7 @@ FE/yarn-debug.log*
 FE/yarn-error.log*
 FE/pnpm-debug.log*
 
+
 # Editor directories and files
 .idea
 .vscode
@@ -24,3 +25,5 @@ FE/pnpm-debug.log*
 *.class
 BE/custom/mealecule/mealeculestorefront/web/addonsrc/*
 BE/custom/mealeculecommercewebservices/mealeculecommercewebservices/web/addonsrc/*
+BE/config/solr/*
+BE/custom/mealecule/mealeculefacades/classes/*

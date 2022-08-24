@@ -276,4 +276,7 @@
 		<property name="categoryHierarchyPopulator" ref="mqCategoryHierarchyPopulator"/>
 	</bean>
 
+	<bean id="mqProductFacade" parent="defaultProductFacade">
+		<property name="productConverter" ref="mqProductConverter"/>
+	</bean>
 </beans>
