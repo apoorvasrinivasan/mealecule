@@ -16,6 +16,9 @@
         <collectiontype code="GenderList" elementtype="Gender" autocreate="true" generate="true" type="list"/>
         <collectiontype code="SwatchColorSet" elementtype="SwatchColorEnum" autocreate="true" generate="true"
                         type="set"/>
+        <collectiontype code="PreferredMealeculeList" elementtype="java.lang.String" autocreate="true" generate="true" type="list"/> 
+        <collectiontype code="BadgeList" elementtype="Badge" autocreate="true" generate="true" type="list"/>     
+             
     </collectiontypes>
     <enumtypes>
         <enumtype generate="true" code="SwatchColorEnum" autocreate="true" dynamic="true">
@@ -31,6 +34,17 @@
             <value code="SILVER"/>
             <value code="WHITE"/>
             <value code="YELLOW"/>
+        </enumtype>
+        
+        <enumtype generate="true" code="LevelEnum" autocreate="true" dynamic="true">
+        	<value code="GOLD"/>
+        	<value code="SILVER"/>
+        	<value code="BRONZE"/>
+        </enumtype>
+        
+        <enumtype generate="true" code="DisplayNameEnum" autocreate="true" dynamic="true">
+        	<value code="REGISTERED"/>
+        	<value code="NONREGISTERED"/>
         </enumtype>
     </enumtypes>
     <relations>
@@ -227,6 +241,47 @@
                     <persistence type="property" />
                 </attribute>
                 <attribute type="java.lang.Double" qualifier="totalCalories">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+        </itemtype>
+        
+        <itemtype code="Badge" autocreate="true" generate="true">
+         <deployment table="ingredients" typecode="10142"/>
+            <attributes>
+                <attribute type="java.lang.Integer" qualifier="id">
+                    <description></description>
+                    <modifiers optional="false" unique="true"/>
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="LevelEnum" qualifier="level">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="DisplayNameEnum" qualifier="displayName">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+        </itemtype>
+        
+       <itemtype code="User" autocreate="false" generate="false">
+            <attributes>
+                <attribute type="java.lang.Integer" qualifier="coins">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="PreferredMealeculeList" qualifier="preferredMealecule">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="BadgeList" qualifier="badges">
                     <description></description>
                     <modifiers optional="true" />
                     <persistence type="property" />

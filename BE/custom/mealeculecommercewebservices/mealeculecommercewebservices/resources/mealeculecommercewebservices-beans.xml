@@ -186,5 +186,15 @@
 		<property name="products"
 				  type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO>"/>
 	</bean>
+	
+	<bean class="com.mealecule.core.user.data.BadgeWsDTO">
+		<property name="id" type="Integer"/>
+		<property name="level" type="String"/>
+		<property name="displayName" type="String"/>
+	</bean>
+	
+	<bean class="com.mealecule.core.user.data.PreferredMealeculeWsDTO">
+		<property name="preferredMealecule" type="java.util.List&lt;String>"/>
+	</bean>
 
 </beans>

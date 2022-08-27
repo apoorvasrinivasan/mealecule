@@ -194,5 +194,37 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="userBadgePopulator" class="com.mealecule.facades.populators.UserBadgePopulator"/>
+	
+	<bean id="userBadgeConverter" parent="abstractPopulatingConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="userBadgePopulator"/>
+			</list>
+		</property>	
+	</bean>
+	
+	<bean id="userBadgeReversePopulator" class="com.mealecule.facades.populators.UserBadgeReversePopulator"/>
+	
+	<bean id="userBadgeReverseConverter" parent="abstractPopulatingConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="userBadgeReversePopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userPopulator" class="com.mealecule.facades.populators.UserPopulator">
+		<property name="userBadgeConverter" ref="userBadgeConverter"/>
+	</bean>
+	
+	<bean id="userConverter" parent="abstractPopulatingConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="userPopulator"/>
+			</list>
+		</property>
+	</bean>
 
 </beans>
