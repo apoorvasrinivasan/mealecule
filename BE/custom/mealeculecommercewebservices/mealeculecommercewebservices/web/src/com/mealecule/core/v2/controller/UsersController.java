@@ -48,15 +48,11 @@ import de.hybris.platform.webservicescommons.cache.CacheControlDirective;
 import de.hybris.platform.webservicescommons.dto.error.ErrorListWsDTO;
 import de.hybris.platform.webservicescommons.dto.error.ErrorWsDTO;
 import de.hybris.platform.webservicescommons.errors.exceptions.WebserviceValidationException;
-import com.mealecule.core.constants.YcommercewebservicesConstants;
-import com.mealecule.core.populator.HttpRequestCustomerDataPopulator;
-import com.mealecule.core.populator.options.PaymentInfoOption;
-import com.mealecule.core.user.data.AddressDataList;
-import com.mealecule.core.validation.data.AddressValidationData;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -87,6 +83,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.util.UriUtils;
+
+import com.mealecule.core.constants.YcommercewebservicesConstants;
+import com.mealecule.core.populator.HttpRequestCustomerDataPopulator;
+import com.mealecule.core.populator.options.PaymentInfoOption;
+import com.mealecule.core.user.data.AddressDataList;
+import com.mealecule.core.user.data.PreferredMealeculeWsDTO;
+import com.mealecule.core.user.data.UserData;
+import com.mealecule.core.validation.data.AddressValidationData;
 
 
 /**
@@ -132,6 +136,9 @@ public class UsersController extends BaseCommerceController
 	private Validator guestConvertingDTOValidator;
 	@Resource(name = "passwordStrengthValidator")
 	private Validator passwordStrengthValidator;
+
+	@Resource(name = "userConverter")
+	private Converter<UserModel, UserData> userConverter;
 
 	/**
 	 * Registers a customer. The following two sets of parameters are available:
@@ -1408,4 +1415,32 @@ public class UsersController extends BaseCommerceController
 
 		return orderHistoriesData;
 	}
+
+
+	@RequestMapping(value = "/{userId}/preferredMealecules", method = RequestMethod.POST)
+	@ResponseBody
+	public PreferredMealeculeWsDTO createPreferredMealecule(@RequestParam(defaultValue = DEFAULT_FIELD_SET)
+	final String fields, @RequestParam (defaultValue = StringUtils.EMPTY) final String preferredMealecule, final HttpServletRequest httpRequest, final HttpServletResponse httpResponse)
+	{
+		final UserModel userModel = userService.getCurrentUser();
+		userModel.setPreferredMealecule(
+				StringUtils.isNotBlank(preferredMealecule) ? Arrays.asList(preferredMealecule.split(",")) : null);
+		modelService.save(userModel);
+		final UserData userData = new UserData();
+		userConverter.convert(userModel, userData);
+		return getDataMapper().map(userData, PreferredMealeculeWsDTO.class, fields);
+	}
+
+
+	@RequestMapping(value = "/{userId}/preferredMealecules", method = RequestMethod.GET)
+	@ResponseBody
+	public PreferredMealeculeWsDTO getPreferredMealecule(@RequestParam(defaultValue = DEFAULT_FIELD_SET)
+	final String fields)
+	{
+		final UserModel userModel = userService.getCurrentUser();
+		final UserData userData = new UserData();
+		userConverter.convert(userModel, userData);
+		return getDataMapper().map(userData, PreferredMealeculeWsDTO.class, fields);
+	}
+
 }
