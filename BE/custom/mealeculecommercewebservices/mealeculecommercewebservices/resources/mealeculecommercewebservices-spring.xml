@@ -265,6 +265,7 @@
 
 	<bean id="mqCategoryHierarchyPopulator" class="com.mealecule.facades.populators.MQCategoryHierarchyPopulator" parent="defaultCategoryHierarchyPopulator">
 		<property name="productConverter" ref="mqProductConverter"/>
+		<property name="enumerationService" ref="enumerationService"/>
 	</bean>
 
 	<bean id="mqCatalogVersionPopulator" class="com.mealecule.facades.populators.MQCatalogVersionPopulator" parent="defaultCatalogVersionPopulator">

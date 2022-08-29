@@ -35,7 +35,7 @@
             <value code="WHITE"/>
             <value code="YELLOW"/>
         </enumtype>
-        
+
         <enumtype generate="true" code="LevelEnum" autocreate="true" dynamic="true">
         	<value code="GOLD"/>
         	<value code="SILVER"/>
@@ -46,15 +46,30 @@
         	<value code="REGISTERED"/>
         	<value code="NONREGISTERED"/>
         </enumtype>
+
+        <enumtype generate="true" code="MealeculeQuotientEnum" autocreate="true" dynamic="true">
+            <value code="CARBOHYDRATE"/>
+            <value code="FAT"/>
+            <value code="PROTEIN"/>
+            <value code="FIBER"/>
+            <value code="CALORIES"/>
+            <value code="WATER"/>
+            <value code="SUGAR"/>
+        </enumtype>
     </enumtypes>
+
     <relations>
         <relation code="MealeculeQuotientToProduct" localized="false" generate="true" autocreate="true">
             <sourceElement type="MealeculeQuotient" qualifier="mealeculeQuotient" cardinality="one" />
-            <targetElement type="Product" qualifier="product" cardinality="many" />
+            <targetElement type="Product" qualifier="product" cardinality="many"  />
         </relation>
         <relation code="ProductToIngredients" localized="false" generate="true" autocreate="true">
             <sourceElement type="Ingredients" qualifier="ingredients" cardinality="one" />
             <targetElement type="Product" qualifier="product" cardinality="many" />
+        </relation>
+        <relation code="MealeculeInfoToMealeculeQuotientDatas" localized="false" generate="true" autocreate="true">
+            <sourceElement type="MealeculeQuotient" qualifier="mealeculeQuotient" cardinality="one" />
+            <targetElement type="MealeculeQuotientData" qualifier="mealeculeQuotientData" cardinality="many" collectiontype="list"/>
         </relation>
     </relations>
 
@@ -126,14 +141,13 @@
                 </attributes>
             </itemtype>
 
-
         <!-- Add your item definitions here -->
         <itemtype code="MealeculeQuotient" autocreate="true" generate="true">
             <deployment table="mealeculeQuotient" typecode="10140"/>
             <attributes>
                 <attribute type="java.lang.String" qualifier="code">
                     <description></description>
-                    <modifiers optional="true" />
+                    <modifiers unique="true" />
                     <persistence type="property" />
                 </attribute>
                 <attribute type="java.lang.Double" qualifier="weightInG">
@@ -146,46 +160,6 @@
                     <modifiers optional="true" />
                     <persistence type="property" />
                 </attribute>
-                <attribute type="java.lang.Double" qualifier="water">
-                    <description></description>
-                    <modifiers optional="true" />
-                    <persistence type="property" />
-                </attribute>
-                <attribute type="java.lang.Double" qualifier="energy">
-                    <description></description>
-                    <modifiers optional="true" />
-                    <persistence type="property" />
-                </attribute>
-                <attribute type="java.lang.Double" qualifier="nitrogen">
-                    <description></description>
-                    <modifiers optional="true" />
-                    <persistence type="property" />
-                </attribute>
-                <attribute type="java.lang.Double" qualifier="protein">
-                    <description></description>
-                    <modifiers optional="true" />
-                    <persistence type="property" />
-                </attribute>
-                <attribute type="java.lang.Double" qualifier="fat">
-                    <description></description>
-                    <modifiers optional="true" />
-                    <persistence type="property" />
-                </attribute>
-                <attribute type="java.lang.Double" qualifier="carbohydrate">
-                    <description></description>
-                    <modifiers optional="true" />
-                    <persistence type="property" />
-                </attribute>
-                <attribute type="java.lang.Double" qualifier="fiber">
-                    <description></description>
-                    <modifiers optional="true" />
-                    <persistence type="property" />
-                </attribute>
-                <attribute type="java.lang.Double" qualifier="sugar">
-                    <description></description>
-                    <modifiers optional="true" />
-                    <persistence type="property" />
-                </attribute>
             </attributes>
         </itemtype>
         <itemtype code="Ingredients" autocreate="true" generate="true">
@@ -193,7 +167,7 @@
             <attributes>
                 <attribute type="java.lang.String" qualifier="code">
                     <description></description>
-                    <modifiers optional="true" />
+                    <modifiers unique="true" />
                     <persistence type="property" />
                 </attribute>
                 <attribute type="java.lang.Double" qualifier="cocoa">
@@ -247,13 +221,12 @@
                 </attribute>
             </attributes>
         </itemtype>
-        
         <itemtype code="Badge" autocreate="true" generate="true">
-         <deployment table="badge" typecode="10142"/>
+            <deployment table="badge" typecode="10142"/>
             <attributes>
                 <attribute type="java.lang.Integer" qualifier="id">
                     <description></description>
-                    <modifiers optional="false" unique="true"/>
+                    <modifiers unique="true"/>
                     <persistence type="property" />
                 </attribute>
                 <attribute type="LevelEnum" qualifier="level">
@@ -268,8 +241,8 @@
                 </attribute>
             </attributes>
         </itemtype>
-        
-       <itemtype code="User" autocreate="false" generate="false">
+
+        <itemtype code="User" autocreate="false" generate="false">
             <attributes>
                 <attribute type="java.lang.Integer" qualifier="coins">
                     <description></description>
@@ -282,6 +255,26 @@
                     <persistence type="property" />
                 </attribute>
                 <attribute type="BadgeList" qualifier="badges">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+        </itemtype>
+        <itemtype code="MealeculeQuotientData">
+            <deployment table="MealeculeQuotientData" typecode="10200"/>
+            <attributes>
+                <attribute type="java.lang.String" qualifier="code">
+                    <description></description>
+                    <modifiers unique="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="mealeculeQuotientType" type="MealeculeQuotientEnum">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="java.lang.Double" qualifier="value">
                     <description></description>
                     <modifiers optional="true" />
                     <persistence type="property" />

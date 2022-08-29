@@ -178,6 +178,13 @@
 		<property name="ingredientsData" type="com.mealecule.core.product.data.IngredientsWsDTO"/>
 	</bean>
 
+	<bean class="com.mealecule.core.search.data.MQFacetWsDTO">
+		<property name="code" type="String"/>
+		<property name="name" type="String"/>
+		<property name="maxValue" type="Double"/>
+		<property name="minValue" type="Double"/>
+	</bean>
+
 	<bean class="de.hybris.platform.commercewebservicescommons.dto.catalog.CategoryHierarchyWsDTO">
 		<property name="pageSize" type="Integer"/>
 		<property name="totalNumber" type="Integer"/>
@@ -185,6 +192,11 @@
 		<property name="numberOfPages" type="Integer"/>
 		<property name="products"
 				  type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO>"/>
+		<property name="facetDatas"
+				  type="java.util.List&lt;com.mealecule.core.search.data.MQFacetWsDTO>"/>
+	</bean>
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.AbstractOrderWsDTO">
+		<property name="mealeculeQuotientData" type="com.mealecule.core.product.data.MealeculeQuotientWsDTO"/>
 	</bean>
 	
 	<bean class="com.mealecule.core.user.data.BadgeWsDTO">
@@ -195,6 +207,12 @@
 	
 	<bean class="com.mealecule.core.user.data.PreferredMealeculeWsDTO">
 		<property name="preferredMealecule" type="java.util.List&lt;String>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO">
+		<property name="coins" type="Integer"/>
+		<property name="preferredMealecule" type="java.util.List&lt;String>"/>
+		<property name="badges" type="java.util.List&lt;com.mealecule.core.user.data.BadgeData>"/>
 	</bean>
 
 </beans>
