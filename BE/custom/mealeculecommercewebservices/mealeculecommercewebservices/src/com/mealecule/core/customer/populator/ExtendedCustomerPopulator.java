@@ -10,6 +10,9 @@
  */
 package com.mealecule.core.customer.populator;
 
+import com.mealecule.core.model.BadgeModel;
+import com.mealecule.core.user.data.BadgeData;
+import com.mealecule.core.user.data.CustomerGameData;
 import de.hybris.platform.commercefacades.user.data.AddressData;
 import de.hybris.platform.commercefacades.user.data.CustomerData;
 import de.hybris.platform.converters.Populator;
@@ -28,6 +31,8 @@ import org.springframework.util.Assert;
 public class ExtendedCustomerPopulator implements Populator<CustomerModel, CustomerData>
 {
     private Converter<AddressModel, AddressData> addressConverter;
+
+    private Converter<BadgeModel, BadgeData> userBadgeConverter;
 
     protected Converter<AddressModel, AddressData> getAddressConverter()
     {
@@ -58,6 +63,21 @@ public class ExtendedCustomerPopulator implements Populator<CustomerModel, Custo
         if (source.getDefaultShipmentAddress() != null)
         {
             target.setDefaultShippingAddress(getAddressConverter().convert(source.getDefaultShipmentAddress()));
+
         }
+        CustomerGameData customerGameData = new CustomerGameData();
+        customerGameData.setBadges(userBadgeConverter.convertAll(source.getBadges()));
+        customerGameData.setCoins(source.getCoins());
+        target.setPreferredMealecule(source.getPreferredMealecule());
+        target.setGameData(customerGameData);
 	}
+
+    public Converter<BadgeModel, BadgeData> getUserBadgeConverter() {
+        return userBadgeConverter;
+    }
+
+    @Required
+    public void setUserBadgeConverter(Converter<BadgeModel, BadgeData> userBadgeConverter) {
+        this.userBadgeConverter = userBadgeConverter;
+    }
 }

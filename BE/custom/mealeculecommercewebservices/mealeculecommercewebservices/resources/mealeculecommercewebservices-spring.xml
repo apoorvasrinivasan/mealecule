@@ -157,6 +157,7 @@
 	<bean id="defaultExtendedCustomerPopulator"
 			class="com.mealecule.core.customer.populator.ExtendedCustomerPopulator">
 		<property name="addressConverter" ref="addressConverter"/>
+		<property name="userBadgeConverter" ref="userBadgeConverter"/>
 	</bean>
 
 	<bean parent="modifyPopulatorList">

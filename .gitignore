@@ -27,9 +27,13 @@ BE/custom/mealecule/mealeculestorefront/web/addonsrc/*
 BE/custom/mealeculecommercewebservices/mealeculecommercewebservices/web/addonsrc/*
 BE/config/solr/*
 BE/custom/mealecule/mealeculefacades/classes/*
+BE/custom/mealecule/mealeculecommercewebservices/classes/*
+BE/custom/mealecule/mealeculecore/classes/*
+BE/custom/mealecule/mealeculeinitialdata/classes/*
+BE/*/classes/*
 BE/custom/mealecule/mealeculecockpits/gensrc/*
 BE/custom/mealecule/mealeculecore/gensrc/*
 BE/custom/mealecule/mealeculefulfilmentprocess/gensrc/*
 BE/*/gensrc/*
 BE/custom/mealecule/mealeculeinitialdata/gensrc/*
-
+BE/custom/mealecule/mealeculefacades/gensrc/*

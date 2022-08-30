@@ -1483,4 +1483,19 @@
 		</property>
 	</bean>
 
+	<bean parent="fieldSetLevelMapping" id="customerGameDataFieldSetLevelMapping">
+		<property name="dtoClass"
+				  value="com.mealecule.core.user.data.CustomerGameWsDTO"/>
+		<property name="levelMapping">
+			<map>
+				<entry key="BASIC"
+					   value="coins,badges"/>
+				<entry key="DEFAULT"
+					   value="coins,badges"/>
+				<entry key="FULL"
+					   value="coins,badges"/>
+			</map>
+		</property>
+	</bean>
+
 </beans>

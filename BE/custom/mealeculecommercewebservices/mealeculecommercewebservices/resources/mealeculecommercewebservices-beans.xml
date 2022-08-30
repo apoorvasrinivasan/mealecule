@@ -114,10 +114,17 @@
 		          type="com.mealecule.core.user.data.AddressDataList"/>
 	</bean>
 
-	<!-- Additional title property for CustomerData -->
+
+	<bean class="com.mealecule.core.user.data.CustomerGameData">
+		<property name="coins" type="Integer"/>
+		<property name="badges" type="java.util.List&lt;com.mealecule.core.user.data.BadgeData>"/>
+	</bean>
+
 	<bean class="de.hybris.platform.commercefacades.user.data.CustomerData"
 	      extends="de.hybris.platform.commercefacades.user.data.PrincipalData">
 		<property name="title" type="String"/>
+		<property name="gameData" type="com.mealecule.core.user.data.CustomerGameData"/>
+		<property name="preferredMealecule" type="java.util.List&lt;String>"/>
 	</bean>
 
 	<bean class="com.mealecule.core.user.data.LoginChangeResponse">
@@ -209,10 +216,14 @@
 		<property name="preferredMealecule" type="java.util.List&lt;String>"/>
 	</bean>
 
-	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO">
+	<bean class="com.mealecule.core.user.data.CustomerGameWsDTO">
 		<property name="coins" type="Integer"/>
+		<property name="badges" type="java.util.List&lt;com.mealecule.core.user.data.BadgeWsDTO>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO">
+		<property name="gameData" type="com.mealecule.core.user.data.CustomerGameWsDTO"/>
 		<property name="preferredMealecule" type="java.util.List&lt;String>"/>
-		<property name="badges" type="java.util.List&lt;com.mealecule.core.user.data.BadgeData>"/>
 	</bean>
 
 </beans>

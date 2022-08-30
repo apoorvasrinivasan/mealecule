@@ -59,14 +59,17 @@
 		<property name="level" type="String"/>
 		<property name="displayName" type="String"/>
 	</bean>
-	
+
 	<bean class="com.mealecule.core.user.data.UserData">
 		<property name="uid" type="String"/>
 		<property name="coins" type="Integer"/>
 		<property name="preferredMealecule" type="java.util.List&lt;String>"/>
 		<property name="badges" type="java.util.List&lt;com.mealecule.core.user.data.BadgeData>"/>
 	</bean>
-	
+
+	<bean class="com.mealecule.core.user.data.PreferredMealeculeData">
+		<property name="preferredMealecule" type="java.util.List&lt;String>"/>
+	</bean>
 
 	<bean class="de.hybris.platform.commercefacades.catalog.data.CategoryHierarchyData" >
 		<property name="facetDatas" type="java.util.List&lt;com.mealecule.facades.search.data.FacetData>"/>
