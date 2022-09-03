@@ -1,7 +1,7 @@
 /*
  * ----------------------------------------------------------------
  * --- WARNING: THIS FILE IS GENERATED AND WILL BE OVERWRITTEN! ---
- * --- Generated at Aug 22, 2022 11:58:09 PM                    ---
+ * --- Generated at Aug 25, 2022 2:34:11 AM                     ---
  * ----------------------------------------------------------------
  */
 package com.mealecule.core.constants;

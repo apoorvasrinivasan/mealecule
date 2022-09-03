@@ -1,9 +1,9 @@
 <template lang="pug">
 div.plp
   h1.ui.header {{ category}}
-  div.ui.grid
+  div.ui.grid(v-if="products.length")
     div.ui.three.wide.column
-      div.ui.segment.form.filter-form
+      div.ui.segment.form.filter-form.check-box
         span.ui.header.teal Filters
         div.ui.header.tiny Type
         input(v-model="filterKeys" value= "1" id="s1" type="checkbox")
@@ -22,13 +22,13 @@ div.plp
         label(for="s6") Fibre
 
     div.ui.thirteen.wide.column  
-      label.select-box(aria-label ="Sort by")
-        select(v-model="sortKey")
-          option(value="energy") Calorie
-          option(value="protein") Protien
-          option(value="fat") Fat
-          option(value="carbohydrate") Carb
-          option(value="sugar") Sugar
+      div.select-box
+        label.sort-box(aria-label ="Sort by")
+          select(v-model="sortKey")
+            option(v-for="s in mealecules" :value=s) {{s}}
+        p.check-box
+          input#asc(type="checkbox" v-model="sortAs")
+          label.checkbox(for="asc" :aria-label ="(sortAs)?'Low to High' : 'High to Low'" v-html="(sortAs)?'Low to High' : 'High to Low'")
 
       div.ui.link.cards
          router-link.card.product-card(:to="{ name: 'pdp', params: { code: p.code }}" v-for="p in filteredList" :key="p.code")
@@ -38,13 +38,15 @@ div.plp
           div.content
             div.header {{ p.name }}
             div.meta
-              MQ(:nutrients="p.mq")
+              MQ(:nutrients="p.mq" v-if='p.mq')
               div.ui.label.tiny {{ category}}
               div.price-row
                 span.mrp {{ p.price.value }}
-                span.price {{ p.price.value }}
+                span.price {{ p.price.discounted }}
                 span.ui.circular.yellow.tiny.label {{ p.price.coins }}
             button.cta-button.ui.fluid.primary.button  Add to cart
+  div.ui.message Sorry no products found 
+      
 </template>
 
 <script>
@@ -59,11 +61,22 @@ export default {
   },
   data(){
     return {
-    category: "Maggie",
+    category: "",
     filterKeys : [],
     sortKey:'carbohydrate',
-    products: []
+    products: [],
+    mealecules:[],
+    sortAs:true
   }
+  },
+  mounted(){
+   this.getProducts();
+
+  },
+   watch: {
+    '$route' () {
+      this.getProducts();
+    }
   },
   computed: {
     filteredList() {
@@ -75,28 +88,32 @@ export default {
         a = vm.products.filter(i => {
           return vm.filterKeys.indexOf(i.userId.toString()) >=0;
         });
+      let asc = (vm.sortAs) ?1:-1;
       return a.sort((a,b)=> {
-        return (parseFloat(a["mealeculeQuotientData"][vm.sortKey] )< parseFloat(b["mealeculeQuotientData"][vm.sortKey]))?-1:1;
+        return asc*((parseFloat(a["mealeculeQuotientData"][vm.sortKey] )< parseFloat(b["mealeculeQuotientData"][vm.sortKey]))?-1:1);
       });
     }
   },
-  mounted() {
-      var category = this.$route.params.id;
+  methods : {
+    getProducts (){
+      let vm = this;
+      let category = this.$route['params'].id;
       Product.getProducts(category,(data) => {
-        this.products = data.products.map((i)=>{
+        vm.category = data.name;
+        vm.products = data.products.map((i)=>{
           i.mq = Product.makeMQData(i.mealeculeQuotientData);
           i.price.coins = Math.floor(i.price.value /10);
-          
+          i.price.discounted = i.price.value - i.price.coins;
           return i
-        })
-        this.category = data.id;
+        });
+        if (vm.products[0].mealeculeQuotientData)
+          vm.mealecules = ['carbohydrate','fat','sugar','protien', 'energy']
       },
       (data) => {
         console.log("error");
         console.log(data);
       });
-
-    
+    }
   }
 }
 </script>
@@ -112,17 +129,17 @@ export default {
 .image img{
   max-height: 100%;
 }
-.filter-form input {
+.check-box input[type="checkbox"] {
   display:none;
 }
 
-.filter-form input:checked +label:before {
-  background-color: var(--green) ;
+.check-box input:checked +label:before {
+  background-color: var(--green);
   border-color: var(--green) ;
-  box-shadow: 0 0 0 3px var(--white)  inset;
+  box-shadow:  0 0 2px #fff inset;
 }
 
-.filter-form label:before {
+.check-box label:before {
     content: "";
     display: inline-block;
     height: 15px;
@@ -133,30 +150,32 @@ export default {
     left: -13px;
     position: relative;
 }
-.filter-form label {
+.check-box label {
   display: block;
-  padding: 5px;
+  padding: 0 5px;
   padding-left: 20px;
   margin: 5px 0;
 }
 
 .select-box {
     width: fit-content;
-    display:block;
-    border: 1px solid var(--lightgrey) ;
+    display:flex;
     margin-left: auto;
     margin-bottom: 27px;
     margin-top: -8px;
-    padding: 5px 10px;
-    border-radius: 5px;
     position:relative
 }
-
+.select-box .sort-box {
+  border-radius: 5px;
+  border: 1px solid var(--lightgrey) ;
+  margin-right: 10px;
+  padding: 5px 10px;
+}
 .select-box:before {
     content: "sort by";
     position: absolute;
     font-size: 9px;
-    top: -11px;
+    top: -15px;
     background: var(--white) ;
     display: block;
     padding: 0 4px;
