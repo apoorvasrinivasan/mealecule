@@ -10,6 +10,7 @@
  */
 package com.mealecule.core.v2.controller;
 
+import com.mealecule.core.user.data.*;
 import de.hybris.platform.commercefacades.address.AddressVerificationFacade;
 import de.hybris.platform.commercefacades.address.data.AddressVerificationResult;
 import de.hybris.platform.commercefacades.customer.CustomerFacade;
@@ -48,15 +49,11 @@ import de.hybris.platform.webservicescommons.cache.CacheControlDirective;
 import de.hybris.platform.webservicescommons.dto.error.ErrorListWsDTO;
 import de.hybris.platform.webservicescommons.dto.error.ErrorWsDTO;
 import de.hybris.platform.webservicescommons.errors.exceptions.WebserviceValidationException;
-import com.mealecule.core.constants.YcommercewebservicesConstants;
-import com.mealecule.core.populator.HttpRequestCustomerDataPopulator;
-import com.mealecule.core.populator.options.PaymentInfoOption;
-import com.mealecule.core.user.data.AddressDataList;
-import com.mealecule.core.validation.data.AddressValidationData;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -87,6 +84,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.util.UriUtils;
+
+import com.mealecule.core.constants.YcommercewebservicesConstants;
+import com.mealecule.core.populator.HttpRequestCustomerDataPopulator;
+import com.mealecule.core.populator.options.PaymentInfoOption;
+import com.mealecule.core.validation.data.AddressValidationData;
 
 
 /**
@@ -132,6 +134,9 @@ public class UsersController extends BaseCommerceController
 	private Validator guestConvertingDTOValidator;
 	@Resource(name = "passwordStrengthValidator")
 	private Validator passwordStrengthValidator;
+
+	@Resource(name = "customerConverter")
+	private Converter<UserModel, CustomerData> customerConverter;
 
 	/**
 	 * Registers a customer. The following two sets of parameters are available:
@@ -1408,4 +1413,90 @@ public class UsersController extends BaseCommerceController
 
 		return orderHistoriesData;
 	}
+
+
+	@RequestMapping(value = "/{userId}/preferredMealecules", method = RequestMethod.POST)
+	@ResponseBody
+	public PreferredMealeculeWsDTO createPreferredMealecule(@RequestParam(defaultValue = DEFAULT_FIELD_SET)
+	final String fields, @RequestParam (defaultValue = StringUtils.EMPTY) final String preferredMealecule, final HttpServletRequest httpRequest, final HttpServletResponse httpResponse)
+	{
+		final UserModel userModel = userService.getCurrentUser();
+		if(null != userModel){
+			userModel.setPreferredMealecule(
+					StringUtils.isNotBlank(preferredMealecule) ? Arrays.asList(preferredMealecule.split(",")) : null);
+			modelService.save(userModel);
+			return getPreferredMealeculeWsDTO(fields, userModel);
+		}
+		return null;
+	}
+
+
+	@RequestMapping(value = "/{userId}/preferredMealecules", method = RequestMethod.GET)
+	@ResponseBody
+	public PreferredMealeculeWsDTO getPreferredMealecule(@RequestParam(defaultValue = DEFAULT_FIELD_SET)
+	final String fields)
+	{
+		final UserModel userModel = userService.getCurrentUser();
+		if(null != userModel) {
+			return getPreferredMealeculeWsDTO(fields, userModel);
+		}
+		return null;
+	}
+
+	@RequestMapping(value = "/{userId}/gameData", method = RequestMethod.POST)
+	@ResponseBody
+	public CustomerGameWsDTO createOrUpdateUserGameData(@RequestParam(defaultValue = DEFAULT_FIELD_SET)
+															final String fields, @RequestParam (defaultValue = "0") final Integer coins, final HttpServletRequest httpRequest, final HttpServletResponse httpResponse)
+	{
+		final UserModel userModel = userService.getCurrentUser();
+		if(null != userModel){
+			userModel.setCoins(coins);
+			modelService.save(userModel);
+			if(null != userModel) {
+				final CustomerData userData = getCustomerData(userModel);
+				CustomerGameData customerGameData = new CustomerGameData();
+				if(null != userData.getGameData()) {
+					return getCustomerGameWsDTO(fields, userData, customerGameData);
+				}
+			}
+		}
+		return null;
+	}
+
+
+	@RequestMapping(value = "/{userId}/gameData", method = RequestMethod.GET)
+	@ResponseBody
+	public CustomerGameWsDTO getUserGameData(@RequestParam(defaultValue = DEFAULT_FIELD_SET)
+														 final String fields)
+	{
+		final UserModel userModel = userService.getCurrentUser();
+		if(null != userModel) {
+			final CustomerData userData = getCustomerData(userModel);
+			CustomerGameData customerGameData = new CustomerGameData();
+			if(null != userData.getGameData()) {
+				return getCustomerGameWsDTO(fields, userData, customerGameData);
+			}
+		}
+		return null;
+	}
+
+	private CustomerGameWsDTO getCustomerGameWsDTO(String fields, CustomerData userData, CustomerGameData customerGameData) {
+		customerGameData.setCoins(userData.getGameData().getCoins());
+		customerGameData.setBadges(userData.getGameData().getBadges());
+		return getDataMapper().map(customerGameData, CustomerGameWsDTO.class, fields);
+	}
+
+	private PreferredMealeculeWsDTO getPreferredMealeculeWsDTO(String fields, UserModel userModel) {
+		final CustomerData userData = getCustomerData(userModel);
+		PreferredMealeculeData mealeculeData = new PreferredMealeculeData();
+		mealeculeData.setPreferredMealecule(userData.getPreferredMealecule());
+		return getDataMapper().map(mealeculeData, PreferredMealeculeWsDTO.class, fields);
+	}
+
+	private CustomerData getCustomerData(UserModel userModel) {
+		final CustomerData userData = new CustomerData();
+		customerConverter.convert(userModel, userData);
+		return userData;
+	}
+
 }

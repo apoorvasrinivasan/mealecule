@@ -18,9 +18,12 @@ import java.io.IOException;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.access.AccessDeniedException;
@@ -70,7 +73,21 @@ public class UserMatchingFilter extends AbstractUrlMatchingFilter
 		}
 		else if (hasRole(ROLE_TRUSTED_CLIENT, auth) || hasRole(ROLE_CUSTOMERMANAGERGROUP, auth))
 		{
-			setCurrentUser(userID);
+			if (userID.equals(CURRENT_USER)) {
+				try {
+					setCurrentUser(getCurrentCustomer(request, response));
+				} catch (final UnknownIdentifierException e) {
+					LOG.error(e.getMessage(), e);
+					throw new AccessDeniedException("Access is denied", e);
+				}
+			} else {
+				try {
+					setCurrentUser(userID.toLowerCase());
+				} catch (final UnknownIdentifierException e) {
+					throw new AccessDeniedException("Access is denied", e);
+				}
+
+			}
 		}
 		else if (hasRole(ROLE_CUSTOMERGROUP, auth))
 		{
@@ -90,6 +107,25 @@ public class UserMatchingFilter extends AbstractUrlMatchingFilter
 		}
 
 		filterChain.doFilter(request, response);
+	}
+
+	private UserModel getCurrentCustomer(HttpServletRequest request, HttpServletResponse response) {
+		Cookie userCookie = getCookie(request, "user");
+		if(null != userCookie && StringUtils.isNotBlank(userCookie.getValue())){
+			try {
+				setCurrentUser(userCookie.getValue());
+				userCookie.setMaxAge(3600);
+				userCookie.setPath("/");
+				response.addCookie(userCookie);
+			} catch (UnknownIdentifierException ex){
+				LOG.error(String.format("No user by uid: (%s) ", userCookie.getValue()));
+			}
+		}
+		final UserModel found =userService.getCurrentUser();
+		if (found == null) {
+			return userService.getAnonymousUser();
+		}
+		return found;
 	}
 
 	protected Authentication getAuth()
@@ -148,5 +184,17 @@ public class UserMatchingFilter extends AbstractUrlMatchingFilter
 	protected void setCurrentUser(final UserModel user)
 	{
 		userService.setCurrentUser(user);
+	}
+
+	private Cookie getCookie(HttpServletRequest request, String cookieName) {
+		if (null != request.getCookies() && ArrayUtils.isNotEmpty(request.getCookies())) {
+			Cookie[] cookies = request.getCookies();
+			for (final Cookie cookie : cookies) {
+				if (cookieName.equals(cookie.getName())) {
+					return cookie;
+				}
+			}
+		}
+		return null;
 	}
 }

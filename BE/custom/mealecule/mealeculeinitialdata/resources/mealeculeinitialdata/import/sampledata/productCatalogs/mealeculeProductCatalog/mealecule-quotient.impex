@@ -11,13 +11,87 @@
 # ImpEx for Importing Categories into Mealecule Store
 
 # Macros / Replacement Parameter definitions
+$lang=en
 $productCatalog=mealeculeProductCatalog
 $catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
-INSERT_UPDATE MealeculeQuotient;code[unique=true];weightInG;weightInML;protein;fat;carbohydrate;fiber;sugar;water;energy;nitrogen;product(code,$catalogVersion)[unique=true];
-                               ;123456-mq;100;;8.57;17.1;58.6;2.9;4.29;;443;;123456
-;501-mq;100;;5.3;19.7;71.4;;38;;483;;501
-;502-mq;100;;8;21;68;6;14.5;;493;;502
-;503-mq;100;;7;24;67;;22;;512;;503
-;504-mq;100;;7;20;70;6;20.5;;488;;504
-;505-mq;100;;7.3;27.2;61;;35.8;;520;;505
-;506-mq;100;;10.2;13.2;64.8;;27.2;;419;;506
+$catalogVersionStaged=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+INSERT_UPDATE MealeculeQuotient;code[unique=true];weightInG;weightInML;product(code,$catalogVersion)[unique=true];mealeculeQuotientData(code)
+;123456-mq;100;;123456;123456-mq-CARBOHYDRATE,123456-mq-FAT,123456-mq-PROTEIN,123456-mq-FIBER,123456-mq-CALORIES,123456-mq-WATER,123456-mq-SUGAR
+;501-mq;100;;501;501-mq-CARBOHYDRATE,501-mq-FAT,501-mq-PROTEIN,501-mq-FIBER,501-mq-CALORIES,501-mq-WATER,501-mq-SUGAR
+;502-mq;100;;502;502-mq-CARBOHYDRATE,502-mq-FAT,502-mq-PROTEIN,502-mq-FIBER,502-mq-CALORIES,502-mq-WATER,502-mq-SUGAR
+;503-mq;100;;503;503-mq-CARBOHYDRATE,503-mq-FAT,503-mq-PROTEIN,503-mq-FIBER,503-mq-CALORIES,503-mq-WATER,503-mq-SUGAR
+;504-mq;100;;504;504-mq-CARBOHYDRATE,504-mq-FAT,504-mq-PROTEIN,504-mq-FIBER,504-mq-CALORIES,504-mq-WATER,504-mq-SUGAR
+;505-mq;100;;505;505-mq-CARBOHYDRATE,505-mq-FAT,505-mq-PROTEIN,505-mq-FIBER,505-mq-CALORIES,505-mq-WATER,505-mq-SUGAR
+;506-mq;100;;506;506-mq-CARBOHYDRATE,506-mq-FAT,506-mq-PROTEIN,506-mq-FIBER,506-mq-CALORIES,506-mq-WATER,506-mq-SUGAR
+
+$lang=en
+UPDATE MealeculeQuotientEnum;code[unique=true];name[lang=$lang]
+;CARBOHYDRATE;Carbohydrate
+;FAT;Fat
+;PROTEIN;Protein
+;FIBER;Fiber
+;CALORIES;Calories
+;WATER;Water
+;SUGAR;Sugar
+
+
+INSERT_UPDATE MealeculeQuotientData;code[unique=true];mealeculeQuotientType(code);value
+;123456-mq-CARBOHYDRATE;CARBOHYDRATE;58.6
+;123456-mq-FAT;FAT;17.1
+;123456-mq-PROTEIN;PROTEIN;8.57
+;123456-mq-FIBER;FIBER;2.9
+;123456-mq-CALORIES;CALORIES;443
+;123456-mq-WATER;WATER;0
+;123456-mq-SUGAR;SUGAR;4.29
+;501-mq-CARBOHYDRATE;CARBOHYDRATE;71.4
+;501-mq-FAT;FAT;19.7
+;501-mq-PROTEIN;PROTEIN;5.3
+;501-mq-FIBER;FIBER;6
+;501-mq-CALORIES;CALORIES;483
+;501-mq-WATER;WATER;0
+;501-mq-SUGAR;SUGAR;38
+;502-mq-CARBOHYDRATE;CARBOHYDRATE;68
+;502-mq-FAT;FAT;21
+;502-mq-PROTEIN;PROTEIN;8
+;502-mq-FIBER;FIBER;6
+;502-mq-CALORIES;CALORIES;493
+;502-mq-WATER;WATER;0
+;502-mq-SUGAR;SUGAR;14.5
+;503-mq-CARBOHYDRATE;CARBOHYDRATE;67
+;503-mq-FAT;FAT;24
+;503-mq-PROTEIN;PROTEIN;7
+;503-mq-FIBER;FIBER;0
+;503-mq-CALORIES;CALORIES;512
+;503-mq-WATER;WATER;0
+;503-mq-SUGAR;SUGAR;22
+;504-mq-CARBOHYDRATE;CARBOHYDRATE;70
+;504-mq-FAT;FAT;20
+;504-mq-PROTEIN;PROTEIN;7
+;504-mq-FIBER;FIBER;6
+;504-mq-CALORIES;CALORIES;419
+;504-mq-WATER;WATER;0
+;504-mq-SUGAR;SUGAR;20.5
+;505-mq-CARBOHYDRATE;CARBOHYDRATE;61
+;505-mq-FAT;FAT;27.2
+;505-mq-PROTEIN;PROTEIN;7.3
+;505-mq-FIBER;FIBER;6
+;505-mq-CALORIES;CALORIES;520
+;505-mq-WATER;WATER;0
+;505-mq-SUGAR;SUGAR;35.8
+;506-mq-CARBOHYDRATE;CARBOHYDRATE;64.8
+;506-mq-FAT;FAT;13.2
+;506-mq-PROTEIN;PROTEIN;10.2
+;506-mq-FIBER;FIBER;0
+;506-mq-CALORIES;CALORIES;419
+;506-mq-WATER;WATER;0
+;506-mq-SUGAR;SUGAR;27.2
+
+$catalogVersionStaged=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+INSERT_UPDATE MealeculeQuotient;code[unique=true];weightInG;weightInML;product(code,$catalogVersionStaged)[unique=true];mealeculeQuotientData(code)
+                               ;123456-mq;100;;123456;123456-mq-CARBOHYDRATE,123456-mq-FAT,123456-mq-PROTEIN,123456-mq-FIBER,123456-mq-CALORIES,123456-mq-WATER,123456-mq-SUGAR
+                               ;501-mq;100;;501;501-mq-CARBOHYDRATE,501-mq-FAT,501-mq-PROTEIN,501-mq-FIBER,501-mq-CALORIES,501-mq-WATER,501-mq-SUGAR
+                               ;502-mq;100;;502;502-mq-CARBOHYDRATE,502-mq-FAT,502-mq-PROTEIN,502-mq-FIBER,502-mq-CALORIES,502-mq-WATER,502-mq-SUGAR
+                               ;503-mq;100;;503;503-mq-CARBOHYDRATE,503-mq-FAT,503-mq-PROTEIN,503-mq-FIBER,503-mq-CALORIES,503-mq-WATER,503-mq-SUGAR
+                               ;504-mq;100;;504;504-mq-CARBOHYDRATE,504-mq-FAT,504-mq-PROTEIN,504-mq-FIBER,504-mq-CALORIES,504-mq-WATER,504-mq-SUGAR
+                               ;505-mq;100;;505;505-mq-CARBOHYDRATE,505-mq-FAT,505-mq-PROTEIN,505-mq-FIBER,505-mq-CALORIES,505-mq-WATER,505-mq-SUGAR
+                               ;506-mq;100;;506;506-mq-CARBOHYDRATE,506-mq-FAT,506-mq-PROTEIN,506-mq-FIBER,506-mq-CALORIES,506-mq-WATER,506-mq-SUGAR

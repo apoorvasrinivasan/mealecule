@@ -34,11 +34,18 @@
 		<property name="nitrogen" type="Double"/>
 	</bean>
 
-	<bean class="com.mealecule.facades.product.data.IngredientsData">
+	<bean class="com.mealecule.facades.search.data.FacetData">
 		<property name="code" type="String"/>
+		<property name="name" type="String"/>
+		<property name="maxValue" type="Double"/>
+		<property name="minValue" type="Double"/>
 	</bean>
 
 
+	<bean class="com.mealecule.facades.product.data.IngredientsData">
+		<property name="code" type="String"/>
+	</bean>
+	
 	<bean class="de.hybris.platform.commercefacades.product.data.ProductData">
 		<property name="weightInG" type="Double"/>
 		<property name="weightInML" type="Double"/>
@@ -46,4 +53,30 @@
 		<property name="mealeculeQuotientData" type="com.mealecule.facades.product.data.MealeculeQuotientData"/>
 		<property name="ingredientsData" type="com.mealecule.facades.product.data.IngredientsData"/>
 	</bean>
+
+	<bean class="com.mealecule.core.user.data.BadgeData">
+		<property name="id" type="Integer"/>
+		<property name="level" type="String"/>
+		<property name="displayName" type="String"/>
+	</bean>
+
+	<bean class="com.mealecule.core.user.data.UserData">
+		<property name="uid" type="String"/>
+		<property name="coins" type="Integer"/>
+		<property name="preferredMealecule" type="java.util.List&lt;String>"/>
+		<property name="badges" type="java.util.List&lt;com.mealecule.core.user.data.BadgeData>"/>
+	</bean>
+
+	<bean class="com.mealecule.core.user.data.PreferredMealeculeData">
+		<property name="preferredMealecule" type="java.util.List&lt;String>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.catalog.data.CategoryHierarchyData" >
+		<property name="facetDatas" type="java.util.List&lt;com.mealecule.facades.search.data.FacetData>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.AbstractOrderData">
+		<property name="mealeculeQuotientData" type="com.mealecule.facades.product.data.MealeculeQuotientData"/>
+	</bean>
 </beans>
+

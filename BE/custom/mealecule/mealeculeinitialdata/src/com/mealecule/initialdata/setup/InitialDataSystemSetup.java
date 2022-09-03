@@ -118,6 +118,10 @@ public class InitialDataSystemSetup extends AbstractSystemSetup
 
 		getSampleDataImportService().execute(this, context, importData);
 		getEventService().publishEvent(new SampleDataImportedEvent(context, importData));
+
+		importImpexFile(context, "/mealeculeinitialdata/import/sampledata/productCatalogs/mealeculeProductCatalog/mealecule-quotient.impex");
+		importImpexFile(context,"/mealeculeinitialdata/import/sampledata/productCatalogs/mealeculeProductCatalog/products-addon-extra.impex");
+		importImpexFile(context,"/mealeculeinitialdata/import/sampledata/users/register-users.impex");
 	}
 
 	public CoreDataImportService getCoreDataImportService()

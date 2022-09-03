@@ -10,6 +10,9 @@
  */
 package com.mealecule.facades.populators;
 
+import com.mealecule.core.enums.MealeculeQuotientEnum;
+import com.mealecule.facades.product.data.MealeculeQuotientData;
+import com.mealecule.facades.search.data.FacetData;
 import de.hybris.platform.category.model.CategoryModel;
 import de.hybris.platform.commercefacades.catalog.CatalogOption;
 import de.hybris.platform.commercefacades.catalog.PageOption;
@@ -17,11 +20,11 @@ import de.hybris.platform.commercefacades.catalog.converters.populator.CategoryH
 import de.hybris.platform.commercefacades.catalog.data.CategoryHierarchyData;
 import de.hybris.platform.commercefacades.product.data.ProductData;
 import de.hybris.platform.core.model.product.ProductModel;
+import de.hybris.platform.enumeration.EnumerationService;
 import de.hybris.platform.servicelayer.dto.converter.ConversionException;
+import org.apache.commons.collections.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -33,6 +36,8 @@ public class MQCategoryHierarchyPopulator extends CategoryHierarchyPopulator
 	public static final String SLASH = "/";
 	public static final String FIELDS_FULL = "?fields=FULL";
 	public static final String CATALOGS = "catalogs";
+
+	private EnumerationService enumerationService;
 
 	@Override
 	public void populate(final CategoryModel source, final CategoryHierarchyData target,
@@ -56,6 +61,24 @@ public class MQCategoryHierarchyPopulator extends CategoryHierarchyPopulator
 				productData.setUrl(SLASH + "products" + SLASH + product.getCode());
 				target.getProducts().add(productData);
 			}
+			List<MealeculeQuotientData> mealeculeQuotientDatas = new ArrayList<>();
+			target.getProducts().forEach(productData ->{
+				if(null != productData.getMealeculeQuotientData()) {
+					mealeculeQuotientDatas.add(productData.getMealeculeQuotientData());
+				}
+			});
+			if(CollectionUtils.isNotEmpty(mealeculeQuotientDatas)) {
+				List<FacetData> facetDataList = new ArrayList<>();
+
+				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.CARBOHYDRATE, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getCarbohydrate).reversed()).findFirst().get().getCarbohydrate());
+				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.FAT, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getFat).reversed()).findFirst().get().getFat());
+				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.FIBER, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getFiber).reversed()).findFirst().get().getFiber());
+				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.PROTEIN, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getProtein).reversed()).findFirst().get().getProtein());
+				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.SUGAR, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getSugar).reversed()).findFirst().get().getSugar());
+				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.CALORIES, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getEnergy).reversed()).findFirst().get().getEnergy());
+				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.WATER, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getWater).reversed()).findFirst().get().getWater());
+				target.setFacetDatas(facetDataList);
+			}
 		}
 
 		if (page.includeInformationAboutPages())
@@ -72,6 +95,14 @@ public class MQCategoryHierarchyPopulator extends CategoryHierarchyPopulator
 		{
 			recursive(target, source, true, options);
 		}
+	}
+
+	private void updateNutrientFacet(List<FacetData> facetDatas, MealeculeQuotientEnum nutrient, Double maxValue) {
+		FacetData facetData = new FacetData();
+		facetData.setCode(nutrient.getCode());
+		facetData.setName(getEnumerationService().getEnumerationName(nutrient));
+		facetData.setMaxValue(maxValue);
+		facetDatas.add(facetData);
 	}
 
 	@Override
@@ -110,5 +141,13 @@ public class MQCategoryHierarchyPopulator extends CategoryHierarchyPopulator
 				recursive(categoryData, subc, false, options);
 			}
 		}
+	}
+
+	public EnumerationService getEnumerationService() {
+		return enumerationService;
+	}
+
+	public void setEnumerationService(EnumerationService enumerationService) {
+		this.enumerationService = enumerationService;
 	}
 }
