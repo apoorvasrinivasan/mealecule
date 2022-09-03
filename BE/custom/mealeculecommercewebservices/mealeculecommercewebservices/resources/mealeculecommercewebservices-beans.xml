@@ -117,7 +117,7 @@
 
 	<bean class="com.mealecule.core.user.data.CustomerGameData">
 		<property name="coins" type="Integer"/>
-		<property name="badges" type="java.util.List&lt;com.mealecule.core.user.data.BadgeData>"/>
+		<property name="badge" type="com.mealecule.core.user.data.BadgeData"/>
 	</bean>
 
 	<bean class="de.hybris.platform.commercefacades.user.data.CustomerData"

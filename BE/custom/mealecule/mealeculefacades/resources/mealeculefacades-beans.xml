@@ -64,7 +64,7 @@
 		<property name="uid" type="String"/>
 		<property name="coins" type="Integer"/>
 		<property name="preferredMealecule" type="java.util.List&lt;String>"/>
-		<property name="badges" type="java.util.List&lt;com.mealecule.core.user.data.BadgeData>"/>
+		<property name="badge" type="com.mealecule.core.user.data.BadgeData"/>
 	</bean>
 
 	<bean class="com.mealecule.core.user.data.PreferredMealeculeData">
@@ -77,6 +77,11 @@
 
 	<bean class="de.hybris.platform.commercefacades.order.data.AbstractOrderData">
 		<property name="mealeculeQuotientData" type="com.mealecule.facades.product.data.MealeculeQuotientData"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.ruleengineservices.rao.UserRAO">
+	    <property name="userBadgeLevel" type="String"/>
+	    <property name="userBadgeStatus" type="String"/>
 	</bean>
 </beans>
 

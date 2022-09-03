@@ -16,8 +16,7 @@
         <collectiontype code="GenderList" elementtype="Gender" autocreate="true" generate="true" type="list"/>
         <collectiontype code="SwatchColorSet" elementtype="SwatchColorEnum" autocreate="true" generate="true"
                         type="set"/>
-        <collectiontype code="PreferredMealeculeList" elementtype="java.lang.String" autocreate="true" generate="true" type="list"/> 
-        <collectiontype code="BadgeList" elementtype="Badge" autocreate="true" generate="true" type="list"/>     
+        <collectiontype code="StringList" elementtype="java.lang.String" autocreate="true" generate="true" type="list"/> 
              
     </collectiontypes>
     <enumtypes>
@@ -55,6 +54,12 @@
             <value code="CALORIES"/>
             <value code="WATER"/>
             <value code="SUGAR"/>
+        </enumtype>
+        
+         <enumtype generate="true" code="StatusEnum" autocreate="true" dynamic="true">
+            <value code="ACTIVE"/>
+            <value code="INACTIVE"/>
+            <value code="NOT_APPLICABLE"/>
         </enumtype>
     </enumtypes>
 
@@ -249,12 +254,17 @@
                     <modifiers optional="true" />
                     <persistence type="property" />
                 </attribute>
-                <attribute type="PreferredMealeculeList" qualifier="preferredMealecule">
+                <attribute type="StringList" qualifier="preferredMealecule">
                     <description></description>
                     <modifiers optional="true" />
                     <persistence type="property" />
                 </attribute>
-                <attribute type="BadgeList" qualifier="badges">
+                <attribute type="Badge" qualifier="badge">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                 <attribute type="StatusEnum" qualifier="status">
                     <description></description>
                     <modifiers optional="true" />
                     <persistence type="property" />

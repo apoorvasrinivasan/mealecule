@@ -1,0 +1,12 @@
+$lang=en
+ 
+INSERT_UPDATE RuleConditionDefinition;id[unique=true]  ;name[lang=$lang]  ;priority;breadcrumb[lang=$lang] ;allowsChildren;translatorId             ;translatorParameters;categories(id)
+				     ;user_gold_badge  ;User Gold Badge   ;200     ;User has a gold badge  ;false         ;ruleGoldBadgeTranslator  ;                    ;customer
+				     ;user_silver_badge;User Silver Badge ;200     ;User has a silver badge;false         ;ruleSilverBadgeTranslator;                    ;customer
+                     ;user_bronze_badge;User Bronze Badge ;200     ;User has a bronze badge;false         ;ruleBronzeBadgeTranslator;                    ;customer
+ 
+ 
+INSERT_UPDATE RuleConditionDefinitionRuleTypeMapping;definition(id)[unique=true];ruleType(code)[default=PromotionSourceRule][unique=true] 
+;user_gold_badge;
+;user_silver_badge;
+;user_bronze_badge;
