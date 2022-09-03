@@ -423,7 +423,7 @@
 				<entry key="DEFAULT"
 				       value="id,name,url,subcategories(DEFAULT)"/>
 				<entry key="FULL"
-				       value="pageSize,totalNumber,currentPage,numberOfPages,name,url,subcategories(FULL),products(FULL),pageSize,id,lastModified"/>
+				       value="pageSize,totalNumber,currentPage,numberOfPages,name,url,subcategories(FULL),products(FULL),pageSize,id,lastModified,facetDatas"/>
 			</map>
 		</property>
 	</bean>
@@ -1121,9 +1121,9 @@
 			<map>
 				<entry key="BASIC" value="code,guid"/>
 				<entry key="DEFAULT"
-				       value="BASIC,totalItems,totalPrice,totalPriceWithTax,entries(DEFAULT)"/>
+				       value="BASIC,totalItems,totalPrice,totalPriceWithTax,entries(DEFAULT),mealeculeQuotientData"/>
 				<entry key="FULL"
-				       value="potentialProductPromotions(FULL),potentialOrderPromotions(FULL),totalUnitCount,store,appliedOrderPromotions(FULL),pickupItemsQuantity,net,calculated,appliedVouchers(FULL),productDiscounts(FULL),totalDiscounts(FULL),subTotal(FULL),orderDiscounts(FULL),entries(FULL),appliedProductPromotions(FULL),totalPrice(FULL),site,deliveryMode(FULL),code,deliveryOrderGroups(FULL),guid,paymentInfo(FULL),pickupOrderGroups(FULL),totalItems,totalPriceWithTax(FULL),deliveryItemsQuantity,totalTax(FULL),user(FULL),deliveryAddress(FULL),deliveryCost(FULL),name,description,savedBy,saveTime,expirationTime"/>
+				       value="potentialProductPromotions(FULL),potentialOrderPromotions(FULL),totalUnitCount,store,appliedOrderPromotions(FULL),pickupItemsQuantity,net,calculated,appliedVouchers(FULL),productDiscounts(FULL),totalDiscounts(FULL),subTotal(FULL),orderDiscounts(FULL),entries(FULL),appliedProductPromotions(FULL),totalPrice(FULL),site,deliveryMode(FULL),code,deliveryOrderGroups(FULL),guid,paymentInfo(FULL),pickupOrderGroups(FULL),totalItems,totalPriceWithTax(FULL),deliveryItemsQuantity,totalTax(FULL),user(FULL),deliveryAddress(FULL),deliveryCost(FULL),name,description,savedBy,saveTime,expirationTime,mealeculeQuotientData"/>
 			</map>
 		</property>
 	</bean>
@@ -1449,6 +1449,36 @@
 					   value="code"/>
 				<entry key="FULL"
 					   value="code"/>
+			</map>
+		</property>
+	</bean>
+	
+	<bean parent="fieldSetLevelMapping" id="userBadgeWsDTOFieldSetLevelMapping">
+		<property name="dtoClass"
+				  value="com.mealecule.core.user.data.BadgeWsDTO"/>
+		<property name="levelMapping">
+			<map>
+				<entry key="BASIC"
+					   value="id,level,displayName"/>
+				<entry key="DEFAULT"
+					   value="id,level,displayName"/>
+				<entry key="FULL"
+					   value="id,level,displayName"/>
+			</map>
+		</property>
+	</bean>
+	
+	<bean parent="fieldSetLevelMapping" id="userPreferredMealeculeFieldSetLevelMapping">
+		<property name="dtoClass"
+				  value="com.mealecule.core.user.data.PreferredMealeculeWsDTO"/>
+		<property name="levelMapping">
+			<map>
+				<entry key="BASIC"
+					   value="preferredMealecule"/>
+				<entry key="DEFAULT"
+					   value="preferredMealecule"/>
+				<entry key="FULL"
+					   value="preferredMealecule"/>
 			</map>
 		</property>
 	</bean>

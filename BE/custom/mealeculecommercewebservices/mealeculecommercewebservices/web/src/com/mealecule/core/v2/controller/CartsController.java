@@ -508,23 +508,23 @@ public class CartsController extends BaseCommerceController
 	 * @throws StockSystemException
 	 *            When there is no information about stock for stores (when pickupStore parameter is filled).
 	 */
-	@RequestMapping(value = "/{cartId}/entries", method = RequestMethod.POST, consumes =
-	{ MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-	@ResponseBody
-	public CartModificationWsDTO addCartEntry(@PathVariable final String baseSiteId, @RequestBody final OrderEntryWsDTO entry,
-			@RequestParam(required = false, defaultValue = DEFAULT_FIELD_SET) final String fields)
-			throws CommerceCartModificationException, WebserviceValidationException, ProductLowStockException, StockSystemException //NOSONAR
-	{
-		if (entry.getQuantity() == null)
-		{
-			entry.setQuantity(Long.valueOf(DEFAULT_PRODUCT_QUANTITY));
-		}
-
-		validate(entry, "entry", orderEntryCreateValidator);
-
-		final String pickupStore = entry.getDeliveryPointOfService() == null ? null : entry.getDeliveryPointOfService().getName();
-		return addCartEntryInternal(baseSiteId, entry.getProduct().getCode(), entry.getQuantity().longValue(), pickupStore, fields);
-	}
+//	@RequestMapping(value = "/{cartId}/entries", method = RequestMethod.POST, consumes =
+//	{ MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+//	@ResponseBody
+//	public CartModificationWsDTO addCartEntry(@PathVariable final String baseSiteId, @RequestBody final OrderEntryWsDTO entry,
+//			@RequestParam(required = false, defaultValue = DEFAULT_FIELD_SET) final String fields)
+//			throws CommerceCartModificationException, WebserviceValidationException, ProductLowStockException, StockSystemException //NOSONAR
+//	{
+//		if (entry.getQuantity() == null)
+//		{
+//			entry.setQuantity(Long.valueOf(DEFAULT_PRODUCT_QUANTITY));
+//		}
+//
+//		validate(entry, "entry", orderEntryCreateValidator);
+//
+//		final String pickupStore = entry.getDeliveryPointOfService() == null ? null : entry.getDeliveryPointOfService().getName();
+//		return addCartEntryInternal(baseSiteId, entry.getProduct().getCode(), entry.getQuantity().longValue(), pickupStore, fields);
+//	}
 
 	/**
 	 * Returns the details of the cart entries.

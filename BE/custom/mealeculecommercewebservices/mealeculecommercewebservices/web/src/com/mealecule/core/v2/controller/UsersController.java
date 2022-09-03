@@ -10,6 +10,7 @@
  */
 package com.mealecule.core.v2.controller;
 
+import com.mealecule.core.user.data.*;
 import de.hybris.platform.commercefacades.address.AddressVerificationFacade;
 import de.hybris.platform.commercefacades.address.data.AddressVerificationResult;
 import de.hybris.platform.commercefacades.customer.CustomerFacade;
@@ -48,15 +49,11 @@ import de.hybris.platform.webservicescommons.cache.CacheControlDirective;
 import de.hybris.platform.webservicescommons.dto.error.ErrorListWsDTO;
 import de.hybris.platform.webservicescommons.dto.error.ErrorWsDTO;
 import de.hybris.platform.webservicescommons.errors.exceptions.WebserviceValidationException;
-import com.mealecule.core.constants.YcommercewebservicesConstants;
-import com.mealecule.core.populator.HttpRequestCustomerDataPopulator;
-import com.mealecule.core.populator.options.PaymentInfoOption;
-import com.mealecule.core.user.data.AddressDataList;
-import com.mealecule.core.validation.data.AddressValidationData;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -101,6 +98,7 @@ import com.mealecule.core.user.data.PreferredMealeculeData;
 import com.mealecule.core.user.data.PreferredMealeculeWsDTO;
 import com.mealecule.core.validation.data.AddressValidationData;
 
+
 /**
  * Main Controller for Users
  *
@@ -144,6 +142,9 @@ public class UsersController extends BaseCommerceController
 	private Validator guestConvertingDTOValidator;
 	@Resource(name = "passwordStrengthValidator")
 	private Validator passwordStrengthValidator;
+
+	@Resource(name = "customerConverter")
+	private Converter<UserModel, CustomerData> customerConverter;
 
 	/**
 	 * Registers a customer. The following two sets of parameters are available:

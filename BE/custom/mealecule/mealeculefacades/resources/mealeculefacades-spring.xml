@@ -194,6 +194,65 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="userBadgePopulator" class="com.mealecule.facades.populators.UserBadgePopulator"/>
+	
+	<bean id="userBadgeConverter" parent="abstractPopulatingConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="userBadgePopulator"/>
+			</list>
+		</property>	
+	</bean>
+	
+	<bean id="userBadgeReversePopulator" class="com.mealecule.facades.populators.UserBadgeReversePopulator"/>
+	
+	<bean id="userBadgeReverseConverter" parent="abstractPopulatingConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="userBadgeReversePopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userPopulator" class="com.mealecule.facades.populators.UserPopulator">
+		<property name="userBadgeConverter" ref="userBadgeConverter"/>
+	</bean>
+	
+	<bean id="userConverter" parent="abstractPopulatingConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="userPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+<!--	<alias name="mealeculeCartPopulator" alias="cartPopulator"/>-->
+<!--	<bean id="mealeculeCartPopulator" class="com.mealecule.facades.populators.MealeculeCartPopulator" parent="defaultCartPopulator">-->
+<!--		<property name="cartMealeculePopulator" ref="cartMealeculePopulator"/>-->
+<!--	</bean>-->
+	<bean id="mealeculeCartPopulator" class="com.mealecule.facades.populators.MealeculeCartPopulator" parent="extendedCartPopulator">
+		<property name="cartMealeculePopulator" ref="cartMealeculePopulator"/>
+	</bean>
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="orderEntryProductConverter" />
+		<property name="add" ref="productMealeculeQuotientPopulator" />
+	</bean>
+
+	<bean id="cartMealeculePopulator" class="com.mealecule.facades.populators.CartMealeculeQuotientPopulator"/>
+
+	<alias name="mealeculeExtendedCartConverter" alias="extendedCartConverter"/>
+	<bean id="mealeculeExtendedCartConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.order.data.CartData"/>
+		<property name="populators">
+			<list>
+				<ref bean="mealeculeCartPopulator"/>
+				<ref bean="orderAppliedVouchersPopulator"/>
+				<ref bean="pickupOrderEntryGroupPopulator"/>
+				<ref bean="deliveryOrderEntryGroupPopulator"/>
+			</list>
+		</property>
+	</bean>
 
 <!--	<alias name="mealeculeCartPopulator" alias="cartPopulator"/>-->
 <!--	<bean id="mealeculeCartPopulator" class="com.mealecule.facades.populators.MealeculeCartPopulator" parent="defaultCartPopulator">-->
