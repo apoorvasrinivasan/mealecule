@@ -244,6 +244,11 @@
                     <modifiers optional="true" />
                     <persistence type="property" />
                 </attribute>
+                <attribute type="StatusEnum" qualifier="status">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
             </attributes>
         </itemtype>
 
@@ -260,11 +265,6 @@
                     <persistence type="property" />
                 </attribute>
                 <attribute type="Badge" qualifier="badge">
-                    <description></description>
-                    <modifiers optional="true" />
-                    <persistence type="property" />
-                </attribute>
-                 <attribute type="StatusEnum" qualifier="status">
                     <description></description>
                     <modifiers optional="true" />
                     <persistence type="property" />
