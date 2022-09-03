@@ -106,6 +106,26 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 			false
 		);
 	
+		createItemType(
+			"Badge",
+			"GenericItem",
+			com.mealecule.core.jalo.Badge.class,
+			"de.hybris.platform.persistence.mealeculecore_Badge",
+			false,
+			null,
+			false
+		);
+	
+		createItemType(
+			"MealeculeQuotientData",
+			"GenericItem",
+			com.mealecule.core.jalo.MealeculeQuotientData.class,
+			"de.hybris.platform.persistence.mealeculecore_MealeculeQuotientData",
+			false,
+			null,
+			false
+		);
+	
 		createRelationType(
 			"MealeculeQuotientToProduct",
 			null,
@@ -118,8 +138,34 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 			true
 		);
 	
+		createRelationType(
+			"MealeculeInfoToMealeculeQuotientDatas",
+			null,
+			true
+		);
+	
 		createEnumerationType(
 			"SwatchColorEnum",
+			null
+		);
+	
+		createEnumerationType(
+			"LevelEnum",
+			null
+		);
+	
+		createEnumerationType(
+			"DisplayNameEnum",
+			null
+		);
+	
+		createEnumerationType(
+			"MealeculeQuotientEnum",
+			null
+		);
+	
+		createEnumerationType(
+			"StatusEnum",
 			null
 		);
 	
@@ -133,6 +179,18 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 			"SwatchColorSet",
 			"SwatchColorEnum",
 			CollectionType.SET
+		);
+	
+		createCollectionType(
+			"StringList",
+			"java.lang.String",
+			CollectionType.LIST
+		);
+	
+		createCollectionType(
+			"BadgeList",
+			"Badge",
+			CollectionType.LIST
 		);
 	
 	}
@@ -164,22 +222,6 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 			
 				single_createattr_MealeculeQuotient_weightInML();
 			
-				single_createattr_MealeculeQuotient_water();
-			
-				single_createattr_MealeculeQuotient_energy();
-			
-				single_createattr_MealeculeQuotient_nitrogen();
-			
-				single_createattr_MealeculeQuotient_protein();
-			
-				single_createattr_MealeculeQuotient_fat();
-			
-				single_createattr_MealeculeQuotient_carbohydrate();
-			
-				single_createattr_MealeculeQuotient_fiber();
-			
-				single_createattr_MealeculeQuotient_sugar();
-			
 				single_createattr_Ingredients_code();
 			
 				single_createattr_Ingredients_cocoa();
@@ -199,6 +241,26 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 				single_createattr_Product_weightInML();
 			
 				single_createattr_Product_totalCalories();
+			
+				single_createattr_Badge_id();
+			
+				single_createattr_Badge_level();
+			
+				single_createattr_Badge_displayName();
+			
+				single_createattr_Badge_status();
+			
+				single_createattr_User_coins();
+			
+				single_createattr_User_preferredMealecule();
+			
+				single_createattr_User_badge();
+			
+				single_createattr_MealeculeQuotientData_code();
+			
+				single_createattr_MealeculeQuotientData_mealeculeQuotientType();
+			
+				single_createattr_MealeculeQuotientData_value();
 			
 		createRelationAttributes(
 			"MealeculeQuotientToProduct", 
@@ -238,6 +300,26 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 			true,
 			false,
 			CollectionType.COLLECTION
+		);
+	
+		createRelationAttributes(
+			"MealeculeInfoToMealeculeQuotientDatas", 
+			false, 
+
+			"mealeculeQuotient", 
+			"MealeculeQuotient", 
+			true,
+			de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG, 
+			false,
+			false,
+			CollectionType.COLLECTION,
+			"mealeculeQuotientData", 
+			"MealeculeQuotientData", 
+			true,
+			de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG, 
+			true,
+			false,
+			CollectionType.LIST
 		);
 	
 
@@ -371,142 +453,6 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 				createPropertyAttribute(
 					"MealeculeQuotient", 
 					"weightInML",  
-					null,
-					"java.lang.Double",
-					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
-					null,
-					sqlColumnDefinitions
-				);
-			
-	}
-	
-	public void single_createattr_MealeculeQuotient_water() throws JaloBusinessException
-	{
-		
-						Map sqlColumnDefinitions = null;
-					
-				createPropertyAttribute(
-					"MealeculeQuotient", 
-					"water",  
-					null,
-					"java.lang.Double",
-					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
-					null,
-					sqlColumnDefinitions
-				);
-			
-	}
-	
-	public void single_createattr_MealeculeQuotient_energy() throws JaloBusinessException
-	{
-		
-						Map sqlColumnDefinitions = null;
-					
-				createPropertyAttribute(
-					"MealeculeQuotient", 
-					"energy",  
-					null,
-					"java.lang.Double",
-					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
-					null,
-					sqlColumnDefinitions
-				);
-			
-	}
-	
-	public void single_createattr_MealeculeQuotient_nitrogen() throws JaloBusinessException
-	{
-		
-						Map sqlColumnDefinitions = null;
-					
-				createPropertyAttribute(
-					"MealeculeQuotient", 
-					"nitrogen",  
-					null,
-					"java.lang.Double",
-					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
-					null,
-					sqlColumnDefinitions
-				);
-			
-	}
-	
-	public void single_createattr_MealeculeQuotient_protein() throws JaloBusinessException
-	{
-		
-						Map sqlColumnDefinitions = null;
-					
-				createPropertyAttribute(
-					"MealeculeQuotient", 
-					"protein",  
-					null,
-					"java.lang.Double",
-					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
-					null,
-					sqlColumnDefinitions
-				);
-			
-	}
-	
-	public void single_createattr_MealeculeQuotient_fat() throws JaloBusinessException
-	{
-		
-						Map sqlColumnDefinitions = null;
-					
-				createPropertyAttribute(
-					"MealeculeQuotient", 
-					"fat",  
-					null,
-					"java.lang.Double",
-					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
-					null,
-					sqlColumnDefinitions
-				);
-			
-	}
-	
-	public void single_createattr_MealeculeQuotient_carbohydrate() throws JaloBusinessException
-	{
-		
-						Map sqlColumnDefinitions = null;
-					
-				createPropertyAttribute(
-					"MealeculeQuotient", 
-					"carbohydrate",  
-					null,
-					"java.lang.Double",
-					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
-					null,
-					sqlColumnDefinitions
-				);
-			
-	}
-	
-	public void single_createattr_MealeculeQuotient_fiber() throws JaloBusinessException
-	{
-		
-						Map sqlColumnDefinitions = null;
-					
-				createPropertyAttribute(
-					"MealeculeQuotient", 
-					"fiber",  
-					null,
-					"java.lang.Double",
-					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
-					null,
-					sqlColumnDefinitions
-				);
-			
-	}
-	
-	public void single_createattr_MealeculeQuotient_sugar() throws JaloBusinessException
-	{
-		
-						Map sqlColumnDefinitions = null;
-					
-				createPropertyAttribute(
-					"MealeculeQuotient", 
-					"sugar",  
 					null,
 					"java.lang.Double",
 					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
@@ -686,6 +632,176 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 			
 	}
 	
+	public void single_createattr_Badge_id() throws JaloBusinessException
+	{
+		
+						Map sqlColumnDefinitions = null;
+					
+				createPropertyAttribute(
+					"Badge", 
+					"id",  
+					null,
+					"java.lang.String",
+					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
+					null,
+					sqlColumnDefinitions
+				);
+			
+	}
+	
+	public void single_createattr_Badge_level() throws JaloBusinessException
+	{
+		
+						Map sqlColumnDefinitions = null;
+					
+				createPropertyAttribute(
+					"Badge", 
+					"level",  
+					null,
+					"LevelEnum",
+					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
+					null,
+					sqlColumnDefinitions
+				);
+			
+	}
+	
+	public void single_createattr_Badge_displayName() throws JaloBusinessException
+	{
+		
+						Map sqlColumnDefinitions = null;
+					
+				createPropertyAttribute(
+					"Badge", 
+					"displayName",  
+					null,
+					"DisplayNameEnum",
+					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
+					null,
+					sqlColumnDefinitions
+				);
+			
+	}
+	
+	public void single_createattr_Badge_status() throws JaloBusinessException
+	{
+		
+						Map sqlColumnDefinitions = null;
+					
+				createPropertyAttribute(
+					"Badge", 
+					"status",  
+					null,
+					"StatusEnum",
+					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
+					null,
+					sqlColumnDefinitions
+				);
+			
+	}
+	
+	public void single_createattr_User_coins() throws JaloBusinessException
+	{
+		
+						Map sqlColumnDefinitions = null;
+					
+				createPropertyAttribute(
+					"User", 
+					"coins",  
+					null,
+					"java.lang.Integer",
+					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
+					null,
+					sqlColumnDefinitions
+				);
+			
+	}
+	
+	public void single_createattr_User_preferredMealecule() throws JaloBusinessException
+	{
+		
+						Map sqlColumnDefinitions = null;
+					
+				createPropertyAttribute(
+					"User", 
+					"preferredMealecule",  
+					null,
+					"StringList",
+					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
+					null,
+					sqlColumnDefinitions
+				);
+			
+	}
+	
+	public void single_createattr_User_badge() throws JaloBusinessException
+	{
+		
+						Map sqlColumnDefinitions = null;
+					
+				createPropertyAttribute(
+					"User", 
+					"badge",  
+					null,
+					"Badge",
+					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
+					null,
+					sqlColumnDefinitions
+				);
+			
+	}
+	
+	public void single_createattr_MealeculeQuotientData_code() throws JaloBusinessException
+	{
+		
+						Map sqlColumnDefinitions = null;
+					
+				createPropertyAttribute(
+					"MealeculeQuotientData", 
+					"code",  
+					null,
+					"java.lang.String",
+					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
+					null,
+					sqlColumnDefinitions
+				);
+			
+	}
+	
+	public void single_createattr_MealeculeQuotientData_mealeculeQuotientType() throws JaloBusinessException
+	{
+		
+						Map sqlColumnDefinitions = null;
+					
+				createPropertyAttribute(
+					"MealeculeQuotientData", 
+					"mealeculeQuotientType",  
+					null,
+					"MealeculeQuotientEnum",
+					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
+					null,
+					sqlColumnDefinitions
+				);
+			
+	}
+	
+	public void single_createattr_MealeculeQuotientData_value() throws JaloBusinessException
+	{
+		
+						Map sqlColumnDefinitions = null;
+					
+				createPropertyAttribute(
+					"MealeculeQuotientData", 
+					"value",  
+					null,
+					"java.lang.Double",
+					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
+					null,
+					sqlColumnDefinitions
+				);
+			
+	}
+	
 
 
 	/**
@@ -717,13 +833,64 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 			} )
 		);
 	
+		createEnumerationValues(
+			"LevelEnum",
+			true,
+			Arrays.asList( new String[] {
+			
+				"GOLD",
+				"SILVER",
+				"BRONZE"
+			} )
+		);
+	
+		createEnumerationValues(
+			"DisplayNameEnum",
+			true,
+			Arrays.asList( new String[] {
+			
+				"REGISTERED",
+				"NONREGISTERED"
+			} )
+		);
+	
+		createEnumerationValues(
+			"MealeculeQuotientEnum",
+			true,
+			Arrays.asList( new String[] {
+			
+				"CARBOHYDRATE",
+				"FAT",
+				"PROTEIN",
+				"FIBER",
+				"CALORIES",
+				"WATER",
+				"SUGAR"
+			} )
+		);
+	
+		createEnumerationValues(
+			"StatusEnum",
+			true,
+			Arrays.asList( new String[] {
+			
+				"ACTIVE",
+				"INACTIVE",
+				"NOT_APPLICABLE"
+			} )
+		);
+	
 		single_setRelAttributeProperties_MealeculeQuotientToProduct_source();
 	
 		single_setRelAttributeProperties_ProductToIngredients_source();
 	
+		single_setRelAttributeProperties_MealeculeInfoToMealeculeQuotientDatas_source();
+	
 		single_setRelAttributeProperties_MealeculeQuotientToProduct_target();
 	
 		single_setRelAttributeProperties_ProductToIngredients_target();
+	
+		single_setRelAttributeProperties_MealeculeInfoToMealeculeQuotientDatas_target();
 	
 		connectRelation(
 			"MealeculeQuotientToProduct", 
@@ -749,6 +916,21 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 			de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG, 
 			"product", 
 			"Product", 
+			true,
+			de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG, 
+			true,
+			true
+		);
+	
+		connectRelation(
+			"MealeculeInfoToMealeculeQuotientDatas", 
+			false, 
+			"mealeculeQuotient", 
+			"MealeculeQuotient", 
+			true,
+			de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG, 
+			"mealeculeQuotientData", 
+			"MealeculeQuotientData", 
 			true,
 			de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG, 
 			true,
@@ -836,22 +1018,6 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 		
 			single_setAttributeProperties_MealeculeQuotient_weightInML();
 		
-			single_setAttributeProperties_MealeculeQuotient_water();
-		
-			single_setAttributeProperties_MealeculeQuotient_energy();
-		
-			single_setAttributeProperties_MealeculeQuotient_nitrogen();
-		
-			single_setAttributeProperties_MealeculeQuotient_protein();
-		
-			single_setAttributeProperties_MealeculeQuotient_fat();
-		
-			single_setAttributeProperties_MealeculeQuotient_carbohydrate();
-		
-			single_setAttributeProperties_MealeculeQuotient_fiber();
-		
-			single_setAttributeProperties_MealeculeQuotient_sugar();
-		
 				{
 				Map customPropsMap = new HashMap();
 				
@@ -895,6 +1061,62 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 		
 			single_setAttributeProperties_Product_totalCalories();
 		
+				{
+				Map customPropsMap = new HashMap();
+				
+				setItemTypeProperties(
+					"Badge",
+					false,
+					true,
+					true,
+					null,
+					customPropsMap
+				);
+				}
+			
+			single_setAttributeProperties_Badge_id();
+		
+			single_setAttributeProperties_Badge_level();
+		
+			single_setAttributeProperties_Badge_displayName();
+		
+			single_setAttributeProperties_Badge_status();
+		
+				{
+				Map customPropsMap = new HashMap();
+				
+				changeMetaType(
+					"User",
+					null,
+					customPropsMap
+				);
+				}
+			
+			single_setAttributeProperties_User_coins();
+		
+			single_setAttributeProperties_User_preferredMealecule();
+		
+			single_setAttributeProperties_User_badge();
+		
+				{
+				Map customPropsMap = new HashMap();
+				
+				setItemTypeProperties(
+					"MealeculeQuotientData",
+					false,
+					true,
+					true,
+					null,
+					customPropsMap
+				);
+				}
+			
+			single_setAttributeProperties_MealeculeQuotientData_code();
+		
+			single_setAttributeProperties_MealeculeQuotientData_mealeculeQuotientType();
+		
+			single_setAttributeProperties_MealeculeQuotientData_value();
+		
 				setDefaultProperties(
 					"GenderList",
 					true,
@@ -910,7 +1132,49 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 				);
 			
 				setDefaultProperties(
+					"StringList",
+					true,
+					true,
+					null
+				);
+			
+				setDefaultProperties(
+					"BadgeList",
+					true,
+					true,
+					null
+				);
+			
+				setDefaultProperties(
 					"SwatchColorEnum",
+					true,
+					true,
+					null
+				);
+			
+				setDefaultProperties(
+					"LevelEnum",
+					true,
+					true,
+					null
+				);
+			
+				setDefaultProperties(
+					"DisplayNameEnum",
+					true,
+					true,
+					null
+				);
+			
+				setDefaultProperties(
+					"MealeculeQuotientEnum",
+					true,
+					true,
+					null
+				);
+			
+				setDefaultProperties(
+					"StatusEnum",
 					true,
 					true,
 					null
@@ -1040,7 +1304,7 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 							setAttributeProperties(
 								"MealeculeQuotient", 
 								"code",
-								false, 
+								true, 
 								null,
 								null,
 								null,
@@ -1096,182 +1360,6 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 							);
 						}
 					
-						public void single_setAttributeProperties_MealeculeQuotient_water() throws JaloBusinessException
-						{
-							
-							
-							
-							Map customPropsMap = new HashMap();
-							
-							setAttributeProperties(
-								"MealeculeQuotient", 
-								"water",
-								false, 
-								null,
-								null,
-								null,
-								true,
-								true,
-								null,
-								customPropsMap,
-								null
-							);
-						}
-					
-						public void single_setAttributeProperties_MealeculeQuotient_energy() throws JaloBusinessException
-						{
-							
-							
-							
-							Map customPropsMap = new HashMap();
-							
-							setAttributeProperties(
-								"MealeculeQuotient", 
-								"energy",
-								false, 
-								null,
-								null,
-								null,
-								true,
-								true,
-								null,
-								customPropsMap,
-								null
-							);
-						}
-					
-						public void single_setAttributeProperties_MealeculeQuotient_nitrogen() throws JaloBusinessException
-						{
-							
-							
-							
-							Map customPropsMap = new HashMap();
-							
-							setAttributeProperties(
-								"MealeculeQuotient", 
-								"nitrogen",
-								false, 
-								null,
-								null,
-								null,
-								true,
-								true,
-								null,
-								customPropsMap,
-								null
-							);
-						}
-					
-						public void single_setAttributeProperties_MealeculeQuotient_protein() throws JaloBusinessException
-						{
-							
-							
-							
-							Map customPropsMap = new HashMap();
-							
-							setAttributeProperties(
-								"MealeculeQuotient", 
-								"protein",
-								false, 
-								null,
-								null,
-								null,
-								true,
-								true,
-								null,
-								customPropsMap,
-								null
-							);
-						}
-					
-						public void single_setAttributeProperties_MealeculeQuotient_fat() throws JaloBusinessException
-						{
-							
-							
-							
-							Map customPropsMap = new HashMap();
-							
-							setAttributeProperties(
-								"MealeculeQuotient", 
-								"fat",
-								false, 
-								null,
-								null,
-								null,
-								true,
-								true,
-								null,
-								customPropsMap,
-								null
-							);
-						}
-					
-						public void single_setAttributeProperties_MealeculeQuotient_carbohydrate() throws JaloBusinessException
-						{
-							
-							
-							
-							Map customPropsMap = new HashMap();
-							
-							setAttributeProperties(
-								"MealeculeQuotient", 
-								"carbohydrate",
-								false, 
-								null,
-								null,
-								null,
-								true,
-								true,
-								null,
-								customPropsMap,
-								null
-							);
-						}
-					
-						public void single_setAttributeProperties_MealeculeQuotient_fiber() throws JaloBusinessException
-						{
-							
-							
-							
-							Map customPropsMap = new HashMap();
-							
-							setAttributeProperties(
-								"MealeculeQuotient", 
-								"fiber",
-								false, 
-								null,
-								null,
-								null,
-								true,
-								true,
-								null,
-								customPropsMap,
-								null
-							);
-						}
-					
-						public void single_setAttributeProperties_MealeculeQuotient_sugar() throws JaloBusinessException
-						{
-							
-							
-							
-							Map customPropsMap = new HashMap();
-							
-							setAttributeProperties(
-								"MealeculeQuotient", 
-								"sugar",
-								false, 
-								null,
-								null,
-								null,
-								true,
-								true,
-								null,
-								customPropsMap,
-								null
-							);
-						}
-					
 						public void single_setAttributeProperties_Ingredients_code() throws JaloBusinessException
 						{
 							
@@ -1282,7 +1370,7 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 							setAttributeProperties(
 								"Ingredients", 
 								"code",
-								false, 
+								true, 
 								null,
 								null,
 								null,
@@ -1492,6 +1580,226 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 							);
 						}
 					
+						public void single_setAttributeProperties_Badge_id() throws JaloBusinessException
+						{
+							
+							
+							
+							Map customPropsMap = new HashMap();
+							
+							setAttributeProperties(
+								"Badge", 
+								"id",
+								true, 
+								null,
+								null,
+								null,
+								true,
+								true,
+								null,
+								customPropsMap,
+								null
+							);
+						}
+					
+						public void single_setAttributeProperties_Badge_level() throws JaloBusinessException
+						{
+							
+							
+							
+							Map customPropsMap = new HashMap();
+							
+							setAttributeProperties(
+								"Badge", 
+								"level",
+								false, 
+								null,
+								null,
+								null,
+								true,
+								true,
+								null,
+								customPropsMap,
+								null
+							);
+						}
+					
+						public void single_setAttributeProperties_Badge_displayName() throws JaloBusinessException
+						{
+							
+							
+							
+							Map customPropsMap = new HashMap();
+							
+							setAttributeProperties(
+								"Badge", 
+								"displayName",
+								false, 
+								null,
+								null,
+								null,
+								true,
+								true,
+								null,
+								customPropsMap,
+								null
+							);
+						}
+					
+						public void single_setAttributeProperties_Badge_status() throws JaloBusinessException
+						{
+							
+							
+							
+							Map customPropsMap = new HashMap();
+							
+							setAttributeProperties(
+								"Badge", 
+								"status",
+								false, 
+								null,
+								null,
+								null,
+								true,
+								true,
+								null,
+								customPropsMap,
+								null
+							);
+						}
+					
+						public void single_setAttributeProperties_User_coins() throws JaloBusinessException
+						{
+							
+							
+							
+							Map customPropsMap = new HashMap();
+							
+							setAttributeProperties(
+								"User", 
+								"coins",
+								false, 
+								null,
+								null,
+								null,
+								true,
+								true,
+								null,
+								customPropsMap,
+								null
+							);
+						}
+					
+						public void single_setAttributeProperties_User_preferredMealecule() throws JaloBusinessException
+						{
+							
+							
+							
+							Map customPropsMap = new HashMap();
+							
+							setAttributeProperties(
+								"User", 
+								"preferredMealecule",
+								false, 
+								null,
+								null,
+								null,
+								true,
+								true,
+								null,
+								customPropsMap,
+								null
+							);
+						}
+					
+						public void single_setAttributeProperties_User_badge() throws JaloBusinessException
+						{
+							
+							
+							
+							Map customPropsMap = new HashMap();
+							
+							setAttributeProperties(
+								"User", 
+								"badge",
+								false, 
+								null,
+								null,
+								null,
+								true,
+								true,
+								null,
+								customPropsMap,
+								null
+							);
+						}
+					
+						public void single_setAttributeProperties_MealeculeQuotientData_code() throws JaloBusinessException
+						{
+							
+							
+							
+							Map customPropsMap = new HashMap();
+							
+							setAttributeProperties(
+								"MealeculeQuotientData", 
+								"code",
+								true, 
+								null,
+								null,
+								null,
+								true,
+								true,
+								null,
+								customPropsMap,
+								null
+							);
+						}
+					
+						public void single_setAttributeProperties_MealeculeQuotientData_mealeculeQuotientType() throws JaloBusinessException
+						{
+							
+							
+							
+							Map customPropsMap = new HashMap();
+							
+							setAttributeProperties(
+								"MealeculeQuotientData", 
+								"mealeculeQuotientType",
+								false, 
+								null,
+								null,
+								null,
+								true,
+								true,
+								null,
+								customPropsMap,
+								null
+							);
+						}
+					
+						public void single_setAttributeProperties_MealeculeQuotientData_value() throws JaloBusinessException
+						{
+							
+							
+							
+							Map customPropsMap = new HashMap();
+							
+							setAttributeProperties(
+								"MealeculeQuotientData", 
+								"value",
+								false, 
+								null,
+								null,
+								null,
+								true,
+								true,
+								null,
+								customPropsMap,
+								null
+							);
+						}
+					
 								public void single_setRelAttributeProperties_MealeculeQuotientToProduct_source() throws JaloBusinessException
 								{
 									
@@ -1564,6 +1872,48 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 									setAttributeProperties(
 										"Ingredients", 
 										"product",
+										false, 
+										null,
+										null,
+										null,
+										true,
+										true,
+										null,
+										customPropsMap,
+										null
+									);
+								}
+							
+								public void single_setRelAttributeProperties_MealeculeInfoToMealeculeQuotientDatas_source() throws JaloBusinessException
+								{
+									
+									Map customPropsMap = new HashMap();
+									
+
+									setAttributeProperties(
+										"MealeculeQuotientData", 
+										"mealeculeQuotient",
+										false, 
+										null,
+										null,
+										null,
+										true,
+										true,
+										null,
+										customPropsMap,
+										null
+									);
+								}
+							
+								public void single_setRelAttributeProperties_MealeculeInfoToMealeculeQuotientDatas_target() throws JaloBusinessException
+								{
+									
+									Map customPropsMap = new HashMap();
+									
+
+									setAttributeProperties(
+										"MealeculeQuotient", 
+										"mealeculeQuotientData",
 										false, 
 										null,
 										null,

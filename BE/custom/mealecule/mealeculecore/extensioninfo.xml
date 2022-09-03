@@ -16,6 +16,8 @@
 			extensions which are automatically required -->
 		<requires-extension name="acceleratorcms"/>
 		<requires-extension name="solrserver"/>
+		<requires-extension name="droolsruleengineservices" />
+		<requires-extension name="promotionengineservices" />
 
 		<coremodule generated="true" manager="com.mealecule.core.jalo.MealeculeCoreManager" packageroot="com.mealecule.core"/>
 

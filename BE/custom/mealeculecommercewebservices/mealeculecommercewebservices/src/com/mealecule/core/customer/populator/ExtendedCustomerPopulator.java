@@ -17,8 +17,13 @@ import de.hybris.platform.core.model.user.AddressModel;
 import de.hybris.platform.core.model.user.CustomerModel;
 import de.hybris.platform.servicelayer.dto.converter.ConversionException;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
+
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.util.Assert;
+
+import com.mealecule.core.model.BadgeModel;
+import com.mealecule.core.user.data.BadgeData;
+import com.mealecule.core.user.data.CustomerGameData;
 
 
 /**
@@ -59,5 +64,24 @@ public class ExtendedCustomerPopulator implements Populator<CustomerModel, Custo
         {
             target.setDefaultShippingAddress(getAddressConverter().convert(source.getDefaultShipmentAddress()));
         }
+        final CustomerGameData customerGameData = new CustomerGameData();
+
+		  customerGameData.setCoins(source.getCoins());
+
+		  if (null != source.getBadge())
+		  {
+			  customerGameData.setBadge(userBadgeConverter.convert(source.getBadge()));
+		  }
+        target.setPreferredMealecule(source.getPreferredMealecule());
+        target.setGameData(customerGameData);
 	}
+
+    public Converter<BadgeModel, BadgeData> getUserBadgeConverter() {
+        return userBadgeConverter;
+    }
+
+    @Required
+    public void setUserBadgeConverter(final Converter<BadgeModel, BadgeData> userBadgeConverter) {
+        this.userBadgeConverter = userBadgeConverter;
+    }
 }

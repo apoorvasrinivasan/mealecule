@@ -88,6 +88,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.util.UriUtils;
 
+import com.mealecule.core.constants.YcommercewebservicesConstants;
+import com.mealecule.core.enums.LevelEnum;
+import com.mealecule.core.enums.StatusEnum;
+import com.mealecule.core.model.BadgeModel;
+import com.mealecule.core.populator.HttpRequestCustomerDataPopulator;
+import com.mealecule.core.populator.options.PaymentInfoOption;
+import com.mealecule.core.user.data.AddressDataList;
+import com.mealecule.core.user.data.CustomerGameData;
+import com.mealecule.core.user.data.CustomerGameWsDTO;
+import com.mealecule.core.user.data.PreferredMealeculeData;
+import com.mealecule.core.user.data.PreferredMealeculeWsDTO;
+import com.mealecule.core.validation.data.AddressValidationData;
 
 /**
  * Main Controller for Users
@@ -1408,4 +1420,115 @@ public class UsersController extends BaseCommerceController
 
 		return orderHistoriesData;
 	}
+
+
+	@RequestMapping(value = "/{userId}/preferredMealecules", method = RequestMethod.POST)
+	@ResponseBody
+	public PreferredMealeculeWsDTO createPreferredMealecule(@RequestParam(defaultValue = DEFAULT_FIELD_SET)
+	final String fields, @RequestParam (defaultValue = StringUtils.EMPTY) final String preferredMealecule, final HttpServletRequest httpRequest, final HttpServletResponse httpResponse)
+	{
+		final UserModel userModel = userService.getCurrentUser();
+		if(null != userModel){
+			userModel.setPreferredMealecule(
+					StringUtils.isNotBlank(preferredMealecule) ? Arrays.asList(preferredMealecule.split(",")) : null);
+			modelService.save(userModel);
+			return getPreferredMealeculeWsDTO(fields, userModel);
+		}
+		return null;
+	}
+
+
+	@RequestMapping(value = "/{userId}/preferredMealecules", method = RequestMethod.GET)
+	@ResponseBody
+	public PreferredMealeculeWsDTO getPreferredMealecule(@RequestParam(defaultValue = DEFAULT_FIELD_SET)
+	final String fields)
+	{
+		final UserModel userModel = userService.getCurrentUser();
+		if(null != userModel) {
+			return getPreferredMealeculeWsDTO(fields, userModel);
+		}
+		return null;
+	}
+
+	@RequestMapping(value = "/{userId}/gameData", method = RequestMethod.POST)
+	@ResponseBody
+	public CustomerGameWsDTO createOrUpdateUserGameData(@RequestParam(defaultValue = DEFAULT_FIELD_SET)
+															final String fields, @RequestParam (defaultValue = "0") final Integer coins, final HttpServletRequest httpRequest, final HttpServletResponse httpResponse)
+	{
+		final UserModel userModel = userService.getCurrentUser();
+		if(null != userModel){
+			userModel.setCoins(coins);
+			updateBadgeForUser(userModel, coins);
+			modelService.save(userModel);
+				final CustomerData userData = getCustomerData(userModel);
+				final CustomerGameData customerGameData = new CustomerGameData();
+				if(null != userData.getGameData()) {
+					return getCustomerGameWsDTO(fields, userData, customerGameData);
+				}
+		}
+		return null;
+	}
+
+
+	@RequestMapping(value = "/{userId}/gameData", method = RequestMethod.GET)
+	@ResponseBody
+	public CustomerGameWsDTO getUserGameData(@RequestParam(defaultValue = DEFAULT_FIELD_SET)
+														 final String fields)
+	{
+		final UserModel userModel = userService.getCurrentUser();
+		if(null != userModel) {
+			final CustomerData userData = getCustomerData(userModel);
+			final CustomerGameData customerGameData = new CustomerGameData();
+			if(null != userData.getGameData()) {
+				return getCustomerGameWsDTO(fields, userData, customerGameData);
+			}
+		}
+		return null;
+	}
+
+	private CustomerGameWsDTO getCustomerGameWsDTO(final String fields, final CustomerData userData, final CustomerGameData customerGameData) {
+		customerGameData.setCoins(userData.getGameData().getCoins());
+		customerGameData.setBadge(userData.getGameData().getBadge());
+		return getDataMapper().map(customerGameData, CustomerGameWsDTO.class, fields);
+	}
+
+	private PreferredMealeculeWsDTO getPreferredMealeculeWsDTO(final String fields, final UserModel userModel) {
+		final CustomerData userData = getCustomerData(userModel);
+		final PreferredMealeculeData mealeculeData = new PreferredMealeculeData();
+		mealeculeData.setPreferredMealecule(userData.getPreferredMealecule());
+		return getDataMapper().map(mealeculeData, PreferredMealeculeWsDTO.class, fields);
+	}
+
+	private CustomerData getCustomerData(final UserModel userModel) {
+		final CustomerData userData = new CustomerData();
+		customerConverter.convert(userModel, userData);
+		return userData;
+	}
+
+	private void updateBadgeForUser(final UserModel userModel, final Integer coins)
+	{
+		final BadgeModel badgeModel = userModel.getBadge() == null ? new BadgeModel() : userModel.getBadge();
+		final int intCoins = coins.intValue();
+		if (intCoins >= 9000)
+		{
+			badgeModel.setLevel(LevelEnum.GOLD);
+		}
+		else if (intCoins >= 900)
+		{
+			badgeModel.setLevel(LevelEnum.SILVER);
+		}
+		else if (intCoins >= 200)
+		{
+			badgeModel.setLevel(LevelEnum.BRONZE);
+		}
+
+		if (badgeModel.getLevel() != null && StringUtils.isEmpty(badgeModel.getId()))
+		{
+			badgeModel.setId(userModel.getUid());
+			badgeModel.setStatus(StatusEnum.ACTIVE);
+		}
+
+		modelService.save(badgeModel);
+	}
+
 }
