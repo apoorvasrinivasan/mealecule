@@ -38,6 +38,17 @@
             <value code="INACTIVE"/>
             <value code="NOT_APPLICABLE"/>
         </enumtype>
+        
+         <enumtype generate="true" code="LevelEnum" autocreate="true" dynamic="true">
+        	<value code="GOLD"/>
+        	<value code="SILVER"/>
+        	<value code="BRONZE"/>
+        </enumtype>
+
+        <enumtype generate="true" code="DisplayNameEnum" autocreate="true" dynamic="true">
+        	<value code="REGISTERED"/>
+        	<value code="NONREGISTERED"/>
+        </enumtype>
     </enumtypes>
     <relations>
         <relation code="MealeculeQuotientToProduct" localized="false" generate="true" autocreate="true">
