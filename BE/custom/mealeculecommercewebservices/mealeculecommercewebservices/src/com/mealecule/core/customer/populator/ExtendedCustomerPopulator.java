@@ -10,9 +10,6 @@
  */
 package com.mealecule.core.customer.populator;
 
-import com.mealecule.core.model.BadgeModel;
-import com.mealecule.core.user.data.BadgeData;
-import com.mealecule.core.user.data.CustomerGameData;
 import de.hybris.platform.commercefacades.user.data.AddressData;
 import de.hybris.platform.commercefacades.user.data.CustomerData;
 import de.hybris.platform.converters.Populator;
@@ -20,8 +17,13 @@ import de.hybris.platform.core.model.user.AddressModel;
 import de.hybris.platform.core.model.user.CustomerModel;
 import de.hybris.platform.servicelayer.dto.converter.ConversionException;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
+
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.util.Assert;
+
+import com.mealecule.core.model.BadgeModel;
+import com.mealecule.core.user.data.BadgeData;
+import com.mealecule.core.user.data.CustomerGameData;
 
 
 /**
@@ -65,8 +67,12 @@ public class ExtendedCustomerPopulator implements Populator<CustomerModel, Custo
             target.setDefaultShippingAddress(getAddressConverter().convert(source.getDefaultShipmentAddress()));
 
         }
-        CustomerGameData customerGameData = new CustomerGameData();
-        customerGameData.setBadges(userBadgeConverter.convertAll(source.getBadges()));
+        final CustomerGameData customerGameData = new CustomerGameData();
+		  if (null != source.getBadge())
+		  {
+			  customerGameData.setBadge(userBadgeConverter.convert(source.getBadge()));
+		  }
+
         customerGameData.setCoins(source.getCoins());
         target.setPreferredMealecule(source.getPreferredMealecule());
         target.setGameData(customerGameData);
@@ -77,7 +83,7 @@ public class ExtendedCustomerPopulator implements Populator<CustomerModel, Custo
     }
 
     @Required
-    public void setUserBadgeConverter(Converter<BadgeModel, BadgeData> userBadgeConverter) {
+    public void setUserBadgeConverter(final Converter<BadgeModel, BadgeData> userBadgeConverter) {
         this.userBadgeConverter = userBadgeConverter;
     }
 }

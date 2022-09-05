@@ -10,7 +10,6 @@
  */
 package com.mealecule.core.v2.controller;
 
-import com.mealecule.core.user.data.*;
 import de.hybris.platform.commercefacades.address.AddressVerificationFacade;
 import de.hybris.platform.commercefacades.address.data.AddressVerificationResult;
 import de.hybris.platform.commercefacades.customer.CustomerFacade;
@@ -86,8 +85,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.util.UriUtils;
 
 import com.mealecule.core.constants.YcommercewebservicesConstants;
+import com.mealecule.core.enums.LevelEnum;
+import com.mealecule.core.enums.StatusEnum;
+import com.mealecule.core.model.BadgeModel;
 import com.mealecule.core.populator.HttpRequestCustomerDataPopulator;
 import com.mealecule.core.populator.options.PaymentInfoOption;
+import com.mealecule.core.user.data.AddressDataList;
+import com.mealecule.core.user.data.CustomerGameData;
+import com.mealecule.core.user.data.CustomerGameWsDTO;
+import com.mealecule.core.user.data.PreferredMealeculeData;
+import com.mealecule.core.user.data.PreferredMealeculeWsDTO;
 import com.mealecule.core.validation.data.AddressValidationData;
 
 
@@ -1452,12 +1459,12 @@ public class UsersController extends BaseCommerceController
 		if(null != userModel){
 			userModel.setCoins(coins);
 			modelService.save(userModel);
-			if(null != userModel) {
-				final CustomerData userData = getCustomerData(userModel);
-				CustomerGameData customerGameData = new CustomerGameData();
-				if(null != userData.getGameData()) {
-					return getCustomerGameWsDTO(fields, userData, customerGameData);
-				}
+			final CustomerData userData = getCustomerData(userModel);
+			updateBadgeForUser(userModel, coins);
+			final CustomerGameData customerGameData = new CustomerGameData();
+			if (null != userData.getGameData())
+			{
+				return getCustomerGameWsDTO(fields, userData, customerGameData);
 			}
 		}
 		return null;
@@ -1472,7 +1479,7 @@ public class UsersController extends BaseCommerceController
 		final UserModel userModel = userService.getCurrentUser();
 		if(null != userModel) {
 			final CustomerData userData = getCustomerData(userModel);
-			CustomerGameData customerGameData = new CustomerGameData();
+			final CustomerGameData customerGameData = new CustomerGameData();
 			if(null != userData.getGameData()) {
 				return getCustomerGameWsDTO(fields, userData, customerGameData);
 			}
@@ -1480,23 +1487,62 @@ public class UsersController extends BaseCommerceController
 		return null;
 	}
 
-	private CustomerGameWsDTO getCustomerGameWsDTO(String fields, CustomerData userData, CustomerGameData customerGameData) {
+	private CustomerGameWsDTO getCustomerGameWsDTO(final String fields, final CustomerData userData, final CustomerGameData customerGameData) {
 		customerGameData.setCoins(userData.getGameData().getCoins());
-		customerGameData.setBadges(userData.getGameData().getBadges());
+		customerGameData.setBadge(userData.getGameData().getBadge());
 		return getDataMapper().map(customerGameData, CustomerGameWsDTO.class, fields);
 	}
 
-	private PreferredMealeculeWsDTO getPreferredMealeculeWsDTO(String fields, UserModel userModel) {
+	private PreferredMealeculeWsDTO getPreferredMealeculeWsDTO(final String fields, final UserModel userModel) {
 		final CustomerData userData = getCustomerData(userModel);
-		PreferredMealeculeData mealeculeData = new PreferredMealeculeData();
+		final PreferredMealeculeData mealeculeData = new PreferredMealeculeData();
 		mealeculeData.setPreferredMealecule(userData.getPreferredMealecule());
 		return getDataMapper().map(mealeculeData, PreferredMealeculeWsDTO.class, fields);
 	}
 
-	private CustomerData getCustomerData(UserModel userModel) {
+	private CustomerData getCustomerData(final UserModel userModel) {
 		final CustomerData userData = new CustomerData();
 		customerConverter.convert(userModel, userData);
 		return userData;
+	}
+
+	private void updateBadgeForUser(final UserModel userModel, final Integer coins)
+	{
+		final BadgeModel badgeModel = userModel.getBadge() == null ? new BadgeModel() : userModel.getBadge();
+		final int intCoins = coins.intValue();
+		if (intCoins >= 10000)
+		{
+			badgeModel.setLevel(LevelEnum.GOLD);
+
+			if (badgeModel.getLevel() != null && StringUtils.isEmpty(badgeModel.getId()))
+			{
+				badgeModel.setId(userModel.getUid() + "_" + badgeModel.getLevel().getCode());
+				badgeModel.setStatus(StatusEnum.ACTIVE);
+			}
+		}
+		else if (intCoins >= 1000)
+		{
+			badgeModel.setLevel(LevelEnum.SILVER);
+
+			if (badgeModel.getLevel() != null && StringUtils.isEmpty(badgeModel.getId()))
+			{
+				badgeModel.setId(userModel.getUid() + "_" + badgeModel.getLevel().getCode());
+				badgeModel.setStatus(StatusEnum.ACTIVE);
+			}
+		}
+		else if (intCoins >= 200)
+		{
+			badgeModel.setLevel(LevelEnum.BRONZE);
+			badgeModel.setId(userModel.getUid());
+
+			if (badgeModel.getLevel() != null && StringUtils.isEmpty(badgeModel.getId()))
+			{
+				badgeModel.setId(userModel.getUid() + "_" + badgeModel.getLevel().getCode());
+				badgeModel.setStatus(StatusEnum.ACTIVE);
+			}
+		}
+
+		modelService.save(badgeModel);
 	}
 
 }
