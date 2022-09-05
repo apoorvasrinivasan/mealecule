@@ -29,7 +29,7 @@ public class UserPopulator implements Populator<UserModel, UserData>
 		target.setUid(source.getUid());
 		target.setCoins(source.getCoins());
 		target.setPreferredMealecule(source.getPreferredMealecule());
-		target.setBadges(userBadgeConverter.convertAll(source.getBadges()));
+		target.setBadge(userBadgeConverter.convert(source.getBadge()));
 	}
 
 	/**

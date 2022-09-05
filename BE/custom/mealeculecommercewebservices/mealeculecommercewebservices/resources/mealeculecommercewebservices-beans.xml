@@ -117,7 +117,7 @@
 
 	<bean class="com.mealecule.core.user.data.CustomerGameData">
 		<property name="coins" type="Integer"/>
-		<property name="badges" type="java.util.List&lt;com.mealecule.core.user.data.BadgeData>"/>
+		<property name="badge" type="com.mealecule.core.user.data.BadgeData"/>
 	</bean>
 
 	<bean class="de.hybris.platform.commercefacades.user.data.CustomerData"
@@ -207,7 +207,7 @@
 	</bean>
 	
 	<bean class="com.mealecule.core.user.data.BadgeWsDTO">
-		<property name="id" type="Integer"/>
+		<property name="id" type="String"/>
 		<property name="level" type="String"/>
 		<property name="displayName" type="String"/>
 	</bean>
@@ -218,7 +218,7 @@
 
 	<bean class="com.mealecule.core.user.data.CustomerGameWsDTO">
 		<property name="coins" type="Integer"/>
-		<property name="badges" type="java.util.List&lt;com.mealecule.core.user.data.BadgeWsDTO>"/>
+		<property name="badge" type="com.mealecule.core.user.data.BadgeWsDTO"/>
 	</bean>
 
 	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO">
