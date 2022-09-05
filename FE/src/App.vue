@@ -8,26 +8,21 @@
       Shop By
       <i class="dropdown icon"></i>
       <div class="menu">
-        <div class="io dropdown item" v-for="c in categories" :key="c.id">
+        <div class="ui dropdown item" v-for="c in categories" :key="c.id">
           {{ c.id }}
         <i class="dropdown icon"></i>
         <div class="menu">
-          <router-link :to="{name:'plp', params:{id:cs.id}}" class="item" v-for="cs in c.subcategories" :key="cs.id">{{ cs.id }}</router-link>
+          <router-link :to="{name:'plp', params:{id:cs.id}}" class="item" v-for="cs in c.subcategories" :key="cs.id">{{ cs.name }}</router-link>
         </div>
       </div>
     </div>
   </div>
-      <div class="item">
-        <div class="ui transparent icon input">
-          <input type="text" placeholder="Search...">
-          <i class="search link icon"></i>
-        </div>
-      </div>
-      <router-link to="login" class='item'>Login</router-link>
-      <div class="item">
+    <div class="item"> Total Coins : {{total_coins }} </div>
+      <router-link to="login" class='item' v-if="!isLogged">Login</router-link>
+      <router-link :to="{name:'MyAccount'}" class="item" v-if="isLogged">
         <i class="user circle icon"></i>
         My account
-      </div>
+      </router-link>
       <router-link to="/myCart" class="item"> <i class="shopping cart icon"></i> </router-link>
     </div>
   </div>
@@ -45,11 +40,16 @@ export default {
   computed: {
     currentRouteName() {
         return this.$route.name;
+    },
+    isLogged:function(){
+      let user = localStorage.getItem('user');
+      return user != null; 
     }
   },
   data(){
     return {
-      categories:[]
+      categories:[],
+      total_coins: 0,
     }
   },
   created(){
@@ -60,6 +60,8 @@ export default {
       let vm =this;
       Product.getCategories((data) => {
         vm.categories = data.categories
+        // eslint-disable-next-line
+        setDropdown();
           
       },
       (data) => {

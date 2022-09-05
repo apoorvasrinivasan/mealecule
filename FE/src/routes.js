@@ -6,6 +6,7 @@ import PDP from './components/PDP.vue'
 import GameArea from './components/Game.vue'
 import Login from './components/Login.vue'
 import MyCart from './components/MyCart.vue'
+import MyAccount from './components/myAccount.vue'
 import NotFound from './components/NotFound.vue'
 
 const routes = [ 
@@ -43,13 +44,19 @@ const routes = [
     path: '/mycart',
     component: MyCart , 
     name:"MyCart",
-    meta: {title:"MyCart"}
+    meta: {title:"MyCart",loginRequired:true}
   },
   {
     path: '/login',
     component: Login , 
     name:"Login",
     meta: {title:"Login"}
+  },
+  {
+    path: '/myAccount',
+    component: MyAccount , 
+    name:"MyAccount",
+    meta: {title:"MyAccount",loginRequired:true}
   },
   {
   path: "/:catchAll(.*)",
@@ -65,6 +72,9 @@ const router = createRouter({
 })
 
 router.beforeEach((to, fromRoute, next) => {
+    if (to.meta.loginRequired && !localStorage.user){
+      next('login')
+    }
     window.document.title = 'Mealecule |' +to.meta && to.meta.title ? to.meta.title : 'How healthy is your cart';
     next();
 });

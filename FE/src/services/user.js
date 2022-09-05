@@ -1,7 +1,7 @@
 import * as $ from 'jquery'
 
 let BASE_URL = "/api";
-let USER_BASE_URL + "/api/mealeculecommercewebservices/v2/mealecule/users"
+let USER_BASE_URL = BASE_URL + "/mealeculecommercewebservices/v2/mealecule/users/"
       
 export default {
    getAuthToken(success, error) {
@@ -26,6 +26,9 @@ export default {
             (response) => {
                token = response.access_token
                localStorage.setItem('token',token);
+                setTimeout(function(){
+                  localStorage.removeItem('token');
+                }, response.expires_in)
                 success(token)
             },
             (response) => {
@@ -38,23 +41,72 @@ export default {
          $.ajaxSetup({
             headers:{
                "Authorization" : "Bearer "+token,
+               "contentType":"Application/json"
            }
          })
       }, (data)=>{
          console.log(data);
       })
    },
+   accessHandler(response){
+      if(response.status == 401) {
+         if(response.responseJSON.errors[0].type == "InvalidTokenError")
+            localStorage.removeItem('token')
+            alert('session expired. please refresh the page');
+            this.setHeader()
+      }
+
+   },
    registerUser(user, success,error){
       let url = USER_BASE_URL;
       $.ajax({
+         url:url,
          method:'post',
+         data:user,
+         contentType:'json',
+         dataType:'json',
+         success:(data)=>{
+            success(data)
+         },
+         error:(response) => {
+            this.accessHandler(response);
+            error(response.responseJSON)
+         }
+      })
+
+   },
+
+   loginUser(user, success,error){
+      let url = USER_BASE_URL + user.uid;
+      $.ajax({
+         url:url,
+         method:'get',
          data:user,
          contentType:'json',
          success:(data)=>{
             success(data)
+         },
+         error:(response) => {
+            this.accessHandler(response);
+            error(response.responseJSON)
          }
       })
 
+   },
+   addCoins(coin,success, error){
+      let user = localStorage.user;
+      localStorage.setItem('coin',coin);
+      let url = USER_BASE_URL + user + '/gameData?coins='+coin;
+      $.ajax({
+         url,
+         method:'POST',
+         success:function(data){
+            success(data);
+         },
+         error:function(){
+            error()
+         }
+      })
    }
 
 }
