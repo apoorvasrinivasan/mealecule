@@ -222,7 +222,6 @@
 	</bean>
 
 	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO">
-		<property name="coins" type="Integer"/>
 		<property name="gameData" type="com.mealecule.core.user.data.CustomerGameWsDTO"/>
 		<property name="preferredMealecule" type="java.util.List&lt;String>"/>
 	</bean>

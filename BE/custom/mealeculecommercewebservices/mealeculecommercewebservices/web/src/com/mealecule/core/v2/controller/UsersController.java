@@ -1506,8 +1506,8 @@ public class UsersController extends BaseCommerceController
 		return userData;
 	}
 
-	private void updateBadgeForUser(final UserModel userModel, final Integer coins)
-	{
+	private void updateBadgeForUser(final UserModel userModel, final Integer coins) {
+
 		final BadgeModel badgeModel = userModel.getBadge() == null ? new BadgeModel() : userModel.getBadge();
 		final int intCoins = coins.intValue();
 		if (intCoins >= 10000)

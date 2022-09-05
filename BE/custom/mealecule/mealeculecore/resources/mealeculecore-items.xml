@@ -229,7 +229,7 @@
         <itemtype code="Badge" autocreate="true" generate="true">
             <deployment table="badge" typecode="10142"/>
             <attributes>
-                <attribute type="java.lang.Integer" qualifier="id">
+                <attribute type="java.lang.String" qualifier="id">
                     <description></description>
                     <modifiers unique="true"/>
                     <persistence type="property" />
