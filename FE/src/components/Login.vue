@@ -139,12 +139,14 @@ export default {
           return;
         }
       }
-      User.loginUser(vm.ulogin, ()=>{
+      User.loginUser(vm.ulogin, (data)=>{
         alert('success')
+         localStorage.setItem('user',vm.ulogin.uid);
+         localStorage.setItem('userData',JSON.stringify(data));
+         vm.$root.preferredMealeacule = data.preferredMealeacule;
       }, (r)=>{
         vm.log_error = r.errors[0].message;
          console.log(r)
-         localStorage.setItem('user',vm.ulogin.uid);
       })
     }
   }
@@ -154,9 +156,20 @@ export default {
 .login {
   margin:  48px auto;
   width:  900px;
-  max-width: 80%;
+  max-width: 90%;
 }
 .error{
   color: var(--red);
+}
+@media screen and (max-width: 800px) {
+  .ui.divider{display:none;}
+  .ui.action.input{
+    flex-flow: column;
+    gap: 15px;
+  }
+  .ui.button{
+    width:100%;
+    margin-bottom: 24px;
+  }
 }
 </style>

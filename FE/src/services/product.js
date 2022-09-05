@@ -8,12 +8,13 @@ export default {
     
     getProducts(cat, success, error) {
         $.get(
-         BASE_URL+'/catalogs/mealeculeProductCatalog/Online/categories/'+cat
+         BASE_URL+'/catalogs/mealeculeProductCatalog/Online/categories/'+cat + '?fields=FULL'
          ).then(
             (response) => {
                 success(response)
             },
             (response) => {
+               User.accessHandler(response)
                 error(response)
             }
         )
@@ -25,6 +26,7 @@ export default {
                 success(response)
             },
             (response) => {
+               User.accessHandler(response)
                 error(response);
             })
         

@@ -41,7 +41,6 @@ export default {
   },
   created() {
     // props are exposed on `this`
-    console.log(this.nutrients)
     let total = 0;
     for (let i in this.nutrients.chart){
       let j = this.nutrients.chart[i];

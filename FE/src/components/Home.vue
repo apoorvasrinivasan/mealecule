@@ -12,7 +12,7 @@ div.home-page
 						i.ui.huge.label.circular.yellow {{ $root.total_coins }}
 					span.label Coins
 				br
-				button.ui.button.primary Play Game
+				router-link.ui.button.primary(to="/game") Play Game
 			div.column.ui.image
 				img(src="https://s3-us-east-2.amazonaws.com/maryville/wp-content/uploads/2021/03/04131433/MVU-BFADM-2020-Q4-Skyscraper-Future-of-Video-Games-Trends-Technology-Types-header-v2-1000x523.jpg")
 	section#categories.categories
@@ -92,4 +92,28 @@ button {
 	background: url(https://cdn.cdnparenting.com/articles/2018/07/743111095-H.jpg) no-repeat;
 }
 
+@media screen and (max-width: 800px){
+	
+	h1.title {
+		right: 0;
+    top: 65%;
+    transform: none;
+    width: 90%;
+    font-size: 8vh;
+	}
+	.ui[class*="two column"].grid>.column:not(.row), .ui[class*="two column"].grid>.row>.column{
+		width: 100%;
+	}
+	.game > .grid {
+		display: grid;
+		grid-template-columns: 100%;
+		align-items: flex-start;
+	}
+	/*.game .column.ui.image { display: none; }*/
+
+	#categories {
+		grid-template-columns: 100%;
+	}
+	
+}
 </style>

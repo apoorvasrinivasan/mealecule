@@ -1,4 +1,6 @@
 <template lang="pug">
+div.ui.error.message.mobile-error
+  please play game from desktop
 div.gamearea
   h1#score {{score }} 
     div.ui.yellow.circular.label {{coins}} 
@@ -65,14 +67,16 @@ export default {
     },
     stopGame: function(){
       let vm =this;
-      User.addCoins(this.coins,(data)=>{
-        console.log(data)
-      }, 
-      ()=>{
+      User.addCoins(this.coins,()=>{
         vm.$root.total_coins += vm.coins;
         localStorage.setItem('coins', vm.$root.total_coins );
         vm.p_coins = vm.coins;
         vm.p_score = vm.score;
+        vm.score = 0;
+        vm.coins =  0;
+      }, 
+      ()=>{
+        alert('error occured in saving');
         vm.score = 0;
         vm.coins =  0;
       });
@@ -215,5 +219,12 @@ box-shadow: 1px 2px 0 #ccc;
   display: flex;
   justify-content: space-between;
 }
-
+@media screen and (max-width: 600px){
+  #gameArea {display:none;}
+}
+@media screen and (min-width: 600px){
+  .mobile-error {
+    display:none
+  }
+}
 </style>

@@ -100,8 +100,8 @@ export default {
       $.ajax({
          url,
          method:'POST',
-         success:function(data){
-            success(data);
+         success:function(){
+            success();
          },
          error:function(){
             error()
