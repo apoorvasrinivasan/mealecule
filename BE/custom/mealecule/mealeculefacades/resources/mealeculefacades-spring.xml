@@ -272,5 +272,12 @@
 		</property>
 	</bean>
 	
+	<bean id="userBadgeRaoExtractor"
+		class="com.mealecule.facades.rao.providers.UserBadgeRaoExtractor" />
 
+	<bean
+		id="userBadgeCartRAOProviderExtractorsListMergeDirective"
+		depends-on="cartRAOProviderExtractors" parent="listMergeDirective">
+		<property name="add" ref="userBadgeRaoExtractor" />
+	</bean>
 </beans>

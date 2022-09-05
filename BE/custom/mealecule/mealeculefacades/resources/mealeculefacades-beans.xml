@@ -55,7 +55,7 @@
 	</bean>
 
 	<bean class="com.mealecule.core.user.data.BadgeData">
-		<property name="id" type="Integer"/>
+		<property name="id" type="String"/>
 		<property name="level" type="String"/>
 		<property name="displayName" type="String"/>
 	</bean>
