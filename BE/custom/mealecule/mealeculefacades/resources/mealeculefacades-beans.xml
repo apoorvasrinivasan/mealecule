@@ -86,5 +86,9 @@
 	    <property name="userBadgeLevel" type="String"/>
 	    <property name="userBadgeStatus" type="String"/>
 	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.CartModificationData">
+		<property name="mealeculeQuotientData" type="com.mealecule.facades.product.data.MealeculeQuotientData"/>
+	</bean>
 </beans>
 

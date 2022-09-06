@@ -1254,16 +1254,16 @@
 		</property>
 	</bean>
 
-	<bean parent="fieldSetLevelMapping" id="orderWsDTOFieldSetLevelMapping">
+	<bean parent="fieldSetLevelMapping" id="TOFieldSetLevelMapping">
 		<property name="dtoClass"
 		          value="de.hybris.platform.commercewebservicescommons.dto.order.OrderWsDTO"/>
 		<property name="levelMapping">
 			<map>
-				<entry key="BASIC" value="code,guid"/>
+				<entry key="BASIC" value="code,guid,mealeculeQuotientData"/>
 				<entry key="DEFAULT"
-				       value="unconsignedEntries(DEFAULT),status,created,deliveryStatusDisplay,statusDisplay,consignments(DEFAULT),guestCustomer,deliveryStatus,store,appliedOrderPromotions(DEFAULT),pickupItemsQuantity,net,calculated,appliedVouchers(DEFAULT),productDiscounts(DEFAULT),totalDiscounts(DEFAULT),subTotal(DEFAULT),orderDiscounts(DEFAULT),entries(DEFAULT),appliedProductPromotions(DEFAULT),totalPrice(DEFAULT),site,deliveryMode(DEFAULT),code,deliveryOrderGroups(DEFAULT),guid,paymentInfo(DEFAULT),pickupOrderGroups(DEFAULT),totalItems,totalPriceWithTax(DEFAULT),deliveryItemsQuantity,totalTax(DEFAULT),user(DEFAULT),deliveryAddress(DEFAULT),deliveryCost(DEFAULT)"/>
+				       value="unconsignedEntries(DEFAULT),status,created,deliveryStatusDisplay,statusDisplay,consignments(DEFAULT),guestCustomer,deliveryStatus,store,appliedOrderPromotions(DEFAULT),pickupItemsQuantity,net,calculated,appliedVouchers(DEFAULT),productDiscounts(DEFAULT),totalDiscounts(DEFAULT),subTotal(DEFAULT),orderDiscounts(DEFAULT),entries(DEFAULT),appliedProductPromotions(DEFAULT),totalPrice(DEFAULT),site,deliveryMode(DEFAULT),code,deliveryOrderGroups(DEFAULT),guid,paymentInfo(DEFAULT),pickupOrderGroups(DEFAULT),totalItems,totalPriceWithTax(DEFAULT),deliveryItemsQuantity,totalTax(DEFAULT),user(DEFAULT),deliveryAddress(DEFAULT),deliveryCost(DEFAULT),mealeculeQuotientData"/>
 				<entry key="FULL"
-				       value="unconsignedEntries(FULL),status,created,deliveryStatusDisplay,statusDisplay,consignments(FULL),guestCustomer,deliveryStatus,store,appliedOrderPromotions(FULL),pickupItemsQuantity,net,calculated,appliedVouchers(FULL),productDiscounts(FULL),totalDiscounts(FULL),subTotal(FULL),orderDiscounts(FULL),entries(FULL),appliedProductPromotions(FULL),totalPrice(FULL),site,deliveryMode(FULL),code,deliveryOrderGroups(FULL),guid,paymentInfo(FULL),pickupOrderGroups(FULL),totalItems,totalPriceWithTax(FULL),deliveryItemsQuantity,totalTax(FULL),user(FULL),deliveryAddress(FULL),deliveryCost(FULL)"/>
+				       value="unconsignedEntries(FULL),status,created,deliveryStatusDisplay,statusDisplay,consignments(FULL),guestCustomer,deliveryStatus,store,appliedOrderPromotions(FULL),pickupItemsQuantity,net,calculated,appliedVouchers(FULL),productDiscounts(FULL),totalDiscounts(FULL),subTotal(FULL),orderDiscounts(FULL),entries(FULL),appliedProductPromotions(FULL),totalPrice(FULL),site,deliveryMode(FULL),code,deliveryOrderGroups(FULL),guid,paymentInfo(FULL),pickupOrderGroups(FULL),totalItems,totalPriceWithTax(FULL),deliveryItemsQuantity,totalTax(FULL),user(FULL),deliveryAddress(FULL),deliveryCost(FULL),mealeculeQuotientData"/>
 			</map>
 		</property>
 	</bean>
@@ -1289,11 +1289,11 @@
 		<property name="levelMapping">
 			<map>
 				<entry key="BASIC"
-				       value="statusCode,entry,quantity,quantityAdded,deliveryModeChanged"/>
+				       value="statusCode,entry,quantity,quantityAdded,deliveryModeChanged,mealeculeQuotientData"/>
 				<entry key="DEFAULT"
-				       value="statusCode,entry(DEFAULT),quantity,quantityAdded,deliveryModeChanged,statusMessage"/>
+				       value="statusCode,entry(DEFAULT),quantity,quantityAdded,deliveryModeChanged,statusMessage,mealeculeQuotientData"/>
 				<entry key="FULL"
-				       value="statusCode,entry(FULL),quantity,quantityAdded,deliveryModeChanged,statusMessage"/>
+				       value="statusCode,entry(FULL),quantity,quantityAdded,deliveryModeChanged,statusMessage,mealeculeQuotientData"/>
 			</map>
 		</property>
 	</bean>

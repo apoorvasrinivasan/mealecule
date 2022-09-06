@@ -230,10 +230,6 @@
 		</property>
 	</bean>
 
-<!--	<alias name="mealeculeCartPopulator" alias="cartPopulator"/>-->
-<!--	<bean id="mealeculeCartPopulator" class="com.mealecule.facades.populators.MealeculeCartPopulator" parent="defaultCartPopulator">-->
-<!--		<property name="cartMealeculePopulator" ref="cartMealeculePopulator"/>-->
-<!--	</bean>-->
 	<bean id="mealeculeCartPopulator" class="com.mealecule.facades.populators.MealeculeCartPopulator" parent="extendedCartPopulator">
 		<property name="cartMealeculePopulator" ref="cartMealeculePopulator"/>
 	</bean>
@@ -287,5 +283,26 @@
 	<alias name="mealeculeCustomerFacade" alias="customerFacade"/>
 	<bean id="mealeculeCustomerFacade" class="com.mealecule.facades.customer.impl.DefaultMealeculeCustomerFacade" parent="defaultCustomerFacade">
 		<property name="userBadgeReverseConverter" ref="userBadgeReverseConverter"/>
+	</bean>
+
+	<alias name="mqCartModificationPopulator" alias="cartModificationPopulator"/>
+	<bean id="mqCartModificationPopulator"
+		  class="com.mealecule.facades.populators.MQCartModificationPopulator" parent="defaultCartModificationPopulator">
+		<property name="cartMealeculePopulator" ref="cartMealeculePopulator"/>
+	</bean>
+
+	<alias name="defaultCartModificationConverter" alias="cartModificationConverter"/>
+	<bean id="defaultCartModificationConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.order.data.CartModificationData"/>
+		<property name="populators">
+			<list>
+				<ref bean="cartModificationPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="orderConverter"/>
+		<property name="add" ref="cartMealeculePopulator"/>
 	</bean>
 </beans>
