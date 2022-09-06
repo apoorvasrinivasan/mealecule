@@ -10,6 +10,9 @@
  */
 package com.mealecule.core.v2.controller;
 
+import com.mealecule.core.enums.MealeculeQuotientEnum;
+import com.mealecule.core.user.data.PreferredMealeculeData;
+import com.mealecule.core.user.data.PreferredMealeculeWsDTO;
 import de.hybris.platform.catalog.enums.ProductReferenceTypeEnum;
 import de.hybris.platform.commercefacades.catalog.CatalogFacade;
 import de.hybris.platform.commercefacades.product.ProductFacade;
@@ -25,6 +28,7 @@ import de.hybris.platform.commercefacades.search.data.AutocompleteSuggestionData
 import de.hybris.platform.commercefacades.search.data.SearchStateData;
 import de.hybris.platform.commercefacades.storefinder.StoreFinderStockFacade;
 import de.hybris.platform.commercefacades.storefinder.data.StoreFinderStockSearchPageData;
+import de.hybris.platform.commercefacades.user.data.CustomerData;
 import de.hybris.platform.commerceservices.search.facetdata.ProductSearchPageData;
 import de.hybris.platform.commerceservices.search.pagedata.PageableData;
 import de.hybris.platform.commerceservices.store.data.GeoPoint;
@@ -40,6 +44,8 @@ import de.hybris.platform.commercewebservicescommons.dto.store.StoreFinderStockS
 import de.hybris.platform.commercewebservicescommons.errors.exceptions.RequestParameterException;
 import de.hybris.platform.commercewebservicescommons.errors.exceptions.StockSystemException;
 import de.hybris.platform.converters.Populator;
+import de.hybris.platform.core.model.user.UserModel;
+import de.hybris.platform.enumeration.EnumerationService;
 import de.hybris.platform.webservicescommons.cache.CacheControl;
 import de.hybris.platform.webservicescommons.cache.CacheControlDirective;
 import de.hybris.platform.webservicescommons.errors.exceptions.WebserviceValidationException;
@@ -62,6 +68,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -131,6 +138,9 @@ public class ProductsController extends BaseController
 	@Resource(name = "productsHelper")
 	private ProductsHelper productsHelper;
 
+	@Resource(name = "enumerationService")
+	private EnumerationService enumerationService;
+
 	static
 	{
 		String productOptions = "";
@@ -190,6 +200,20 @@ public class ProductsController extends BaseController
 		// X-Total-Count header
 		setTotalCountHeader(response, result.getPagination());
 		return result;
+	}
+
+
+	@RequestMapping(value = "/getAllPreferredMealecules", method = RequestMethod.GET)
+	@ResponseBody
+	public PreferredMealeculeWsDTO getAllPreferredMealecules(@RequestParam(defaultValue = DEFAULT_FIELD_SET)
+															 final String fields)
+	{
+		final PreferredMealeculeData mealeculeData = new PreferredMealeculeData();
+		List<MealeculeQuotientEnum> mealeculeQuotients = enumerationService.getEnumerationValues(MealeculeQuotientEnum.class);
+		List<String> mealeculeQuotientsInString = new ArrayList<>();
+		mealeculeQuotients.stream().forEach(mq -> mealeculeQuotientsInString.add(mq.getCode()));
+		mealeculeData.setPreferredMealecule(mealeculeQuotientsInString);
+		return getDataMapper().map(mealeculeData, PreferredMealeculeWsDTO.class, fields);
 	}
 
 	/**

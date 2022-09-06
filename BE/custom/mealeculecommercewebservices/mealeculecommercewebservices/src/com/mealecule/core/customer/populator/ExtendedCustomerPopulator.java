@@ -75,6 +75,8 @@ public class ExtendedCustomerPopulator implements Populator<CustomerModel, Custo
 
         customerGameData.setCoins(source.getCoins());
         target.setPreferredMealecule(source.getPreferredMealecule());
+        target.setMinMealecule(source.getMinMealecule());
+        target.setMaxMealecule(source.getMaxMealecule());
         target.setGameData(customerGameData);
 	}
 

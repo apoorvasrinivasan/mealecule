@@ -69,6 +69,8 @@
 
 	<bean class="com.mealecule.core.user.data.PreferredMealeculeData">
 		<property name="preferredMealecule" type="java.util.List&lt;String>"/>
+		<property name="maxMealecule" type="String"/>
+		<property name="minMealecule" type="String"/>
 	</bean>
 
 	<bean class="de.hybris.platform.commercefacades.catalog.data.CategoryHierarchyData" >

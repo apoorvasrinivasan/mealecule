@@ -70,13 +70,14 @@ public class MQCategoryHierarchyPopulator extends CategoryHierarchyPopulator
 			if(CollectionUtils.isNotEmpty(mealeculeQuotientDatas)) {
 				List<FacetData> facetDataList = new ArrayList<>();
 
-				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.CARBOHYDRATE, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getCarbohydrate).reversed()).findFirst().get().getCarbohydrate());
-				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.FAT, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getFat).reversed()).findFirst().get().getFat());
-				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.FIBER, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getFiber).reversed()).findFirst().get().getFiber());
-				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.PROTEIN, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getProtein).reversed()).findFirst().get().getProtein());
-				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.SUGAR, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getSugar).reversed()).findFirst().get().getSugar());
-				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.CALORIES, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getEnergy).reversed()).findFirst().get().getEnergy());
-				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.WATER, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getWater).reversed()).findFirst().get().getWater());
+				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.CARBOHYDRATE, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getCarbohydrate).reversed()).findFirst().get().getCarbohydrate(), mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getCarbohydrate)).findFirst().get().getCarbohydrate());
+				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.FAT, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getFat).reversed()).findFirst().get().getFat(), mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getFat)).findFirst().get().getFat());
+				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.FIBER, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getFiber).reversed()).findFirst().get().getFiber(), mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getFiber)).findFirst().get().getFiber());
+				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.PROTEIN, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getProtein).reversed()).findFirst().get().getProtein(), mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getProtein)).findFirst().get().getProtein());
+				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.SUGAR, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getSugar).reversed()).findFirst().get().getSugar(), mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getSugar)).findFirst().get().getSugar());
+				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.CALORIES, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getEnergy).reversed()).findFirst().get().getEnergy(), mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getEnergy)).findFirst().get().getEnergy());
+				updateNutrientFacet(facetDataList, MealeculeQuotientEnum.WATER, mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getWater).reversed()).findFirst().get().getWater(),mealeculeQuotientDatas.stream().sorted(Comparator.comparingDouble(MealeculeQuotientData::getWater)).findFirst().get().getWater());
+
 				target.setFacetDatas(facetDataList);
 			}
 		}
@@ -97,11 +98,12 @@ public class MQCategoryHierarchyPopulator extends CategoryHierarchyPopulator
 		}
 	}
 
-	private void updateNutrientFacet(List<FacetData> facetDatas, MealeculeQuotientEnum nutrient, Double maxValue) {
+	private void updateNutrientFacet(List<FacetData> facetDatas, MealeculeQuotientEnum nutrient, Double maxValue, Double minValue) {
 		FacetData facetData = new FacetData();
 		facetData.setCode(nutrient.getCode());
 		facetData.setName(getEnumerationService().getEnumerationName(nutrient));
 		facetData.setMaxValue(maxValue);
+		facetData.setMinValue(minValue);
 		facetDatas.add(facetData);
 	}
 

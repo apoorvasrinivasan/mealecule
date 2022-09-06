@@ -10,9 +10,9 @@
  */
 package com.mealecule.core.v2.controller;
 
+import com.mealecule.facades.customer.MealeculeCustomerFacade;
 import de.hybris.platform.commercefacades.address.AddressVerificationFacade;
 import de.hybris.platform.commercefacades.address.data.AddressVerificationResult;
-import de.hybris.platform.commercefacades.customer.CustomerFacade;
 import de.hybris.platform.commercefacades.customergroups.CustomerGroupFacade;
 import de.hybris.platform.commercefacades.order.data.CCPaymentInfoData;
 import de.hybris.platform.commercefacades.order.data.CCPaymentInfoDatas;
@@ -115,8 +115,8 @@ import com.mealecule.core.validation.data.AddressValidationData;
 public class UsersController extends BaseCommerceController
 {
 	private static final Logger LOG = Logger.getLogger(UsersController.class);
-	@Resource(name = "customerFacade")
-	private CustomerFacade customerFacade;
+	@Resource(name = "mealeculeCustomerFacade")
+	private MealeculeCustomerFacade mealeculeCustomerFacade;
 	@Resource(name = "userService")
 	private UserService userService;
 	@Resource(name = "modelService")
@@ -210,14 +210,14 @@ public class UsersController extends BaseCommerceController
 		{
 			validate(user, "user", guestConvertingDTOValidator);
 			convertToCustomer(password, guid);
-			customer = customerFacade.getCurrentCustomer();
+			customer = mealeculeCustomerFacade.getCurrentCustomer();
 			userId = customer.getUid();
 		}
 		else
 		{
 			validate(user, "user", userSignUpDTOValidator);
 			registerNewUser(login, password, titleCode, firstName, lastName);
-			customer = customerFacade.getUserForUID(userId);
+			customer = mealeculeCustomerFacade.getUserForUID(userId);
 		}
 		httpResponse.setHeader(YcommercewebservicesConstants.LOCATION, getAbsoluteLocationURL(httpRequest, userId));
 		return getDataMapper().map(customer, UserWsDTO.class, fields);
@@ -263,10 +263,10 @@ public class UsersController extends BaseCommerceController
 		validate(user, "user", userSignUpDTOValidator);
 		final RegisterData registration = getDataMapper().map(user, RegisterData.class,
 				"login,password,titleCode,firstName,lastName");
-		customerFacade.register(registration);
+		mealeculeCustomerFacade.register(registration);
 		final String userId = user.getUid();
 		httpResponse.setHeader(YcommercewebservicesConstants.LOCATION, getAbsoluteLocationURL(httpRequest, userId));
-		return getDataMapper().map(customerFacade.getUserForUID(userId), UserWsDTO.class, fields);
+		return getDataMapper().map(mealeculeCustomerFacade.getUserForUID(userId), UserWsDTO.class, fields);
 	}
 
 	protected String getAbsoluteLocationURL(final HttpServletRequest httpRequest, final String uid)
@@ -302,7 +302,7 @@ public class UsersController extends BaseCommerceController
 		registration.setLogin(login);
 		registration.setPassword(password);
 		registration.setTitleCode(titleCode);
-		customerFacade.register(registration);
+		mealeculeCustomerFacade.register(registration);
 	}
 
 
@@ -316,7 +316,7 @@ public class UsersController extends BaseCommerceController
 
 		try
 		{
-			customerFacade.changeGuestToCustomer(password, guid);
+			mealeculeCustomerFacade.changeGuestToCustomer(password, guid);
 		}
 		catch (final UnknownIdentifierException ex)
 		{
@@ -347,7 +347,7 @@ public class UsersController extends BaseCommerceController
 	@ResponseBody
 	public UserWsDTO getUser(@RequestParam(defaultValue = DEFAULT_FIELD_SET) final String fields)
 	{
-		final CustomerData customerData = customerFacade.getCurrentCustomer();
+		final CustomerData customerData = mealeculeCustomerFacade.getCurrentCustomer();
 		return getDataMapper().map(customerData, UserWsDTO.class, fields);
 	}
 
@@ -370,7 +370,7 @@ public class UsersController extends BaseCommerceController
 	public void putUser(@RequestParam final String firstName, @RequestParam final String lastName,
 			@RequestParam(required = true) final String titleCode, final HttpServletRequest request) throws DuplicateUidException
 	{
-		final CustomerData customer = customerFacade.getCurrentCustomer();
+		final CustomerData customer = mealeculeCustomerFacade.getCurrentCustomer();
 		if (LOG.isDebugEnabled())
 		{
 			LOG.debug("putCustomer: userId=" + customer.getUid());
@@ -382,7 +382,7 @@ public class UsersController extends BaseCommerceController
 		customer.setCurrency(null);
 		httpRequestCustomerDataPopulator.populate(request, customer);
 
-		customerFacade.updateFullProfile(customer);
+		mealeculeCustomerFacade.updateFullProfile(customer);
 	}
 
 	/**
@@ -404,14 +404,14 @@ public class UsersController extends BaseCommerceController
 	{
 		validate(user, "user", putUserDTOValidator);
 
-		final CustomerData customer = customerFacade.getCurrentCustomer();
+		final CustomerData customer = mealeculeCustomerFacade.getCurrentCustomer();
 		if (LOG.isDebugEnabled())
 		{
 			LOG.debug("putCustomer: userId=" + customer.getUid());
 		}
 
 		getDataMapper().map(user, customer, "firstName,lastName,titleCode,currency(isocode),language(isocode)", true);
-		customerFacade.updateFullProfile(customer);
+		mealeculeCustomerFacade.updateFullProfile(customer);
 	}
 
 	/**
@@ -432,13 +432,13 @@ public class UsersController extends BaseCommerceController
 	@ResponseStatus(HttpStatus.OK)
 	public void updateUser(final HttpServletRequest request) throws DuplicateUidException
 	{
-		final CustomerData customer = customerFacade.getCurrentCustomer();
+		final CustomerData customer = mealeculeCustomerFacade.getCurrentCustomer();
 		if (LOG.isDebugEnabled())
 		{
 			LOG.debug("updateUser: userId=" + customer.getUid());
 		}
 		httpRequestCustomerDataPopulator.populate(request, customer);
-		customerFacade.updateFullProfile(customer);
+		mealeculeCustomerFacade.updateFullProfile(customer);
 	}
 
 	/**
@@ -458,14 +458,14 @@ public class UsersController extends BaseCommerceController
 	@ResponseStatus(HttpStatus.OK)
 	public void updateUser(@RequestBody final UserWsDTO user) throws DuplicateUidException
 	{
-		final CustomerData customer = customerFacade.getCurrentCustomer();
+		final CustomerData customer = mealeculeCustomerFacade.getCurrentCustomer();
 		if (LOG.isDebugEnabled())
 		{
 			LOG.debug("updateUser: userId=" + customer.getUid());
 		}
 
 		getDataMapper().map(user, customer, "firstName,lastName,titleCode,currency(isocode),language(isocode)", false);
-		customerFacade.updateFullProfile(customer);
+		mealeculeCustomerFacade.updateFullProfile(customer);
 	}
 
 	/**
@@ -515,7 +515,7 @@ public class UsersController extends BaseCommerceController
 			throw new RequestParameterException("Login [" + newLogin + "] is not a valid e-mail address!",
 					RequestParameterException.INVALID, "newLogin");
 		}
-		customerFacade.changeUid(newLogin, password);
+		mealeculeCustomerFacade.changeUid(newLogin, password);
 	}
 
 	/**
@@ -547,7 +547,7 @@ public class UsersController extends BaseCommerceController
 			{
 				throw new RequestParameterException("Request parameter 'old' is missing.", RequestParameterException.MISSING, "old");
 			}
-			customerFacade.changePassword(old, newPassword);
+			mealeculeCustomerFacade.changePassword(old, newPassword);
 		}
 	}
 
@@ -1425,14 +1425,14 @@ public class UsersController extends BaseCommerceController
 	@RequestMapping(value = "/{userId}/preferredMealecules", method = RequestMethod.POST)
 	@ResponseBody
 	public PreferredMealeculeWsDTO createPreferredMealecule(@RequestParam(defaultValue = DEFAULT_FIELD_SET)
-	final String fields, @RequestParam (defaultValue = StringUtils.EMPTY) final String preferredMealecule, final HttpServletRequest httpRequest, final HttpServletResponse httpResponse)
+	final String fields, @RequestParam (defaultValue = StringUtils.EMPTY) final String preferredMealecule, @RequestParam (defaultValue = StringUtils.EMPTY) final String minMealecule, @RequestParam (defaultValue = StringUtils.EMPTY) final String maxMealecule, final HttpServletRequest httpRequest, final HttpServletResponse httpResponse)
 	{
 		final UserModel userModel = userService.getCurrentUser();
 		if(null != userModel){
-			userModel.setPreferredMealecule(
-					StringUtils.isNotBlank(preferredMealecule) ? Arrays.asList(preferredMealecule.split(",")) : null);
-			modelService.save(userModel);
-			return getPreferredMealeculeWsDTO(fields, userModel);
+			final CustomerData userData = getCustomerData(userModel);
+
+			final PreferredMealeculeData mealeculeData = mealeculeCustomerFacade.updatePreferredMealecule(preferredMealecule, maxMealecule, minMealecule, userModel, userData);
+			return getDataMapper().map(mealeculeData, PreferredMealeculeWsDTO.class, fields);
 		}
 		return null;
 	}
@@ -1457,11 +1457,10 @@ public class UsersController extends BaseCommerceController
 	{
 		final UserModel userModel = userService.getCurrentUser();
 		if(null != userModel){
+			final CustomerGameData customerGameData = mealeculeCustomerFacade.updateCustomerGameData(coins, userModel);
 			userModel.setCoins(coins);
 			modelService.save(userModel);
 			final CustomerData userData = getCustomerData(userModel);
-			updateBadgeForUser(userModel, coins);
-			final CustomerGameData customerGameData = new CustomerGameData();
 			if (null != userData.getGameData())
 			{
 				return getCustomerGameWsDTO(fields, userData, customerGameData);
@@ -1497,6 +1496,8 @@ public class UsersController extends BaseCommerceController
 		final CustomerData userData = getCustomerData(userModel);
 		final PreferredMealeculeData mealeculeData = new PreferredMealeculeData();
 		mealeculeData.setPreferredMealecule(userData.getPreferredMealecule());
+		mealeculeData.setMaxMealecule(userData.getMaxMealecule());
+		mealeculeData.setMinMealecule(userData.getMinMealecule());
 		return getDataMapper().map(mealeculeData, PreferredMealeculeWsDTO.class, fields);
 	}
 
@@ -1506,43 +1507,5 @@ public class UsersController extends BaseCommerceController
 		return userData;
 	}
 
-	private void updateBadgeForUser(final UserModel userModel, final Integer coins) {
-
-		final BadgeModel badgeModel = userModel.getBadge() == null ? new BadgeModel() : userModel.getBadge();
-		final int intCoins = coins.intValue();
-		if (intCoins >= 10000)
-		{
-			badgeModel.setLevel(LevelEnum.GOLD);
-
-			if (badgeModel.getLevel() != null && StringUtils.isEmpty(badgeModel.getId()))
-			{
-				badgeModel.setId(userModel.getUid() + "_" + badgeModel.getLevel().getCode());
-				badgeModel.setStatus(StatusEnum.ACTIVE);
-			}
-		}
-		else if (intCoins >= 1000)
-		{
-			badgeModel.setLevel(LevelEnum.SILVER);
-
-			if (badgeModel.getLevel() != null && StringUtils.isEmpty(badgeModel.getId()))
-			{
-				badgeModel.setId(userModel.getUid() + "_" + badgeModel.getLevel().getCode());
-				badgeModel.setStatus(StatusEnum.ACTIVE);
-			}
-		}
-		else if (intCoins >= 200)
-		{
-			badgeModel.setLevel(LevelEnum.BRONZE);
-			badgeModel.setId(userModel.getUid());
-
-			if (badgeModel.getLevel() != null && StringUtils.isEmpty(badgeModel.getId()))
-			{
-				badgeModel.setId(userModel.getUid() + "_" + badgeModel.getLevel().getCode());
-				badgeModel.setStatus(StatusEnum.ACTIVE);
-			}
-		}
-
-		modelService.save(badgeModel);
-	}
 
 }

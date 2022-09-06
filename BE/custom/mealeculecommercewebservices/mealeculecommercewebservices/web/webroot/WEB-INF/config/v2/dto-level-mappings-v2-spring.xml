@@ -1474,11 +1474,11 @@
 		<property name="levelMapping">
 			<map>
 				<entry key="BASIC"
-					   value="preferredMealecule"/>
+					   value="preferredMealecule,maxMealecule,minMealecule"/>
 				<entry key="DEFAULT"
-					   value="preferredMealecule"/>
+					   value="preferredMealecule,maxMealecule,minMealecule"/>
 				<entry key="FULL"
-					   value="preferredMealecule"/>
+					   value="preferredMealecule,maxMealecule,minMealecule"/>
 			</map>
 		</property>
 	</bean>
