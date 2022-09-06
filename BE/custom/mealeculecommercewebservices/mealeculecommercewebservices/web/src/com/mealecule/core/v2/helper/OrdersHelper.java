@@ -16,8 +16,9 @@ import de.hybris.platform.commercefacades.order.data.OrderHistoryData;
 import de.hybris.platform.commerceservices.search.pagedata.PageableData;
 import de.hybris.platform.commerceservices.search.pagedata.SearchPageData;
 import de.hybris.platform.commercewebservicescommons.dto.order.OrderHistoryListWsDTO;
+import de.hybris.platform.converters.Populator;
 import de.hybris.platform.core.enums.OrderStatus;
-import com.mealecule.core.constants.YcommercewebservicesConstants;
+import de.hybris.platform.core.model.order.OrderModel;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,18 +28,24 @@ import javax.annotation.Resource;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
+import com.mealecule.core.constants.YcommercewebservicesConstants;
+
 
 @Component
 public class OrdersHelper extends AbstractHelper
 {
 	@Resource(name = "orderFacade")
 	private OrderFacade orderFacade;
+	@Resource(name = "cartMealeculePopulator")
+	private Populator<OrderModel, OrderHistoryData> cartMealeculePopulator;
 
 	@Cacheable(value = "orderCache", key = "T(de.hybris.platform.commercewebservicescommons.cache.CommerceCacheKeyGenerator).generateKey(true,true,'DTO',#statuses,#currentPage,#pageSize,#sort,#fields)")
 	public OrderHistoryListWsDTO searchOrderHistory(final String statuses, final int currentPage, final int pageSize,
 			final String sort, final String fields)
 	{
 		final OrderHistoriesData orderHistoriesData = searchOrderHistory(statuses, currentPage, pageSize, sort);
+
+
 		return getDataMapper().map(orderHistoriesData, OrderHistoryListWsDTO.class, fields);
 	}
 

@@ -164,6 +164,11 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 			null
 		);
 	
+		createEnumerationType(
+			"StatusEnum",
+			null
+		);
+	
 		createCollectionType(
 			"GenderList",
 			"Gender",
@@ -177,14 +182,8 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 		);
 	
 		createCollectionType(
-			"PreferredMealeculeList",
+			"StringList",
 			"java.lang.String",
-			CollectionType.LIST
-		);
-	
-		createCollectionType(
-			"BadgeList",
-			"Badge",
 			CollectionType.LIST
 		);
 	
@@ -243,11 +242,17 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 			
 				single_createattr_Badge_displayName();
 			
+				single_createattr_Badge_status();
+			
 				single_createattr_User_coins();
+			
+				single_createattr_User_maxMealecule();
+			
+				single_createattr_User_minMealecule();
 			
 				single_createattr_User_preferredMealecule();
 			
-				single_createattr_User_badges();
+				single_createattr_User_badge();
 			
 				single_createattr_MealeculeQuotientData_code();
 			
@@ -634,7 +639,7 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 					"Badge", 
 					"id",  
 					null,
-					"java.lang.Integer",
+					"java.lang.String",
 					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
 					null,
 					sqlColumnDefinitions
@@ -676,6 +681,23 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 			
 	}
 	
+	public void single_createattr_Badge_status() throws JaloBusinessException
+	{
+		
+						Map sqlColumnDefinitions = null;
+					
+				createPropertyAttribute(
+					"Badge", 
+					"status",  
+					null,
+					"StatusEnum",
+					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
+					null,
+					sqlColumnDefinitions
+				);
+			
+	}
+	
 	public void single_createattr_User_coins() throws JaloBusinessException
 	{
 		
@@ -693,6 +715,40 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 			
 	}
 	
+	public void single_createattr_User_maxMealecule() throws JaloBusinessException
+	{
+		
+						Map sqlColumnDefinitions = null;
+					
+				createPropertyAttribute(
+					"User", 
+					"maxMealecule",  
+					null,
+					"java.lang.String",
+					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
+					null,
+					sqlColumnDefinitions
+				);
+			
+	}
+	
+	public void single_createattr_User_minMealecule() throws JaloBusinessException
+	{
+		
+						Map sqlColumnDefinitions = null;
+					
+				createPropertyAttribute(
+					"User", 
+					"minMealecule",  
+					null,
+					"java.lang.String",
+					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
+					null,
+					sqlColumnDefinitions
+				);
+			
+	}
+	
 	public void single_createattr_User_preferredMealecule() throws JaloBusinessException
 	{
 		
@@ -702,7 +758,7 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 					"User", 
 					"preferredMealecule",  
 					null,
-					"PreferredMealeculeList",
+					"StringList",
 					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
 					null,
 					sqlColumnDefinitions
@@ -710,16 +766,16 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 			
 	}
 	
-	public void single_createattr_User_badges() throws JaloBusinessException
+	public void single_createattr_User_badge() throws JaloBusinessException
 	{
 		
 						Map sqlColumnDefinitions = null;
 					
 				createPropertyAttribute(
 					"User", 
-					"badges",  
+					"badge",  
 					null,
-					"BadgeList",
+					"Badge",
 					de.hybris.platform.jalo.type.AttributeDescriptor.READ_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.WRITE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.OPTIONAL_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.REMOVE_FLAG|de.hybris.platform.jalo.type.AttributeDescriptor.SEARCH_FLAG,
 					null,
 					sqlColumnDefinitions
@@ -842,6 +898,17 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 				"CALORIES",
 				"WATER",
 				"SUGAR"
+			} )
+		);
+	
+		createEnumerationValues(
+			"StatusEnum",
+			true,
+			Arrays.asList( new String[] {
+			
+				"ACTIVE",
+				"INACTIVE",
+				"NOT_APPLICABLE"
 			} )
 		);
 	
@@ -1045,6 +1112,8 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 		
 			single_setAttributeProperties_Badge_displayName();
 		
+			single_setAttributeProperties_Badge_status();
+		
 				{
 				Map customPropsMap = new HashMap();
 				
@@ -1057,9 +1126,13 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 			
 			single_setAttributeProperties_User_coins();
 		
+			single_setAttributeProperties_User_maxMealecule();
+		
+			single_setAttributeProperties_User_minMealecule();
+		
 			single_setAttributeProperties_User_preferredMealecule();
 		
-			single_setAttributeProperties_User_badges();
+			single_setAttributeProperties_User_badge();
 		
 				{
 				Map customPropsMap = new HashMap();
@@ -1095,14 +1168,7 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 				);
 			
 				setDefaultProperties(
-					"PreferredMealeculeList",
-					true,
-					true,
-					null
-				);
-			
-				setDefaultProperties(
-					"BadgeList",
+					"StringList",
 					true,
 					true,
 					null
@@ -1131,6 +1197,13 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 			
 				setDefaultProperties(
 					"MealeculeQuotientEnum",
+					true,
+					true,
+					null
+				);
+			
+				setDefaultProperties(
+					"StatusEnum",
 					true,
 					true,
 					null
@@ -1602,6 +1675,28 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 							);
 						}
 					
+						public void single_setAttributeProperties_Badge_status() throws JaloBusinessException
+						{
+							
+							
+							
+							Map customPropsMap = new HashMap();
+							
+							setAttributeProperties(
+								"Badge", 
+								"status",
+								false, 
+								null,
+								null,
+								null,
+								true,
+								true,
+								null,
+								customPropsMap,
+								null
+							);
+						}
+					
 						public void single_setAttributeProperties_User_coins() throws JaloBusinessException
 						{
 							
@@ -1612,6 +1707,50 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 							setAttributeProperties(
 								"User", 
 								"coins",
+								false, 
+								null,
+								null,
+								null,
+								true,
+								true,
+								null,
+								customPropsMap,
+								null
+							);
+						}
+					
+						public void single_setAttributeProperties_User_maxMealecule() throws JaloBusinessException
+						{
+							
+							
+							
+							Map customPropsMap = new HashMap();
+							
+							setAttributeProperties(
+								"User", 
+								"maxMealecule",
+								false, 
+								null,
+								null,
+								null,
+								true,
+								true,
+								null,
+								customPropsMap,
+								null
+							);
+						}
+					
+						public void single_setAttributeProperties_User_minMealecule() throws JaloBusinessException
+						{
+							
+							
+							
+							Map customPropsMap = new HashMap();
+							
+							setAttributeProperties(
+								"User", 
+								"minMealecule",
 								false, 
 								null,
 								null,
@@ -1646,7 +1785,7 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 							);
 						}
 					
-						public void single_setAttributeProperties_User_badges() throws JaloBusinessException
+						public void single_setAttributeProperties_User_badge() throws JaloBusinessException
 						{
 							
 							
@@ -1655,7 +1794,7 @@ public class GeneratedTypeInitializer extends AbstractTypeInitializer
 							
 							setAttributeProperties(
 								"User", 
-								"badges",
+								"badge",
 								false, 
 								null,
 								null,
