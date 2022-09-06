@@ -130,7 +130,7 @@ export default {
          console.log(r)
       })
     },
-    login(){
+    login: function(){
       let vm = this;
       vm.log_error = '';
       for (let i in vm.ulogin){
@@ -140,10 +140,12 @@ export default {
         }
       }
       User.loginUser(vm.ulogin, (data)=>{
-        alert('success')
          localStorage.setItem('user',vm.ulogin.uid);
          localStorage.setItem('userData',JSON.stringify(data));
          vm.$root.preferredMealeacule = data.preferredMealeacule;
+          User.createCart(()=>{
+            vm.$router.go('/categories');
+          })
       }, (r)=>{
         vm.log_error = r.errors[0].message;
          console.log(r)

@@ -1,36 +1,37 @@
 <template>
-  <nav class="ui menu" :class="{'secondary':currentRouteName == 'home'}">
+  <nav aria-label="Main menu" class="ui menu" :class="{'secondary':currentRouteName == 'home'}">
     <router-link to="/" class='item'>Mealecule</router-link>
     <router-link to="/game" class='item'>Play Game</router-link>
-    
-    <div class="right menu" >
-      <div  tabindex=0 aria-label="Categories List dropdown" role="button" class='ui dropdown item' v-if="categories.length">
-      Shop By
-      <i class="dropdown icon" aria-hidden></i>
-      <div class="menu" aria-hidden>
-        <div class="ui dropdown item" :aria-label="c.name" v-for="c in categories" :key="c.id">
-          {{ c.id }}
-        <i class="dropdown icon"></i>
-        <div class="menu">
-          <router-link :to="{name:'plp', params:{id:cs.id}}" class="item" v-for="cs in c.subcategories" :key="cs.id">{{ cs.name }}</router-link>
-        </div>
+    <div  tabindex=0 aria-label="Shop By Categories" role="button" class='ui dropdown item' v-if="categories.length">
+    Shop By
+    <i class="dropdown icon" aria-hidden></i>
+    <div class="menu" aria-hidden>
+      <div class="ui dropdown item" :aria-label="c.name" v-for="c in categories" :key="c.id">
+        {{ c.id }}
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <router-link :to="{name:'plp', params:{id:cs.id}}" class="item" v-for="cs in c.subcategories" :key="cs.id">{{ cs.name }}</router-link>
+      </div>
       </div>
     </div>
-  </div>
+    </div>
+    
+    <div class="right menu" >
     <div class="item"><span v-for="p in preferredMealecule" :key="p">{{p}},</span> </div>
     <div class="item"> Total Coins : {{total_coins }} </div>
       <router-link to="/login" class='item' v-if="!isLogged">Login</router-link>
       <router-link :to="{name:'MyAccount'}" class="item" v-if="isLogged">
         <i class="user circle icon"></i>
       </router-link>
-      <router-link to="/myCart" class="item"> <i class="shopping cart icon"></i> </router-link>
+      <router-link v-if="cart>=0" to="/myCart" class="item"> <i class="shopping cart icon"></i> 
+        <span class="cart-number">{{ cart }}</span></router-link>
     </div>
   </nav>
   <section id="homepage" class="home-banner" v-if="currentRouteName == 'home'">
   </section>
-   <div class="ui container site-content">
+   <section class="ui container site-content">
     <router-view></router-view>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -49,6 +50,7 @@ export default {
   data(){
     return {
       categories:[],
+      cart:1,
       total_coins: 0,
       preferredMealecule:[],
       defaultPreferredMealecule:[
@@ -67,11 +69,13 @@ export default {
     setMealecule:function(){
       let user = {}
       this.preferredMealecule = [...this.defaultPreferredMealecule];
+      this.cart = -1;
       try{
         user = JSON.parse(localStorage.userData);
       }
       catch(e) {return;}
       if(!user) return;
+      this.cart = user.cart;
       let pm = user.preferredMealecule;
       if(pm.length > 1) this.preferredMealecule = pm;
       
@@ -105,9 +109,9 @@ export default {
     flex-wrap: wrap;
   }
   #homepage.home-banner {
-     margin-top: -86px;
-     background-position: 0 69px;
+    background-position: 0 69px;
     background-size: 100% auto;
+    margin-top: -86px;
     width: 90vh;
   }
 }
@@ -118,5 +122,17 @@ export default {
   width:100%;
   height:100vh;
   margin-top: -54px;
+}
+.cart-number{
+  background-color: var(--yellow);
+  border-radius: 50%;
+  border:  1px solid var(--lightgrey);
+  display: block;
+  font-size: 6px;
+  line-height: 0;
+  padding:  7px;
+  position: absolute;
+  right: 8px;
+  top: 1px;
 }
 </style>

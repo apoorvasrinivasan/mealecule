@@ -3,29 +3,18 @@ div.cart
   h1.ui.header My cart
   div.ui.grid
     div.ui.ten.wide.column
-      h3.ui.header.teal 5 items
+      h3.ui.header.teal {{ cartitems.length}} items
       ul.carts
-        li.cartitems
+        li.cartitems(v-for ="c in cartitems")
           div.ui.image
-          div.productname  Maggie Masala
+          div.productname  {{ c.product.name }}
           div.quantity.ui.icon.buttons.small.basic
             div.ui.button
               i.icon.minus
             div.ui.right.labeled.icon.basic.button
-              | 1
+              | {{ c.quantity }}
               i.icon.plus
-          div.label.price Rs.150
-          i.icon.large.trash.alternate.outline
-        li.cartitems
-          div.ui.image
-          div.productname  Maggie Masala
-          div.quantity.ui.icon.buttons.small.basic
-            div.ui.button
-              i.icon.minus
-            div.ui.right.labeled.icon.basic.button
-              | 1
-              i.icon.plus
-          div.label.price Rs.150
+          div.label.price {{ c.totalPrice.value }}
           i.icon.large.trash.alternate.outline
         li.cartitems.total
           span
@@ -57,15 +46,28 @@ div.cart
 
 <script>
 
+import User from '../services/user'
+
 export default {
   name: 'MyCart',
     components:{
   },
   data(){
     return {
+      cartitems:[]
     }
   },
   mounted() {
+    this.getCart()
+  },
+  methods:{
+    getCart(){
+      let vm = this;
+      User.myCart((data)=>{
+        console.log(data)
+        vm.cartitems = data.entries;
+      })
+    }
   }
 }
 </script>

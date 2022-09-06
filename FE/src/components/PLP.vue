@@ -1,22 +1,24 @@
 <template lang="pug">
 div.plp
-  h1.ui.header {{ category}}
+  h1.ui.header {{ category }}
   div.ui.grid(v-if="products.length")
     div.ui.three.wide.column
-      div.ui.segment.form
+      div.ui.segment.filter-form.form
         span.ui.header.teal Filters
-        div.ui.header.tiny Brand
-        div.filter-form.check-box
-          span(v-for="b,index in brands" :key="index")
-            input(v-model="filterKeys" :name="b" :value= "b" :id="'brand_'+index" type="checkbox")
-            label(:for="'brand_'+index") {{b}}
+        div
+          div.ui.header.tiny Brand
+          div.check-box
+            span(v-for="b,index in brands" :key="index")
+              input(v-model="filterKeys" :name="b" :value= "b" :id="'brand_'+index" type="checkbox")
+              label(:for="'brand_'+index") {{b}}
         
-        div.ui.header.tiny 
-            | Mealecule
-        span.mqRange(v-for="p in facetDatas")
-          label(:for="p.code") {{ p.name }}:
-            small {{ p.val }}g
-          input.slider(:id="p.code" type="range"  min=0, :max="p.maxValue" :name="p.code" v-model="p.val")
+        div
+          div.ui.header.tiny 
+              | Mealecule
+          span.mqRange(v-for="p in facetDatas")
+            label(:for="p.code") {{ p.name }}:
+              small {{ p.val }}g
+            input.slider(:id="p.code" type="range"  min=0, :max="p.maxValue" :name="p.code" v-model="p.val")
 
         
 
@@ -31,11 +33,11 @@ div.plp
 
       div.ui.link.cards
          router-link.card.product-card(:to="{ name: 'pdp', params: { code: p.code }}" v-for="p in filteredList" :key="p.code")
-          div.ui.label.teal {{p.manufacturer}}
           div.image(v-if='p.img')
             img(:src="p.img" :alt="p.name")
           
           div.content
+            span.brandname {{p.manufacturer}}
             div.header {{ p.name }}
             div.meta
               MQ(:nutrients="p.mq" v-if='p.mq')
@@ -44,7 +46,7 @@ div.plp
                 span.mrp {{ p.price.value }}
                 span.price {{ p.price.discounted }}
                 span.ui.circular.yellow.tiny.label {{ p.price.coins }}
-            button.cta-button.ui.fluid.primary.button  Add to cart
+            button.cta-button.ui.fluid.primary.button(v-on:click="addCart($event, p.code)")  Add to cart
   div.ui.message(v-if="products.length==0") Sorry no products found 
       
 </template>
@@ -52,6 +54,7 @@ div.plp
 <script>
 
 import Product from '../services/product'
+import User from '../services/user'
 import MQ from './MQ.vue'
 
 export default {
@@ -138,6 +141,17 @@ export default {
         console.log("error");
         console.log(data);
       });
+    },
+    addCart(e, code){
+      let vm = this;
+      e.preventDefault();
+      User.addToCart(code, ()=>{
+        vm.$root.cart ++;
+        alert('added to cart successfullu')
+      },()=>{
+        alert('error in adding to cart')
+
+      })
     }
   }
 }
@@ -257,14 +271,27 @@ export default {
 .slider:focus-visible {
   outline-color: var(--yellow);
 }
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 23px;
-  height: 24px;
-  border: 0;
-  border-radius:50%;
-  background: red;
-  cursor: pointer;
+.brandname{
+  color: var(--secondary);
+}
+@media screen and (max-width:  800px){
+  .ui.column{
+    min-width: 100%;
+  }
+  .ui.segment.filter-form.form {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+  .filter-form .header{
+    grid-column:  1/3;
+    font-size:  1.5rem;
+    font-weight: 700;
+  }
+  .ui.card, .ui.cards>.card {
+    width: 90%;
+  }
+  .mq {
+    width:  113px;
+  }
 }
 </style>

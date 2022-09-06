@@ -29,6 +29,7 @@ export default {
       localStorage.removeItem('coins')
       localStorage.removeItem('user')
       localStorage.removeItem('userData')
+      this.$root.cart = -1;
       this.$router.go('/login')
     }
   }

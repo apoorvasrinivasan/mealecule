@@ -7,6 +7,7 @@ import GameArea from './components/Game.vue'
 import Login from './components/Login.vue'
 import MyCart from './components/MyCart.vue'
 import MyAccount from './components/myAccount.vue'
+import CatList from './components/CatList.vue'
 import NotFound from './components/NotFound.vue'
 
 const routes = [ 
@@ -26,7 +27,13 @@ const routes = [
     path: '/plp/:id',
     component: PLP , 
     name:"plp",
-    meta: {title:"plp/"}
+    meta: {title:"Products listing "}
+  },
+  {
+    path: '/categories',
+    component: CatList , 
+    name:"CatList",
+    meta: {title:"All Categories Listing"}
   },
   {
     path: '/pdp/:code',

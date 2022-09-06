@@ -63,7 +63,7 @@ export default {
          url:url,
          method:'post',
          data:user,
-         contentType:'json',
+         contentType:'Application/json',
          dataType:'json',
          success:(data)=>{
             success(data)
@@ -105,6 +105,51 @@ export default {
          },
          error:function(){
             error()
+         }
+      })
+   },
+   createCart(success){
+      let user = JSON.parse(localStorage.userData);
+      let url = USER_BASE_URL + user.uid + '/carts';
+      $.ajax({
+         url,
+         method:'POST',
+         success:function(){
+            user.cart = 0;
+            localStorage.setItem('userData',JSON.stringify(user));
+            success();
+         }
+      })
+   },
+   addToCart(p,success, error){
+      let user = JSON.parse(localStorage.userData);
+      let url = USER_BASE_URL + user.uid + '/carts/current/entries?code='+p;
+      $.ajax({
+         url,
+         method:'POST',
+         success:function(data){
+            user.cart ++;
+            localStorage.setItem('userData',JSON.stringify(user));
+            success(data);
+         },
+         error:function(){
+            this.accessHandler();
+            error();
+         }
+      })
+   },
+   myCart(success, error){
+      let user = localStorage.user;
+      let url = USER_BASE_URL + user + '/carts/current/';
+      $.ajax({
+         url,
+         method:'GET',
+         success:function(data){
+            success(data);
+         },
+         error:function(){
+            this.accessHandler();
+            error();
          }
       })
    }

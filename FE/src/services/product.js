@@ -35,7 +35,10 @@ export default {
         
       $.get(BASE_URL+'/catalogs/mealeculeProductCatalog/Online').then(
         (r) =>{ success(r)},
-        (r) =>{ error(r)}
+        (r) =>{ 
+            User.accessHandler(r);
+            error(r)
+         }
       )
     },
 
