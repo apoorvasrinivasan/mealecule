@@ -3,7 +3,7 @@ div.plp
     div.ui.grid.product(v-if="product.code")
       div.ui.grid.thirteen.wide.column.product
         section.five.wide.column.product-image.ui.image
-          img(src="https://www.maggi.in/sites/default/files/styles/product_image_desktop_617_900/public/maggi-2minutes-noodles-617x900.png?itok=GgDSaGCE")
+          img(src="'/api/'+product.imageURL" :alt="product.name")
         section.ten.wide.column.product-detail
           div.ui.label(v-for ='c in product.categories') {{ c.code }}
           h1.header.ui {{ product.name }}
@@ -49,7 +49,7 @@ div.plp
                 input#discountPrice(type="radio" name="price")
                 label(for="discountPrice") 
                   span.price {{product.price.discounted}}
-                  span.ui.yellow.circular.label.tiny.plutoCoin {{product.price.coins}}
+                  span.ui.circular.label.tiny.bCoins {{product.price.coins}}
             button.ui.button.fluid.primary Add to cart
     
 </template>
@@ -130,9 +130,5 @@ export default {
 }
 .cta-box .checkbox {
   width: 100%;
-}
-.price:before {
-  content:"Rs.";
-  font-size: .4em;
 }
 </style>

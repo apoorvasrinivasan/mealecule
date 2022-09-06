@@ -1,9 +1,13 @@
 <template lang="pug">
 div.ui.error.message.mobile-error
-  please play game from desktop
+ | please play game from desktop
 div.gamearea
-  h1#score {{score }} 
-    div.ui.yellow.circular.label {{coins}} 
+  div#score
+    div.ui.label.huge Score: {{score }} 
+    div.ui.huge.circular.label.bCoins {{coins}}
+    h3.ui.heading.red Avoid
+    img.rule-images(v-for="img in mq_images" :src="require('../assets/' + img+'.png')")
+    
   div#gameArea(:class="{'active':!gamepaused}")
     div#obst
     div.overlay( v-show="gamepaused")
@@ -19,11 +23,14 @@ div.gamearea
           span {{ $root.total_coins }}
       button.startbutton.ui.primary.large.button(autofocus v-on:click="startGame()") {{ startButton}}
     div#player(:style="'left:'+player + 'px'")
+section#rules
+  h2.ui.header How to play
 </template>
 
 <script>
 import * as $ from 'jquery';
 import User from '../services/user.js';
+import Common from '../services/common.js';
 
 let gameInterval;
 let gameInterval2;
@@ -32,15 +39,17 @@ export default {
   name: 'GameArea',
   data(){
     return {
-      speed: 9000,
+      coins:0,
+      gamepaused: true,
+      obsticles:[],
+      p_coins:0,
+      p_score:0,
       player:300,
       score:0,
-      coins:0,
-      obsticles:[],
-      gamepaused: true,
+      speed: 9000,
       startButton: 'Start',
-      p_score:0,
-      p_coins:0,
+      mq_images:[
+      'sugar','carbohydrate']
     }
   },
   mounted() {
@@ -67,16 +76,17 @@ export default {
     },
     stopGame: function(){
       let vm =this;
-      User.addCoins(this.coins,()=>{
-        vm.$root.total_coins += vm.coins;
-        localStorage.setItem('coins', vm.$root.total_coins );
+      let coins = parseInt(vm.$root.total_coins);
+      coins = vm.$root.total_coins += parseInt(vm.coins)
+      User.addCoins(coins,()=>{
+        localStorage.setItem('coins', coins );
         vm.p_coins = vm.coins;
         vm.p_score = vm.score;
         vm.score = 0;
         vm.coins =  0;
       }, 
       ()=>{
-        alert('error occured in saving');
+        Common.Alert('error occured in saving');
         vm.score = 0;
         vm.coins =  0;
       });
@@ -92,6 +102,10 @@ export default {
       let vm=this;
       let box = document.createElement('div');
       $(box).addClass("obsticle");
+      let randomI = Math.floor(Math.random() * vm.mq_images.length);
+      $(box).css({
+        'background-image':'url('+require("../assets/"+vm.mq_images[randomI]+".png")+')'
+      })
       $('#obst').append(box);
       $(box).on('animationiteration',function(){
         let randomNo = Math.floor(Math.random() * 6);
@@ -105,7 +119,6 @@ export default {
       $(coin).addClass("coins");
       $('#obst').append(coin);
       let randomNo = Math.floor(Math.random() * 6);
-      console.log(randomNo)
       $(coin).css('left', randomNo*100 + 'px');
 
       
@@ -119,7 +132,7 @@ export default {
         if(p.top + 100 >=top && p.left/100 == left/100 ){
           if( $(this).hasClass('obsticle')){
             vm.stopGame();
-            alert('gameover')
+            Common.Alert('gameover')
             return
           }
           if( $(this).hasClass('coins')){
@@ -134,13 +147,13 @@ export default {
 </script>
 <style>
 #gameArea {
-  width:600px;
-  height: 400px;
-  border:  1px solid #ccc;
-  margin:  0 auto;
-  position: relative;
-  overflow: hidden;
   background: url(../assets/road.png);
+  border:  1px solid #ccc;
+  height: 400px;
+  margin:  0 auto;
+  overflow: hidden;
+  position: relative;
+  width:600px;
 }
 #gameArea.active {
   animation: move 6s linear infinite;
@@ -152,46 +165,49 @@ export default {
   background: red;
 }
 .overlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 4;
-  background: rgba(0,0,0,0.5);
-  height: 100%;
-  display: grid;
   align-items: center;
+  background: rgba(0,0,0,0.5);
+  display: grid;
+  height: 100%;
   justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 4;
 }
 #player{
-  height:  100px;
-  width: 100px;
-  background: url(https://i.pinimg.com/originals/05/c1/ab/05c1ab65b1b2e336fe3cb321b9d4ea46.png) no-repeat;
+  background: url(../assets/popeye.png) no-repeat;
   background-size:contain ;
-  position:  absolute;
   bottom:  0;
+  height:  100px;
+  position:  absolute;
+  width: 100px;
 }
 .obsticle{
-  height:  90px;
-  width: 90px;
+  animation: fall 6s linear infinite;
   background: black;
+  background-size:  contain;
+  background-repeat: no-repeat;
+  background-position: center center;
   border:  5px solid transparent;
-  position:  absolute;
   color:  #fff;
+  height:  90px;
+  position:  absolute;
+  width: 90px;
   z-index: 2;
-   animation: fall 6s linear infinite;
 }
 .coins{
-  height:  50px;
-  width: 50px;
+  animation: fall 5s linear 2;
   background: #ebdc60;
-  border: 1px solid gold;
-box-shadow: 1px 2px 0 #ccc;
   border-radius: 50%;
+  border: 3px solid gold;
+  box-shadow: 2px 2px 2px #222, 2px 2px 0 #222 inset;
+  color:  #222;
+  height:  50px;
   position:  absolute;
   top:  -50px;
-  color:  #222;
-  animation: fall 5s linear 2;
+  width: 50px;
 }
 
 #score{
@@ -206,21 +222,31 @@ box-shadow: 1px 2px 0 #ccc;
   from {background-position: 0 -100px}
 }
 .gameSummary {
+  background: var(--red);
+  border-radius: 10px;
+  color: white;
+  display: block;
+  list-style-type: none;
   margin: 0;
   padding: 20px;
-  list-style-type: none;
   width: 200px;
-  border-radius: 10px;
-  display: block;
-  color: white;
-  background: var(--red);
 }
 .gameSummary li {
   display: flex;
   justify-content: space-between;
 }
+#rules{
+  margin-top: 24px;
+}
+.rule-images {
+    max-width: 78px;
+    margin-right: 24px;
+}
 @media screen and (max-width: 600px){
   #gameArea {display:none;}
+  #score{
+    position: static;
+  }
 }
 @media screen and (min-width: 600px){
   .mobile-error {

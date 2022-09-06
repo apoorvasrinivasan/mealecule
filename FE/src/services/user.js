@@ -1,4 +1,5 @@
 import * as $ from 'jquery'
+import Common from './common'
 
 let BASE_URL = "/api";
 let USER_BASE_URL = BASE_URL + "/mealeculecommercewebservices/v2/mealecule/users/"
@@ -52,7 +53,7 @@ export default {
       if(response.status == 401) {
          if(response.responseJSON.errors[0].type == "InvalidTokenError")
             localStorage.removeItem('token')
-            alert('session expired. please refresh the page');
+            Common.Alert('session expired. please refresh the page');
             this.setHeader()
       }
 
@@ -94,13 +95,18 @@ export default {
 
    },
    addCoins(coin,success, error){
-      let user = localStorage.user;
-      localStorage.setItem('coin',coin);
-      let url = USER_BASE_URL + user + '/gameData?coins='+coin;
+      let user = JSON.parse(localStorage.userData);
+      let url = USER_BASE_URL + user.uid + '/gameData?coins='+coin;
       $.ajax({
          url,
          method:'POST',
-         success:function(){
+         success:function(data){
+            user.gameData.coins = data.coins;
+            let userbadge = user.gameData.badge.level;
+            if(data.badge.level != userbadge){
+               Common.Alert('new badge received '+data.badge.level);
+            }
+            localStorage.setItem('userData', JSON.stringify(user));
             success();
          },
          error:function(){

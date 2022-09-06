@@ -9,8 +9,8 @@ div.home-page
 				h2.ui.header.teal Current Progress
 				div.ui.statistic
 					span.value 
-						i.ui.huge.label.circular.yellow {{ $root.total_coins }}
-					span.label Coins
+						i.ui.huge.label.circular.bCoins $
+					span.label  {{ $root.total_coins }} Coins
 				br
 				router-link.ui.button.primary(to="/game") Play Game
 			div.column.ui.image

@@ -140,13 +140,22 @@ export default {
         }
       }
       User.loginUser(vm.ulogin, (data)=>{
-         localStorage.setItem('user',vm.ulogin.uid);
-         localStorage.setItem('userData',JSON.stringify(data));
-         vm.$root.preferredMealeacule = data.preferredMealeacule;
-          User.createCart(()=>{
+        localStorage.setItem('user',vm.ulogin.uid);
+        let userData = {
+          uid: data.uid,
+          name: data.name,
+          firstName: data.firstName,
+          gameData: data.gameData,
+          preferredMealecule: data.preferredMealecule
+        }
+        localStorage.setItem('userData',JSON.stringify(userData));
+        vm.$root.preferredMealeacule = data.preferredMealeacule;
+        vm.$root.total_coins = data.gameData.coins;
+        User.createCart(()=>{
+            vm.$root.cart = 0;
             vm.$router.go('/categories');
-          })
-      }, (r)=>{
+        })
+      }, (r)=> {
         vm.log_error = r.errors[0].message;
          console.log(r)
       })

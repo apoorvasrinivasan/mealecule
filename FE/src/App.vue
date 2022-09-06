@@ -6,6 +6,7 @@
     Shop By
     <i class="dropdown icon" aria-hidden></i>
     <div class="menu" aria-hidden>
+      <router-link :to="{name:'CatList'}" class="item" >All Categories</router-link>
       <div class="ui dropdown item" :aria-label="c.name" v-for="c in categories" :key="c.id">
         {{ c.id }}
       <i class="dropdown icon"></i>
@@ -24,7 +25,7 @@
         <i class="user circle icon"></i>
       </router-link>
       <router-link v-if="cart>=0" to="/myCart" class="item"> <i class="shopping cart icon"></i> 
-        <span class="cart-number">{{ cart }}</span></router-link>
+        <span class="cart-number" v-if="cart>0"></span></router-link>
     </div>
   </nav>
   <section id="homepage" class="home-banner" v-if="currentRouteName == 'home'">
@@ -55,9 +56,16 @@ export default {
       preferredMealecule:[],
       defaultPreferredMealecule:[
         'carbohydrate',
-        'protien',
+        'protein',
         'fiber',
         'fat'
+      ],
+      colors:[
+      '#A0DD9A',
+      '#4CBE41',
+      '#2C737E',
+      '#BFE3E9'
+
       ]
     }
   },
@@ -76,6 +84,7 @@ export default {
       catch(e) {return;}
       if(!user) return;
       this.cart = user.cart;
+      this.total_coins = user.gameData.coins
       let pm = user.preferredMealecule;
       if(pm.length > 1) this.preferredMealecule = pm;
       
@@ -124,15 +133,14 @@ export default {
   margin-top: -54px;
 }
 .cart-number{
-  background-color: var(--yellow);
+  background-color: var(--red);
   border-radius: 50%;
-  border:  1px solid var(--lightgrey);
   display: block;
-  font-size: 6px;
   line-height: 0;
-  padding:  7px;
+  padding:  2px;
+  width:  7px;
+  height:  7px;
   position: absolute;
-  right: 8px;
-  top: 1px;
+  bottom:  20px;
 }
 </style>

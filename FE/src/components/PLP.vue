@@ -18,7 +18,7 @@ div.plp
           span.mqRange(v-for="p in facetDatas")
             label(:for="p.code") {{ p.name }}:
               small {{ p.val }}g
-            input.slider(:id="p.code" type="range"  min=0, :max="p.maxValue" :name="p.code" v-model="p.val")
+            input.slider(:id="p.code" type="range"  :min="p.minValue", :max="Math.ceil(p.maxValue)" :name="p.code" v-model="p.val" :style="p.style")
 
         
 
@@ -33,19 +33,19 @@ div.plp
 
       div.ui.link.cards
          router-link.card.product-card(:to="{ name: 'pdp', params: { code: p.code }}" v-for="p in filteredList" :key="p.code")
-          div.image(v-if='p.img')
-            img(:src="p.img" :alt="p.name")
+          div.image
+            img(:src="'/api/'+p.imageURL" :alt="p.name")
           
           div.content
             span.brandname {{p.manufacturer}}
-            div.header {{ p.name }}
+            div.header.product-name {{ p.name }}
             div.meta
               MQ(:nutrients="p.mq" v-if='p.mq')
               div.ui.label.tiny {{ category}}
               div.price-row
                 span.mrp {{ p.price.value }}
                 span.price {{ p.price.discounted }}
-                span.ui.circular.yellow.tiny.label {{ p.price.coins }}
+                span.ui.circular.tiny.label.bCoins {{ p.price.coins }}
             button.cta-button.ui.fluid.primary.button(v-on:click="addCart($event, p.code)")  Add to cart
   div.ui.message(v-if="products.length==0") Sorry no products found 
       
@@ -55,6 +55,7 @@ div.plp
 
 import Product from '../services/product'
 import User from '../services/user'
+import Common from '../services/common'
 import MQ from './MQ.vue'
 
 export default {
@@ -89,12 +90,25 @@ export default {
       let vm=this;
       let a = [];
       let mqRange = {};
-      vm.facetDatas.map(i=>{
+      let pm = this.$root.preferredMealecule;
+      let col = this.$root.colors;
+
+      vm.facetDatas = vm.facetDatas.filter(i=>{
+        let ind = pm.indexOf(i.code.toLowerCase())
+        if(ind > -1) i.style = "background-color:"+col[ind];
+        return (ind > -1)
+      }).map(i=>{
         if(i.code == 'CALORIES')
           mqRange['energy'] = i.val
         else
           mqRange[i.code.toLowerCase()] = i.val
+        return i;
+      }).sort((a,b)=>{
+        let inda = pm.indexOf(a.code.toLowerCase())
+        let indb = pm.indexOf(b.code.toLowerCase())
+        return (inda>indb) ? 1:-1;
       })
+      console.log(vm.facetDatas)
       if(vm.filterKeys.length ==0)
         a= vm.products;
       else
@@ -147,9 +161,9 @@ export default {
       e.preventDefault();
       User.addToCart(code, ()=>{
         vm.$root.cart ++;
-        alert('added to cart successfullu')
+        Common.Alert('added to cart successfully')
       },()=>{
-        alert('error in adding to cart')
+        Common.Alert('error in adding to cart')
 
       })
     }
@@ -163,9 +177,7 @@ export default {
 .ui.card, .ui.cards>.card {
   width:  212px;
 }
-.image img{
-  max-height: 100%;
-}
+
 .check-box input[type="checkbox"] {
   position: absolute;
   opacity: 0;
@@ -228,7 +240,9 @@ export default {
   outline: 0;
   text-transform: capitalize;
 }
-
+.product-card .product-name{
+  margin-bottom:  10px;
+}
 .product-card > .content {
   display: grid;
   grid-gap: 10px;
@@ -236,10 +250,6 @@ export default {
 .price-row {
   width:50%;
   margin-top: 5px;
-}
-.mrp:before, .price:before {
-  content: 'Rs.';
-  font-size: 10px;
 }
 
 .meta {
@@ -251,8 +261,9 @@ export default {
   display: block;
 }
 .price {
-  font-size: 1.4rem;
-  color: var(--red);
+  font-size: 1.2rem;
+  color:  #222;
+  /*color: var(--red);*/
 }
 .cta-button{
   margin-top: auto;
@@ -268,11 +279,25 @@ export default {
   margin-bottom:  14px;
   font-size:  .9em;
 }
+.slider {
+  appearance:  none;
+  background-color: var(--lightgrey);
+      border-radius: 18px;
+    height: 8px;
+}
 .slider:focus-visible {
   outline-color: var(--yellow);
 }
 .brandname{
   color: var(--secondary);
+}
+.ui.cards>.card> .image {
+  background: #fff;
+}
+.ui.cards>.card>.image>img{
+  width: auto;
+  height:  200px;
+  margin:  0 auto;
 }
 @media screen and (max-width:  800px){
   .ui.column{
@@ -287,11 +312,18 @@ export default {
     font-size:  1.5rem;
     font-weight: 700;
   }
+
+  .ui.cards {
+    justify-content: center;
+  }
   .ui.card, .ui.cards>.card {
     width: 90%;
   }
   .mq {
     width:  113px;
+  }
+  .ui.cards>.card>.image>img{
+    height:  100px;
   }
 }
 </style>
