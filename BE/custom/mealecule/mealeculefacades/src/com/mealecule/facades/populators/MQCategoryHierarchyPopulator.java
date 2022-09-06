@@ -25,6 +25,7 @@ import de.hybris.platform.servicelayer.dto.converter.ConversionException;
 import org.apache.commons.collections.CollectionUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -59,6 +60,10 @@ public class MQCategoryHierarchyPopulator extends CategoryHierarchyPopulator
 			{
 				final ProductData productData = getProductConverter().convert(product);
 				productData.setUrl(SLASH + "products" + SLASH + product.getCode());
+				if(CollectionUtils.isNotEmpty(product.getDetail())) {
+					final String imageURL = product.getDetail().stream().collect(Collectors.toList()).get(0).getURL();
+					productData.setImageURL(imageURL);
+				}
 				target.getProducts().add(productData);
 			}
 			List<MealeculeQuotientData> mealeculeQuotientDatas = new ArrayList<>();

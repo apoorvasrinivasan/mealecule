@@ -212,6 +212,8 @@ public class OrdersController extends BaseCommerceController
 		}
 
 		cartLoaderStrategy.loadCart(cartId);
+		final String deliveryMethod = getCheckoutFacade().getSupportedDeliveryModes().get(0).getCode();
+		getCheckoutFacade().setDeliveryMode(deliveryMethod);
 
 		validateCartForPlaceOrder();
 
