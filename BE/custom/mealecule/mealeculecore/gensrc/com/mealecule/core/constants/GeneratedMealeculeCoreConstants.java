@@ -1,7 +1,7 @@
 /*
  * ----------------------------------------------------------------
  * --- WARNING: THIS FILE IS GENERATED AND WILL BE OVERWRITTEN! ---
- * --- Generated at Sep 4, 2022 1:54:37 AM                      ---
+ * --- Generated at Sep 7, 2022 3:17:11 AM                      ---
  * ----------------------------------------------------------------
  */
 package com.mealecule.core.constants;
@@ -27,6 +27,7 @@ public class GeneratedMealeculeCoreConstants
 		public static final String MEALECULEQUOTIENT = "MealeculeQuotient".intern();
 		public static final String MEALECULEQUOTIENTDATA = "MealeculeQuotientData".intern();
 		public static final String MEALECULEQUOTIENTENUM = "MealeculeQuotientEnum".intern();
+		public static final String STATUSENUM = "StatusEnum".intern();
 		public static final String SWATCHCOLORENUM = "SwatchColorEnum".intern();
 	}
 	public static class Attributes
@@ -41,8 +42,10 @@ public class GeneratedMealeculeCoreConstants
 		}
 		public static class User
 		{
-			public static final String BADGES = "badges".intern();
+			public static final String BADGE = "badge".intern();
 			public static final String COINS = "coins".intern();
+			public static final String MAXMEALECULE = "maxMealecule".intern();
+			public static final String MINMEALECULE = "minMealecule".intern();
 			public static final String PREFERREDMEALECULE = "preferredMealecule".intern();
 		}
 	}
@@ -68,6 +71,12 @@ public class GeneratedMealeculeCoreConstants
 			public static final String CALORIES = "CALORIES".intern();
 			public static final String WATER = "WATER".intern();
 			public static final String SUGAR = "SUGAR".intern();
+		}
+		public static class StatusEnum
+		{
+			public static final String ACTIVE = "ACTIVE".intern();
+			public static final String INACTIVE = "INACTIVE".intern();
+			public static final String NOT_APPLICABLE = "NOT_APPLICABLE".intern();
 		}
 		public static class SwatchColorEnum
 		{

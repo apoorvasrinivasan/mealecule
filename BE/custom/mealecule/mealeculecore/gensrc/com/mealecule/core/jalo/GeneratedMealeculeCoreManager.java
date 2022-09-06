@@ -1,7 +1,7 @@
 /*
  * ----------------------------------------------------------------
  * --- WARNING: THIS FILE IS GENERATED AND WILL BE OVERWRITTEN! ---
- * --- Generated at Sep 4, 2022 1:54:37 AM                      ---
+ * --- Generated at Sep 7, 2022 3:17:11 AM                      ---
  * ----------------------------------------------------------------
  */
 package com.mealecule.core.jalo;
@@ -51,8 +51,10 @@ public abstract class GeneratedMealeculeCoreManager extends Extension
 		ttmp.put("de.hybris.platform.jalo.product.Product", Collections.unmodifiableMap(tmp));
 		tmp = new HashMap<String, AttributeMode>();
 		tmp.put("coins", AttributeMode.INITIAL);
+		tmp.put("maxMealecule", AttributeMode.INITIAL);
+		tmp.put("minMealecule", AttributeMode.INITIAL);
 		tmp.put("preferredMealecule", AttributeMode.INITIAL);
-		tmp.put("badges", AttributeMode.INITIAL);
+		tmp.put("badge", AttributeMode.INITIAL);
 		ttmp.put("de.hybris.platform.jalo.user.User", Collections.unmodifiableMap(tmp));
 		DEFAULT_INITIAL_ATTRIBUTES = ttmp;
 	}
@@ -69,40 +71,39 @@ public abstract class GeneratedMealeculeCoreManager extends Extension
 	}
 	
 	/**
-	 * <i>Generated method</i> - Getter of the <code>User.badges</code> attribute.
-	 * @return the badges
+	 * <i>Generated method</i> - Getter of the <code>User.badge</code> attribute.
+	 * @return the badge
 	 */
-	public List<Badge> getBadges(final SessionContext ctx, final User item)
+	public Badge getBadge(final SessionContext ctx, final User item)
 	{
-		List<Badge> coll = (List<Badge>)item.getProperty( ctx, MealeculeCoreConstants.Attributes.User.BADGES);
-		return coll != null ? coll : Collections.EMPTY_LIST;
+		return (Badge)item.getProperty( ctx, MealeculeCoreConstants.Attributes.User.BADGE);
 	}
 	
 	/**
-	 * <i>Generated method</i> - Getter of the <code>User.badges</code> attribute.
-	 * @return the badges
+	 * <i>Generated method</i> - Getter of the <code>User.badge</code> attribute.
+	 * @return the badge
 	 */
-	public List<Badge> getBadges(final User item)
+	public Badge getBadge(final User item)
 	{
-		return getBadges( getSession().getSessionContext(), item );
+		return getBadge( getSession().getSessionContext(), item );
 	}
 	
 	/**
-	 * <i>Generated method</i> - Setter of the <code>User.badges</code> attribute. 
-	 * @param value the badges
+	 * <i>Generated method</i> - Setter of the <code>User.badge</code> attribute. 
+	 * @param value the badge
 	 */
-	public void setBadges(final SessionContext ctx, final User item, final List<Badge> value)
+	public void setBadge(final SessionContext ctx, final User item, final Badge value)
 	{
-		item.setProperty(ctx, MealeculeCoreConstants.Attributes.User.BADGES,value == null || !value.isEmpty() ? value : null );
+		item.setProperty(ctx, MealeculeCoreConstants.Attributes.User.BADGE,value);
 	}
 	
 	/**
-	 * <i>Generated method</i> - Setter of the <code>User.badges</code> attribute. 
-	 * @param value the badges
+	 * <i>Generated method</i> - Setter of the <code>User.badge</code> attribute. 
+	 * @param value the badge
 	 */
-	public void setBadges(final User item, final List<Badge> value)
+	public void setBadge(final User item, final Badge value)
 	{
-		setBadges( getSession().getSessionContext(), item, value );
+		setBadge( getSession().getSessionContext(), item, value );
 	}
 	
 	/**
@@ -429,6 +430,42 @@ public abstract class GeneratedMealeculeCoreManager extends Extension
 	}
 	
 	/**
+	 * <i>Generated method</i> - Getter of the <code>User.maxMealecule</code> attribute.
+	 * @return the maxMealecule
+	 */
+	public String getMaxMealecule(final SessionContext ctx, final User item)
+	{
+		return (String)item.getProperty( ctx, MealeculeCoreConstants.Attributes.User.MAXMEALECULE);
+	}
+	
+	/**
+	 * <i>Generated method</i> - Getter of the <code>User.maxMealecule</code> attribute.
+	 * @return the maxMealecule
+	 */
+	public String getMaxMealecule(final User item)
+	{
+		return getMaxMealecule( getSession().getSessionContext(), item );
+	}
+	
+	/**
+	 * <i>Generated method</i> - Setter of the <code>User.maxMealecule</code> attribute. 
+	 * @param value the maxMealecule
+	 */
+	public void setMaxMealecule(final SessionContext ctx, final User item, final String value)
+	{
+		item.setProperty(ctx, MealeculeCoreConstants.Attributes.User.MAXMEALECULE,value);
+	}
+	
+	/**
+	 * <i>Generated method</i> - Setter of the <code>User.maxMealecule</code> attribute. 
+	 * @param value the maxMealecule
+	 */
+	public void setMaxMealecule(final User item, final String value)
+	{
+		setMaxMealecule( getSession().getSessionContext(), item, value );
+	}
+	
+	/**
 	 * <i>Generated method</i> - Getter of the <code>Product.mealeculeQuotient</code> attribute.
 	 * @return the mealeculeQuotient
 	 */
@@ -462,6 +499,42 @@ public abstract class GeneratedMealeculeCoreManager extends Extension
 	public void setMealeculeQuotient(final Product item, final MealeculeQuotient value)
 	{
 		setMealeculeQuotient( getSession().getSessionContext(), item, value );
+	}
+	
+	/**
+	 * <i>Generated method</i> - Getter of the <code>User.minMealecule</code> attribute.
+	 * @return the minMealecule
+	 */
+	public String getMinMealecule(final SessionContext ctx, final User item)
+	{
+		return (String)item.getProperty( ctx, MealeculeCoreConstants.Attributes.User.MINMEALECULE);
+	}
+	
+	/**
+	 * <i>Generated method</i> - Getter of the <code>User.minMealecule</code> attribute.
+	 * @return the minMealecule
+	 */
+	public String getMinMealecule(final User item)
+	{
+		return getMinMealecule( getSession().getSessionContext(), item );
+	}
+	
+	/**
+	 * <i>Generated method</i> - Setter of the <code>User.minMealecule</code> attribute. 
+	 * @param value the minMealecule
+	 */
+	public void setMinMealecule(final SessionContext ctx, final User item, final String value)
+	{
+		item.setProperty(ctx, MealeculeCoreConstants.Attributes.User.MINMEALECULE,value);
+	}
+	
+	/**
+	 * <i>Generated method</i> - Setter of the <code>User.minMealecule</code> attribute. 
+	 * @param value the minMealecule
+	 */
+	public void setMinMealecule(final User item, final String value)
+	{
+		setMinMealecule( getSession().getSessionContext(), item, value );
 	}
 	
 	/**

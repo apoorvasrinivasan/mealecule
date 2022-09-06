@@ -235,4 +235,8 @@
 		<property name="mealeculeQuotientData" type="com.mealecule.core.product.data.MealeculeQuotientWsDTO"/>
 	</bean>
 
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.CartModificationWsDTO">
+		<property name="mealeculeQuotientData" type="com.mealecule.core.product.data.MealeculeQuotientWsDTO"/>
+	</bean>
+
 </beans>
