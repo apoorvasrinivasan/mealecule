@@ -198,6 +198,7 @@
 	<bean id="userBadgePopulator" class="com.mealecule.facades.populators.UserBadgePopulator"/>
 	
 	<bean id="userBadgeConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.mealecule.core.user.data.BadgeData"/>
 		<property name="populators">
 			<list merge="true">
 				<ref bean="userBadgePopulator"/>
@@ -205,7 +206,9 @@
 		</property>	
 	</bean>
 	
-	<bean id="userBadgeReversePopulator" class="com.mealecule.facades.populators.UserBadgeReversePopulator"/>
+	<bean id="userBadgeReversePopulator" class="com.mealecule.facades.populators.UserBadgeReversePopulator">
+		<property name="modelService" ref="modelService"/>
+	</bean>
 	
 	<bean id="userBadgeReverseConverter" parent="abstractPopulatingConverter">
 		<property name="populators">
@@ -279,5 +282,10 @@
 		id="userBadgeCartRAOProviderExtractorsListMergeDirective"
 		depends-on="cartRAOProviderExtractors" parent="listMergeDirective">
 		<property name="add" ref="userBadgeRaoExtractor" />
+	</bean>
+
+	<alias name="mealeculeCustomerFacade" alias="customerFacade"/>
+	<bean id="mealeculeCustomerFacade" class="com.mealecule.facades.customer.impl.DefaultMealeculeCustomerFacade" parent="defaultCustomerFacade">
+		<property name="userBadgeReverseConverter" ref="userBadgeReverseConverter"/>
 	</bean>
 </beans>

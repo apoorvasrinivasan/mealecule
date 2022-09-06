@@ -1,7 +1,7 @@
 /*
  * ----------------------------------------------------------------
  * --- WARNING: THIS FILE IS GENERATED AND WILL BE OVERWRITTEN! ---
- * --- Generated at Aug 22, 2022 11:58:09 PM                    ---
+ * --- Generated at Sep 4, 2022 1:54:37 AM                      ---
  * ----------------------------------------------------------------
  */
 package com.mealecule.core.constants;
@@ -19,9 +19,14 @@ public class GeneratedMealeculeCoreConstants
 		public static final String APPARELPRODUCT = "ApparelProduct".intern();
 		public static final String APPARELSIZEVARIANTPRODUCT = "ApparelSizeVariantProduct".intern();
 		public static final String APPARELSTYLEVARIANTPRODUCT = "ApparelStyleVariantProduct".intern();
+		public static final String BADGE = "Badge".intern();
+		public static final String DISPLAYNAMEENUM = "DisplayNameEnum".intern();
 		public static final String ELECTRONICSCOLORVARIANTPRODUCT = "ElectronicsColorVariantProduct".intern();
 		public static final String INGREDIENTS = "Ingredients".intern();
+		public static final String LEVELENUM = "LevelEnum".intern();
 		public static final String MEALECULEQUOTIENT = "MealeculeQuotient".intern();
+		public static final String MEALECULEQUOTIENTDATA = "MealeculeQuotientData".intern();
+		public static final String MEALECULEQUOTIENTENUM = "MealeculeQuotientEnum".intern();
 		public static final String SWATCHCOLORENUM = "SwatchColorEnum".intern();
 	}
 	public static class Attributes
@@ -34,9 +39,36 @@ public class GeneratedMealeculeCoreConstants
 			public static final String WEIGHTING = "weightInG".intern();
 			public static final String WEIGHTINML = "weightInML".intern();
 		}
+		public static class User
+		{
+			public static final String BADGES = "badges".intern();
+			public static final String COINS = "coins".intern();
+			public static final String PREFERREDMEALECULE = "preferredMealecule".intern();
+		}
 	}
 	public static class Enumerations
 	{
+		public static class DisplayNameEnum
+		{
+			public static final String REGISTERED = "REGISTERED".intern();
+			public static final String NONREGISTERED = "NONREGISTERED".intern();
+		}
+		public static class LevelEnum
+		{
+			public static final String GOLD = "GOLD".intern();
+			public static final String SILVER = "SILVER".intern();
+			public static final String BRONZE = "BRONZE".intern();
+		}
+		public static class MealeculeQuotientEnum
+		{
+			public static final String CARBOHYDRATE = "CARBOHYDRATE".intern();
+			public static final String FAT = "FAT".intern();
+			public static final String PROTEIN = "PROTEIN".intern();
+			public static final String FIBER = "FIBER".intern();
+			public static final String CALORIES = "CALORIES".intern();
+			public static final String WATER = "WATER".intern();
+			public static final String SUGAR = "SUGAR".intern();
+		}
 		public static class SwatchColorEnum
 		{
 			public static final String BLACK = "BLACK".intern();
@@ -55,6 +87,7 @@ public class GeneratedMealeculeCoreConstants
 	}
 	public static class Relations
 	{
+		public static final String MEALECULEINFOTOMEALECULEQUOTIENTDATAS = "MealeculeInfoToMealeculeQuotientDatas".intern();
 		public static final String MEALECULEQUOTIENTTOPRODUCT = "MealeculeQuotientToProduct".intern();
 		public static final String PRODUCTTOINGREDIENTS = "ProductToIngredients".intern();
 	}

@@ -1,7 +1,7 @@
 /*
  * ----------------------------------------------------------------
  * --- WARNING: THIS FILE IS GENERATED AND WILL BE OVERWRITTEN! ---
- * --- Generated at Aug 22, 2022 11:58:09 PM                    ---
+ * --- Generated at Sep 4, 2022 1:54:37 AM                      ---
  * ----------------------------------------------------------------
  */
 package com.mealecule.core.jalo;
@@ -10,9 +10,11 @@ import com.mealecule.core.constants.MealeculeCoreConstants;
 import com.mealecule.core.jalo.ApparelProduct;
 import com.mealecule.core.jalo.ApparelSizeVariantProduct;
 import com.mealecule.core.jalo.ApparelStyleVariantProduct;
+import com.mealecule.core.jalo.Badge;
 import com.mealecule.core.jalo.ElectronicsColorVariantProduct;
 import com.mealecule.core.jalo.Ingredients;
 import com.mealecule.core.jalo.MealeculeQuotient;
+import com.mealecule.core.jalo.MealeculeQuotientData;
 import de.hybris.platform.jalo.GenericItem;
 import de.hybris.platform.jalo.Item;
 import de.hybris.platform.jalo.Item.AttributeMode;
@@ -21,10 +23,13 @@ import de.hybris.platform.jalo.JaloSystemException;
 import de.hybris.platform.jalo.SessionContext;
 import de.hybris.platform.jalo.extension.Extension;
 import de.hybris.platform.jalo.product.Product;
+import de.hybris.platform.jalo.security.Principal;
 import de.hybris.platform.jalo.type.ComposedType;
 import de.hybris.platform.jalo.type.JaloGenericCreationException;
+import de.hybris.platform.jalo.user.User;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,6 +49,11 @@ public abstract class GeneratedMealeculeCoreManager extends Extension
 		tmp.put("mealeculeQuotient", AttributeMode.INITIAL);
 		tmp.put("ingredients", AttributeMode.INITIAL);
 		ttmp.put("de.hybris.platform.jalo.product.Product", Collections.unmodifiableMap(tmp));
+		tmp = new HashMap<String, AttributeMode>();
+		tmp.put("coins", AttributeMode.INITIAL);
+		tmp.put("preferredMealecule", AttributeMode.INITIAL);
+		tmp.put("badges", AttributeMode.INITIAL);
+		ttmp.put("de.hybris.platform.jalo.user.User", Collections.unmodifiableMap(tmp));
 		DEFAULT_INITIAL_ATTRIBUTES = ttmp;
 	}
 	@Override
@@ -56,6 +66,116 @@ public abstract class GeneratedMealeculeCoreManager extends Extension
 			ret.putAll(attr);
 		}
 		return ret;
+	}
+	
+	/**
+	 * <i>Generated method</i> - Getter of the <code>User.badges</code> attribute.
+	 * @return the badges
+	 */
+	public List<Badge> getBadges(final SessionContext ctx, final User item)
+	{
+		List<Badge> coll = (List<Badge>)item.getProperty( ctx, MealeculeCoreConstants.Attributes.User.BADGES);
+		return coll != null ? coll : Collections.EMPTY_LIST;
+	}
+	
+	/**
+	 * <i>Generated method</i> - Getter of the <code>User.badges</code> attribute.
+	 * @return the badges
+	 */
+	public List<Badge> getBadges(final User item)
+	{
+		return getBadges( getSession().getSessionContext(), item );
+	}
+	
+	/**
+	 * <i>Generated method</i> - Setter of the <code>User.badges</code> attribute. 
+	 * @param value the badges
+	 */
+	public void setBadges(final SessionContext ctx, final User item, final List<Badge> value)
+	{
+		item.setProperty(ctx, MealeculeCoreConstants.Attributes.User.BADGES,value == null || !value.isEmpty() ? value : null );
+	}
+	
+	/**
+	 * <i>Generated method</i> - Setter of the <code>User.badges</code> attribute. 
+	 * @param value the badges
+	 */
+	public void setBadges(final User item, final List<Badge> value)
+	{
+		setBadges( getSession().getSessionContext(), item, value );
+	}
+	
+	/**
+	 * <i>Generated method</i> - Getter of the <code>User.coins</code> attribute.
+	 * @return the coins
+	 */
+	public Integer getCoins(final SessionContext ctx, final User item)
+	{
+		return (Integer)item.getProperty( ctx, MealeculeCoreConstants.Attributes.User.COINS);
+	}
+	
+	/**
+	 * <i>Generated method</i> - Getter of the <code>User.coins</code> attribute.
+	 * @return the coins
+	 */
+	public Integer getCoins(final User item)
+	{
+		return getCoins( getSession().getSessionContext(), item );
+	}
+	
+	/**
+	 * <i>Generated method</i> - Getter of the <code>User.coins</code> attribute. 
+	 * @return the coins
+	 */
+	public int getCoinsAsPrimitive(final SessionContext ctx, final User item)
+	{
+		Integer value = getCoins( ctx,item );
+		return value != null ? value.intValue() : 0;
+	}
+	
+	/**
+	 * <i>Generated method</i> - Getter of the <code>User.coins</code> attribute. 
+	 * @return the coins
+	 */
+	public int getCoinsAsPrimitive(final User item)
+	{
+		return getCoinsAsPrimitive( getSession().getSessionContext(), item );
+	}
+	
+	/**
+	 * <i>Generated method</i> - Setter of the <code>User.coins</code> attribute. 
+	 * @param value the coins
+	 */
+	public void setCoins(final SessionContext ctx, final User item, final Integer value)
+	{
+		item.setProperty(ctx, MealeculeCoreConstants.Attributes.User.COINS,value);
+	}
+	
+	/**
+	 * <i>Generated method</i> - Setter of the <code>User.coins</code> attribute. 
+	 * @param value the coins
+	 */
+	public void setCoins(final User item, final Integer value)
+	{
+		setCoins( getSession().getSessionContext(), item, value );
+	}
+	
+	/**
+	 * <i>Generated method</i> - Setter of the <code>User.coins</code> attribute. 
+	 * @param value the coins
+	 */
+	public void setCoins(final SessionContext ctx, final User item, final int value)
+	{
+		setCoins( ctx, item, Integer.valueOf( value ) );
+	}
+	
+	/**
+	 * <i>Generated method</i> - Setter of the <code>User.coins</code> attribute. 
+	 * @param value the coins
+	 */
+	public void setCoins(final User item, final int value)
+	{
+		setCoins( getSession().getSessionContext(), item, value );
 	}
 	
 	public ApparelProduct createApparelProduct(final SessionContext ctx, final Map attributeValues)
@@ -136,6 +256,32 @@ public abstract class GeneratedMealeculeCoreManager extends Extension
 		return createApparelStyleVariantProduct( getSession().getSessionContext(), attributeValues );
 	}
 	
+	public Badge createBadge(final SessionContext ctx, final Map attributeValues)
+	{
+		try
+		{
+			ComposedType type = getTenant().getJaloConnection().getTypeManager().getComposedType( MealeculeCoreConstants.TC.BADGE );
+			return (Badge)type.newInstance( ctx, attributeValues );
+		}
+		catch( JaloGenericCreationException e)
+		{
+			final Throwable cause = e.getCause();
+			throw (cause instanceof RuntimeException ?
+			(RuntimeException)cause
+			:
+			new JaloSystemException( cause, cause.getMessage(), e.getErrorCode() ) );
+		}
+		catch( JaloBusinessException e )
+		{
+			throw new JaloSystemException( e ,"error creating Badge : "+e.getMessage(), 0 );
+		}
+	}
+	
+	public Badge createBadge(final Map attributeValues)
+	{
+		return createBadge( getSession().getSessionContext(), attributeValues );
+	}
+	
 	public ElectronicsColorVariantProduct createElectronicsColorVariantProduct(final SessionContext ctx, final Map attributeValues)
 	{
 		try
@@ -214,6 +360,32 @@ public abstract class GeneratedMealeculeCoreManager extends Extension
 		return createMealeculeQuotient( getSession().getSessionContext(), attributeValues );
 	}
 	
+	public MealeculeQuotientData createMealeculeQuotientData(final SessionContext ctx, final Map attributeValues)
+	{
+		try
+		{
+			ComposedType type = getTenant().getJaloConnection().getTypeManager().getComposedType( MealeculeCoreConstants.TC.MEALECULEQUOTIENTDATA );
+			return (MealeculeQuotientData)type.newInstance( ctx, attributeValues );
+		}
+		catch( JaloGenericCreationException e)
+		{
+			final Throwable cause = e.getCause();
+			throw (cause instanceof RuntimeException ?
+			(RuntimeException)cause
+			:
+			new JaloSystemException( cause, cause.getMessage(), e.getErrorCode() ) );
+		}
+		catch( JaloBusinessException e )
+		{
+			throw new JaloSystemException( e ,"error creating MealeculeQuotientData : "+e.getMessage(), 0 );
+		}
+	}
+	
+	public MealeculeQuotientData createMealeculeQuotientData(final Map attributeValues)
+	{
+		return createMealeculeQuotientData( getSession().getSessionContext(), attributeValues );
+	}
+	
 	@Override
 	public String getName()
 	{
@@ -290,6 +462,43 @@ public abstract class GeneratedMealeculeCoreManager extends Extension
 	public void setMealeculeQuotient(final Product item, final MealeculeQuotient value)
 	{
 		setMealeculeQuotient( getSession().getSessionContext(), item, value );
+	}
+	
+	/**
+	 * <i>Generated method</i> - Getter of the <code>User.preferredMealecule</code> attribute.
+	 * @return the preferredMealecule
+	 */
+	public List<String> getPreferredMealecule(final SessionContext ctx, final User item)
+	{
+		List<String> coll = (List<String>)item.getProperty( ctx, MealeculeCoreConstants.Attributes.User.PREFERREDMEALECULE);
+		return coll != null ? coll : Collections.EMPTY_LIST;
+	}
+	
+	/**
+	 * <i>Generated method</i> - Getter of the <code>User.preferredMealecule</code> attribute.
+	 * @return the preferredMealecule
+	 */
+	public List<String> getPreferredMealecule(final User item)
+	{
+		return getPreferredMealecule( getSession().getSessionContext(), item );
+	}
+	
+	/**
+	 * <i>Generated method</i> - Setter of the <code>User.preferredMealecule</code> attribute. 
+	 * @param value the preferredMealecule
+	 */
+	public void setPreferredMealecule(final SessionContext ctx, final User item, final List<String> value)
+	{
+		item.setProperty(ctx, MealeculeCoreConstants.Attributes.User.PREFERREDMEALECULE,value == null || !value.isEmpty() ? value : null );
+	}
+	
+	/**
+	 * <i>Generated method</i> - Setter of the <code>User.preferredMealecule</code> attribute. 
+	 * @param value the preferredMealecule
+	 */
+	public void setPreferredMealecule(final User item, final List<String> value)
+	{
+		setPreferredMealecule( getSession().getSessionContext(), item, value );
 	}
 	
 	/**

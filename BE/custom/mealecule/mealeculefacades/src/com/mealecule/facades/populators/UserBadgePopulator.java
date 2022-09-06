@@ -21,8 +21,12 @@ public class UserBadgePopulator implements Populator<BadgeModel, BadgeData>
 	public void populate(final BadgeModel source, final BadgeData target) throws ConversionException
 	{
 		target.setId(source.getId());
-		target.setLevel(source.getLevel().getCode());
-		target.setDisplayName(source.getDisplayName().getCode());
+		if(null != source.getLevel()) {
+			target.setLevel(source.getLevel().getCode());
+		}
+		if(null != source.getDisplayName()) {
+			target.setDisplayName(source.getDisplayName().getCode());
+		}
 	}
 
 }

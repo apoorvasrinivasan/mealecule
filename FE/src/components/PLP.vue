@@ -1,50 +1,52 @@
 <template lang="pug">
 div.plp
   h1.ui.header {{ category}}
-  div.ui.grid
+  div.ui.grid(v-if="products.length")
     div.ui.three.wide.column
-      div.ui.segment.form.filter-form
+      div.ui.segment.form
         span.ui.header.teal Filters
-        div.ui.header.tiny Type
-        input(v-model="filterKeys" value= "1" id="s1" type="checkbox")
-        label(for="s1") Atta Maggie
-        input(v-model="filterKeys" value= "2" id="s2" type="checkbox")
-        label(for="s2") Oats Maggie
-        input(v-model="filterKeys" value= "3" id="s3" type="checkbox")
-        label(for="s3") maida
+        div.ui.header.tiny Brand
+        div.filter-form.check-box
+          span(v-for="b,index in brands" :key="index")
+            input(v-model="filterKeys" :name="b" :value= "b" :id="'brand_'+index" type="checkbox")
+            label(:for="'brand_'+index") {{b}}
+        
         div.ui.header.tiny 
             | Mealecule
-        input(id="s4" type="checkbox" name="example")
-        label(for="s4") Protien
-        input(id="s5" type="checkbox" name="example")
-        label(for="s5") Fat
-        input(id="s6" type="checkbox" name="example")
-        label(for="s6") Fibre
+        span.mqRange(v-for="p in facetDatas")
+          label(:for="p.code") {{ p.name }}:
+            small {{ p.val }}g
+          input.slider(:id="p.code" type="range"  min=0, :max="p.maxValue" :name="p.code" v-model="p.val")
+
+        
 
     div.ui.thirteen.wide.column  
-      label.select-box(aria-label ="Sort by")
-        select(v-model="sortKey")
-          option(value="energy") Calorie
-          option(value="protein") Protien
-          option(value="fat") Fat
-          option(value="carbohydrate") Carb
-          option(value="sugar") Sugar
+      div.select-box
+        label.sort-box(for="sortby" aria-label ="Sort by")
+          select#sortby(v-model="sortKey")
+            option(v-for="s in mealecules" :value=s) {{s}}
+        p.check-box
+          input#asc(type="checkbox" v-model="sortAs")
+          label.checkbox(for="asc" :aria-label ="(sortAs)?'Low to High' : 'High to Low'" v-html="(sortAs)?'Low to High' : 'High to Low'")
 
       div.ui.link.cards
          router-link.card.product-card(:to="{ name: 'pdp', params: { code: p.code }}" v-for="p in filteredList" :key="p.code")
-          div.image
-            img(src="https://www.maggi.in/sites/default/files/styles/product_image_desktop_617_900/public/maggi-2minutes-noodles-617x900.png?itok=GgDSaGCE" alt="productimage")
+          div.ui.label.teal {{p.manufacturer}}
+          div.image(v-if='p.img')
+            img(:src="p.img" :alt="p.name")
           
           div.content
             div.header {{ p.name }}
             div.meta
-              MQ(:nutrients="p.mq")
+              MQ(:nutrients="p.mq" v-if='p.mq')
               div.ui.label.tiny {{ category}}
               div.price-row
                 span.mrp {{ p.price.value }}
-                span.price {{ p.price.value }}
+                span.price {{ p.price.discounted }}
                 span.ui.circular.yellow.tiny.label {{ p.price.coins }}
             button.cta-button.ui.fluid.primary.button  Add to cart
+  div.ui.message(v-if="products.length==0") Sorry no products found 
+      
 </template>
 
 <script>
@@ -59,70 +61,113 @@ export default {
   },
   data(){
     return {
-    category: "Maggie",
+    category: "",
     filterKeys : [],
-    sortKey:'carbohydrate',
-    products: []
+    mqKeys : [],
+    sortKey:'energy',
+    products: [],
+    mealecules:[],
+    brands:[],
+    sortAs:true,
+    facetDatas:[]
   }
+  },
+  mounted(){
+   this.getProducts();
+
+  },
+   watch: {
+    '$route' () {
+      this.getProducts();
+    }
   },
   computed: {
     filteredList() {
       let vm=this;
       let a = [];
+      let mqRange = {};
+      vm.facetDatas.map(i=>{
+        if(i.code == 'CALORIES')
+          mqRange['energy'] = i.val
+        else
+          mqRange[i.code.toLowerCase()] = i.val
+      })
       if(vm.filterKeys.length ==0)
         a= vm.products;
       else
         a = vm.products.filter(i => {
-          return vm.filterKeys.indexOf(i.userId.toString()) >=0;
-        });
+          return vm.filterKeys.indexOf(i.manufacturer.toString()) >=0;
+        })
+      a = a.filter(i=>{
+          let fr = true;
+          for(let k in mqRange){
+            let v = mqRange[k];
+            fr = fr && i.mealeculeQuotientData[k] <= v; 
+          }
+          return fr;
+          
+        })
+      let asc = (vm.sortAs) ?1:-1;
       return a.sort((a,b)=> {
-        return (parseFloat(a["mealeculeQuotientData"][vm.sortKey] )< parseFloat(b["mealeculeQuotientData"][vm.sortKey]))?-1:1;
+        return asc*((parseFloat(a["mealeculeQuotientData"][vm.sortKey] )< parseFloat(b["mealeculeQuotientData"][vm.sortKey]))?-1:1);
       });
     }
   },
-  mounted() {
-      var category = this.$route.params.id;
+  methods : {
+    getProducts (){
+      let vm = this;
+      let category = this.$route['params'].id;
       Product.getProducts(category,(data) => {
-        this.products = data.products.map((i)=>{
+        vm.category = data.name;
+        vm.facetDatas = data.facetDatas.filter((i)=>{
+          i.val = i.maxValue;
+          return i.maxValue >=1;
+        })
+        vm.products = data.products.map((i)=>{
+          if(vm.brands.indexOf(i.manufacturer) < 0)
+            vm.brands.push(i.manufacturer)
           i.mq = Product.makeMQData(i.mealeculeQuotientData);
           i.price.coins = Math.floor(i.price.value /10);
-          
+          i.price.discounted = i.price.value - i.price.coins;
           return i
-        })
-        this.category = data.id;
+        });
+        
+          vm.mealecules = [...vm.$root.preferredMealecule, 'energy'];
       },
       (data) => {
         console.log("error");
         console.log(data);
       });
-
-    
+    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.ui.cards {
-      justify-content: space-between;
-}
+
 .ui.card, .ui.cards>.card {
   width:  212px;
 }
 .image img{
   max-height: 100%;
 }
-.filter-form input {
-  display:none;
+.check-box input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
+.check-box input[type="checkbox"]:focus-visible +label {
+  outline: 1px solid var(--yellow);
+  border-radius: 3px;
 }
 
-.filter-form input:checked +label:before {
-  background-color: var(--green) ;
+.check-box input:checked +label:before {
+  background-color: var(--green);
   border-color: var(--green) ;
-  box-shadow: 0 0 0 3px var(--white)  inset;
+  box-shadow:  0 0 2px #fff inset;
 }
 
-.filter-form label:before {
+.check-box label:before {
     content: "";
     display: inline-block;
     height: 15px;
@@ -133,30 +178,32 @@ export default {
     left: -13px;
     position: relative;
 }
-.filter-form label {
+.check-box label {
   display: block;
-  padding: 5px;
+  padding: 0 5px;
   padding-left: 20px;
   margin: 5px 0;
 }
 
 .select-box {
     width: fit-content;
-    display:block;
-    border: 1px solid var(--lightgrey) ;
+    display:flex;
     margin-left: auto;
     margin-bottom: 27px;
     margin-top: -8px;
-    padding: 5px 10px;
-    border-radius: 5px;
     position:relative
 }
-
+.select-box .sort-box {
+  border-radius: 5px;
+  border: 1px solid var(--lightgrey) ;
+  margin-right: 10px;
+  padding: 5px 10px;
+}
 .select-box:before {
     content: "sort by";
     position: absolute;
     font-size: 9px;
-    top: -11px;
+    top: -15px;
     background: var(--white) ;
     display: block;
     padding: 0 4px;
@@ -165,6 +212,7 @@ export default {
 .select-box select{
   border:0;
   outline: 0;
+  text-transform: capitalize;
 }
 
 .product-card > .content {
@@ -185,7 +233,7 @@ export default {
 }
 .mrp {
   color: var(--lightgrey);
-   text-decoration: line-through;
+   /*text-decoration: line-through;*/
   display: block;
 }
 .price {
@@ -200,5 +248,23 @@ export default {
     right: -10px;
     bottom:-10px;
     width: 60%;
+}
+.mqRange{
+  display: block;
+  margin-bottom:  14px;
+  font-size:  .9em;
+}
+.slider:focus-visible {
+  outline-color: var(--yellow);
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 23px;
+  height: 24px;
+  border: 0;
+  border-radius:50%;
+  background: red;
+  cursor: pointer;
 }
 </style>

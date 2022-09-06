@@ -125,6 +125,8 @@
 		<property name="title" type="String"/>
 		<property name="gameData" type="com.mealecule.core.user.data.CustomerGameData"/>
 		<property name="preferredMealecule" type="java.util.List&lt;String>"/>
+		<property name="maxMealecule" type="String"/>
+		<property name="minMealecule" type="String"/>
 	</bean>
 
 	<bean class="com.mealecule.core.user.data.LoginChangeResponse">
@@ -214,6 +216,8 @@
 	
 	<bean class="com.mealecule.core.user.data.PreferredMealeculeWsDTO">
 		<property name="preferredMealecule" type="java.util.List&lt;String>"/>
+		<property name="maxMealecule" type="String"/>
+		<property name="minMealecule" type="String"/>
 	</bean>
 
 	<bean class="com.mealecule.core.user.data.CustomerGameWsDTO">
@@ -222,7 +226,6 @@
 	</bean>
 
 	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO">
-		<property name="coins" type="Integer"/>
 		<property name="gameData" type="com.mealecule.core.user.data.CustomerGameWsDTO"/>
 		<property name="preferredMealecule" type="java.util.List&lt;String>"/>
 	</bean>

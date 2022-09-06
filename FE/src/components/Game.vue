@@ -1,16 +1,30 @@
 <template lang="pug">
+div.ui.error.message.mobile-error
+  please play game from desktop
 div.gamearea
   h1#score {{score }} 
     div.ui.yellow.circular.label {{coins}} 
   div#gameArea(:class="{'active':!gamepaused}")
     div#obst
     div.overlay( v-show="gamepaused")
+      ul.gameSummary 
+        li
+          b Score
+          span {{ p_score }}
+        li
+          b Coins
+          span {{ p_coins }}
+        li
+          b Total Coins
+          span {{ $root.total_coins }}
       button.startbutton.ui.primary.large.button(autofocus v-on:click="startGame()") {{ startButton}}
     div#player(:style="'left:'+player + 'px'")
 </template>
 
 <script>
 import * as $ from 'jquery';
+import User from '../services/user.js';
+
 let gameInterval;
 let gameInterval2;
 
@@ -24,16 +38,21 @@ export default {
       coins:0,
       obsticles:[],
       gamepaused: true,
-      startButton: 'Start'
+      startButton: 'Start',
+      p_score:0,
+      p_coins:0,
     }
   },
   mounted() {
     // this.startGame();
+    this.total_coin = localStorage.coins || 0;
   },
   methods: {
+
     startGame:function(){
       let vm = this;
       vm.gamepaused =false;
+
       vm.createbox(0);
       vm.createbox(1);
       vm.createbox(2);
@@ -47,6 +66,21 @@ export default {
       });
     },
     stopGame: function(){
+      let vm =this;
+      User.addCoins(this.coins,()=>{
+        vm.$root.total_coins += vm.coins;
+        localStorage.setItem('coins', vm.$root.total_coins );
+        vm.p_coins = vm.coins;
+        vm.p_score = vm.score;
+        vm.score = 0;
+        vm.coins =  0;
+      }, 
+      ()=>{
+        alert('error occured in saving');
+        vm.score = 0;
+        vm.coins =  0;
+      });
+
       clearInterval(gameInterval);
       clearInterval(gameInterval2);
       $('#obst').empty();
@@ -125,7 +159,7 @@ export default {
   z-index: 4;
   background: rgba(0,0,0,0.5);
   height: 100%;
-  display: flex;
+  display: grid;
   align-items: center;
   justify-content: center;
 }
@@ -171,5 +205,26 @@ box-shadow: 1px 2px 0 #ccc;
   from {background-position: 0 0}
   from {background-position: 0 -100px}
 }
-
+.gameSummary {
+  margin: 0;
+  padding: 20px;
+  list-style-type: none;
+  width: 200px;
+  border-radius: 10px;
+  display: block;
+  color: white;
+  background: var(--red);
+}
+.gameSummary li {
+  display: flex;
+  justify-content: space-between;
+}
+@media screen and (max-width: 600px){
+  #gameArea {display:none;}
+}
+@media screen and (min-width: 600px){
+  .mobile-error {
+    display:none
+  }
+}
 </style>
