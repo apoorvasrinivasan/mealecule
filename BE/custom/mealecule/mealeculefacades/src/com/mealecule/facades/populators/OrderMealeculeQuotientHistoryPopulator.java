@@ -21,9 +21,9 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import com.mealecule.core.constants.GeneratedMealeculeCoreConstants.Enumerations.MealeculeQuotientEnum;
-import com.mealecule.core.model.MealeculeQuotientDataModel;
+import com.mealecule.core.enums.MealeculeQuotientEnum;
 import com.mealecule.facades.product.data.MealeculeQuotientData;
+import com.mealecule.core.model.MealeculeQuotientDataModel;
 
 
 /**
@@ -85,7 +85,8 @@ public class OrderMealeculeQuotientHistoryPopulator implements Populator<OrderMo
 		final MealeculeQuotientData mealeculeQuotientData = new MealeculeQuotientData();
 		if(CollectionUtils.isNotEmpty(source.getUser().getPreferredMealecule())){
 			for (final String preferredMealecule:source.getUser().getPreferredMealecule()) {
-				if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.CARBOHYDRATE.getCode())){
+				if (preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.CARBOHYDRATE.getCode()))
+				{
 					mealeculeQuotientData.setCarbohydrate(totalCartCarbohydrate);
 				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.PROTEIN.getCode())){
 					mealeculeQuotientData.setProtein(totalCartProtein);
