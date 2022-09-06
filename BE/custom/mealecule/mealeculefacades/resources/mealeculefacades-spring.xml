@@ -305,4 +305,11 @@
 		<property name="list" ref="orderConverter"/>
 		<property name="add" ref="cartMealeculePopulator"/>
 	</bean>
+	
+	<bean id="orderMealeculeQuotientHistoryPopulator" class="com.mealecule.facades.populators.OrderMealeculeQuotientHistoryPopulator"/>
+	<bean parent="modifyPopulatorList">
+   		<property name="list" ref="orderHistoryConverter" />
+   		<property name="add" ref="orderMealeculeQuotientHistoryPopulator" />
+	</bean>
+	
 </beans>

@@ -90,5 +90,9 @@
 	<bean class="de.hybris.platform.commercefacades.order.data.CartModificationData">
 		<property name="mealeculeQuotientData" type="com.mealecule.facades.product.data.MealeculeQuotientData"/>
 	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderHistoryData">
+		<property name="mealeculeQuotientData" type="com.mealecule.facades.product.data.MealeculeQuotientData"/>
+	</bean>
 </beans>
 

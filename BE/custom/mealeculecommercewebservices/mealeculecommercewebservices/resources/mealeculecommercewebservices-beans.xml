@@ -230,6 +230,10 @@
 		<property name="gameData" type="com.mealecule.core.user.data.CustomerGameWsDTO"/>
 		<property name="preferredMealecule" type="java.util.List&lt;String>"/>
 	</bean>
+	
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.OrderHistoryWsDTO">
+		<property name="mealeculeQuotientData" type="com.mealecule.core.product.data.MealeculeQuotientWsDTO"/>
+	</bean>
 
 	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.CartModificationWsDTO">
 		<property name="mealeculeQuotientData" type="com.mealecule.core.product.data.MealeculeQuotientWsDTO"/>
