@@ -50,6 +50,7 @@
 		<property name="weightInG" type="Double"/>
 		<property name="weightInML" type="Double"/>
 		<property name="totalCalories" type="Double"/>
+		<property name="imageURL" type="String"/>
 		<property name="mealeculeQuotientData" type="com.mealecule.facades.product.data.MealeculeQuotientData"/>
 		<property name="ingredientsData" type="com.mealecule.facades.product.data.IngredientsData"/>
 	</bean>

@@ -33,6 +33,7 @@ UPDATE Category;code[unique=true];$catalogVersion;name[lang=$lang]
  ;iceCream ;;Ice Cream
  ;juices ;;Juices
  ;pasta ;; Pasta
+ ;chocolates;;Chocolates
  ;1;;Open Catalogue;
  ;106;;Components;
  ;1201;;Fixatives;

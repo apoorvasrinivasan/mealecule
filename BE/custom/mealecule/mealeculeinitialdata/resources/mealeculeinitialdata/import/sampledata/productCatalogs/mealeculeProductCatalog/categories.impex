@@ -40,6 +40,7 @@ INSERT_UPDATE Category;code[unique=true];allowedPrincipals(uid)[default='custome
  ;healthDrinks
  ;softDrinks
  ;cereals
+ ;chocolates
 
 
 # Insert Category Structure
@@ -48,6 +49,7 @@ INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories;
 ;butter;diary
 ;cheese;diary
 ;iceCream;dessert
+;chocolates;dessert
 ;bread;baking
 ;cookie;baking
 ;cakes;baking
