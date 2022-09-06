@@ -288,4 +288,11 @@
 	<bean id="mealeculeCustomerFacade" class="com.mealecule.facades.customer.impl.DefaultMealeculeCustomerFacade" parent="defaultCustomerFacade">
 		<property name="userBadgeReverseConverter" ref="userBadgeReverseConverter"/>
 	</bean>
+	
+	<bean id="orderMealeculeQuotientHistoryPopulator" class="com.mealecule.facades.populators.OrderMealeculeQuotientHistoryPopulator"/>
+	<bean parent="modifyPopulatorList">
+   		<property name="list" ref="orderHistoryConverter" />
+   		<property name="add" ref="orderMealeculeQuotientHistoryPopulator" />
+	</bean>
+	
 </beans>

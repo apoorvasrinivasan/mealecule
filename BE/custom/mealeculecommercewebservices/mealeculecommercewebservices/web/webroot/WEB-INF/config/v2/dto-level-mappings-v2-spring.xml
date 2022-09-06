@@ -1377,10 +1377,10 @@
 		          value="de.hybris.platform.commercewebservicescommons.dto.order.OrderHistoryWsDTO"/>
 		<property name="levelMapping">
 			<map>
-				<entry key="BASIC" value="total,guid,status,statusDisplay,code,placed"/>
+				<entry key="BASIC" value="total,guid,status,statusDisplay,code,placed,mealeculeQuotientData"/>
 				<entry key="DEFAULT"
-				       value="total(DEFAULT),guid,status,statusDisplay,code,placed"/>
-				<entry key="FULL" value="total(FULL),guid,status,statusDisplay,code,placed"/>
+				       value="total(DEFAULT),guid,status,statusDisplay,code,placed,mealeculeQuotientData"/>
+				<entry key="FULL" value="total(FULL),guid,status,statusDisplay,code,placed,mealeculeQuotientData"/>
 			</map>
 		</property>
 	</bean>
