@@ -25,12 +25,12 @@ $galleryImages=galleryImages(qualifier, $catalogVersion)
 $siteResource=jar:com.mealecule.initialdata.constants.MealeculeInitialDataConstants&/mealeculeinitialdata/import/sampledata/productCatalogs/$productCatalog
 
 INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];$catalogVersion;folder(qualifier);url2
-            ;1200Wx1200H;501.jpg;$siteResource/images/501.jpg;;;images;/images/501.jpg
-;1200Wx1200H;502.jpg;$siteResource/images/502.jpg;;;images;/images/502.jpg
-;1200Wx1200H;503.jpg;$siteResource/images/503.jpg;;;images;/images/502.jpg
-;1200Wx1200H;504.jpg;$siteResource/images/504.jpg;;;images;/images/504.jpg
-;1200Wx1200H;505.jpg;$siteResource/images/505.jpg;;;images;/images/505.jpg
-;1200Wx1200H;506.jpg;$siteResource/images/506.jpg;;;images;/images/506.jpg
+            ;300Wx300H;501.jpg;$siteResource/images/501.jpg;;;images;/images/501.jpg
+;300Wx300H;502.jpg;$siteResource/images/502.jpg;;;images;/images/502.jpg
+;300Wx300H;503.jpg;$siteResource/images/503.jpg;;;images;/images/502.jpg
+;300Wx300H;504.jpg;$siteResource/images/504.jpg;;;images;/images/504.jpg
+;300Wx300H;505.jpg;$siteResource/images/505.jpg;;;images;/images/505.jpg
+;300Wx300H;506.jpg;$siteResource/images/506.jpg;;;images;/images/506.jpg
 
 
 
@@ -69,12 +69,12 @@ $galleryImages=galleryImages(qualifier, $catalogVersion)
 $siteResource=jar:com.mealecule.initialdata.constants.MealeculeInitialDataConstants&/mealeculeinitialdata/import/sampledata/productCatalogs/$productCatalog
 
 INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];$catalogVersion;folder(qualifier);url2
-;1200Wx1200H;501.jpg;$siteResource/images/501.jpg;;;images;/images/501.jpg
-;1200Wx1200H;502.jpg;$siteResource/images/502.jpg;;;images;/images/502.jpg
-;1200Wx1200H;503.jpg;$siteResource/images/503.jpg;;;images;/images/502.jpg
-;1200Wx1200H;504.jpg;$siteResource/images/504.jpg;;;images;/images/504.jpg
-;1200Wx1200H;505.jpg;$siteResource/images/505.jpg;;;images;/images/505.jpg
-;1200Wx1200H;506.jpg;$siteResource/images/506.jpg;;;images;/images/506.jpg
+;300Wx300H;501.jpg;$siteResource/images/501.jpg;;;images;/images/501.jpg
+;300Wx300H;502.jpg;$siteResource/images/502.jpg;;;images;/images/502.jpg
+;300Wx300H;503.jpg;$siteResource/images/503.jpg;;;images;/images/502.jpg
+;300Wx300H;504.jpg;$siteResource/images/504.jpg;;;images;/images/504.jpg
+;300Wx300H;505.jpg;$siteResource/images/505.jpg;;;images;/images/505.jpg
+;300Wx300H;506.jpg;$siteResource/images/506.jpg;;;images;/images/506.jpg
 
 
 UPDATE Product;code[unique=true];$picture;$thumbnail;$detail;$others;$normal;$thumbnails;$galleryImages;$catalogVersion;
