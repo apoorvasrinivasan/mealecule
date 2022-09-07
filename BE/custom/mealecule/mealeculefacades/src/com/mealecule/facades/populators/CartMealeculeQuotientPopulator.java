@@ -12,6 +12,7 @@ package com.mealecule.facades.populators;
 
 import com.mealecule.core.enums.MealeculeQuotientEnum;
 import com.mealecule.core.model.MealeculeQuotientDataModel;
+import com.mealecule.core.model.MealeculeQuotientModel;
 import com.mealecule.facades.product.data.MealeculeQuotientData;
 import de.hybris.platform.commercefacades.order.data.AbstractOrderData;
 import de.hybris.platform.commercefacades.product.data.ProductData;
@@ -41,22 +42,24 @@ public class CartMealeculeQuotientPopulator implements Populator<AbstractOrderMo
 		Double totalCartWater = 0.0;
 		for (AbstractOrderEntryModel entry : source.getEntries()) {
 			Double productWeight = null != entry.getProduct() && null != entry.getProduct().getWeightInG() ? entry.getProduct().getWeightInG() : entry.getProduct().getWeightInML();
-			List<MealeculeQuotientDataModel> list = entry.getProduct().getMealeculeQuotient().getMealeculeQuotientData();
-			totalCartCarbohydrate = totalCartCarbohydrate + list.stream().filter(mq -> MealeculeQuotientEnum.CARBOHYDRATE.equals(mq.getMealeculeQuotientType())).findFirst().get().getValue() * productWeight / 100 * entry.getQuantity();
-			totalCartProtein = totalCartProtein + list.stream().filter(mq -> MealeculeQuotientEnum.PROTEIN.equals(mq.getMealeculeQuotientType())).findFirst().get().getValue() * productWeight / 100 * entry.getQuantity();
-			totalCartFat = totalCartFat + list.stream().filter(mq -> MealeculeQuotientEnum.FAT.equals(mq.getMealeculeQuotientType())).findFirst().get().getValue() * productWeight / 100 * entry.getQuantity();
-			totalCartSugar = totalCartSugar + list.stream().filter(mq -> MealeculeQuotientEnum.SUGAR.equals(mq.getMealeculeQuotientType())).findFirst().get().getValue() * productWeight / 100 * entry.getQuantity();
-			totalCartFiber = totalCartFiber + list.stream().filter(mq -> MealeculeQuotientEnum.FIBER.equals(mq.getMealeculeQuotientType())).findFirst().get().getValue() * productWeight / 100 * entry.getQuantity();
-			totalCartEnergy = totalCartEnergy + list.stream().filter(mq -> MealeculeQuotientEnum.CALORIES.equals(mq.getMealeculeQuotientType())).findFirst().get().getValue() * productWeight / 100 * entry.getQuantity();
-			totalCartWater = totalCartWater + list.stream().filter(mq -> MealeculeQuotientEnum.WATER.equals(mq.getMealeculeQuotientType())).findFirst().get().getValue() * productWeight / 100 * entry.getQuantity();
+			if (null != entry.getProduct().getMealeculeQuotient()) {
+				List<MealeculeQuotientDataModel> list = entry.getProduct().getMealeculeQuotient().getMealeculeQuotientData();
 
-//			totalCartCarbohydrate = totalCartCarbohydrate + entry.getProduct().getMealeculeQuotientData().getCarbohydrate() * productWeight / 100 * entry.getQuantity();
-//			totalCartProtein = totalCartProtein + entry.getProduct().getMealeculeQuotientData().getProtein() * productWeight / 100 * entry.getQuantity();
-//			totalCartFat = totalCartFat + entry.getProduct().getMealeculeQuotientData().getFat() * productWeight / 100 * entry.getQuantity();
-//			totalCartSugar = totalCartSugar + entry.getProduct().getMealeculeQuotientData().getSugar() * productWeight / 100 * entry.getQuantity();
-//			totalCartFiber = totalCartFiber + entry.getProduct().getMealeculeQuotientData().getFiber() * productWeight / 100 * entry.getQuantity();
-//			totalCartEnergy = totalCartEnergy + entry.getProduct().getMealeculeQuotientData().getEnergy() * productWeight / 100 * entry.getQuantity();
-//			totalCartWater = totalCartWater + entry.getProduct().getMealeculeQuotientData().getWater() * productWeight / 100 * entry.getQuantity();
+				Double mqWeightInG = entry.getProduct().getMealeculeQuotient().getWeightInG();
+				Double mqWeightInML = entry.getProduct().getMealeculeQuotient().getWeightInML();
+				Double mqWeight = (null == mqWeightInG || 0.0 == mqWeightInG) ? mqWeightInML : mqWeightInG;
+				Double considerWeight = (null == mqWeight || 0.0 == mqWeight) ? 100 : mqWeight;
+				if (CollectionUtils.isNotEmpty(list)) {
+					totalCartCarbohydrate = totalCartCarbohydrate + list.stream().filter(mq -> MealeculeQuotientEnum.CARBOHYDRATE.equals(mq.getMealeculeQuotientType())).findFirst().get().getValue() * productWeight / considerWeight * entry.getQuantity();
+					totalCartProtein = totalCartProtein + list.stream().filter(mq -> MealeculeQuotientEnum.PROTEIN.equals(mq.getMealeculeQuotientType())).findFirst().get().getValue() * productWeight / considerWeight * entry.getQuantity();
+					totalCartFat = totalCartFat + list.stream().filter(mq -> MealeculeQuotientEnum.FAT.equals(mq.getMealeculeQuotientType())).findFirst().get().getValue() * productWeight / considerWeight * entry.getQuantity();
+					totalCartSugar = totalCartSugar + list.stream().filter(mq -> MealeculeQuotientEnum.SUGAR.equals(mq.getMealeculeQuotientType())).findFirst().get().getValue() * productWeight / considerWeight * entry.getQuantity();
+					totalCartFiber = totalCartFiber + list.stream().filter(mq -> MealeculeQuotientEnum.FIBER.equals(mq.getMealeculeQuotientType())).findFirst().get().getValue() * productWeight / considerWeight * entry.getQuantity();
+					totalCartEnergy = totalCartEnergy + list.stream().filter(mq -> MealeculeQuotientEnum.CALORIES.equals(mq.getMealeculeQuotientType())).findFirst().get().getValue() * productWeight / considerWeight * entry.getQuantity();
+					totalCartWater = totalCartWater + list.stream().filter(mq -> MealeculeQuotientEnum.WATER.equals(mq.getMealeculeQuotientType())).findFirst().get().getValue() * productWeight / considerWeight * entry.getQuantity();
+
+				}
+			}
 		}
 		MealeculeQuotientData mealeculeQuotientData = new MealeculeQuotientData();
 		if(CollectionUtils.isNotEmpty(source.getUser().getPreferredMealecule())){

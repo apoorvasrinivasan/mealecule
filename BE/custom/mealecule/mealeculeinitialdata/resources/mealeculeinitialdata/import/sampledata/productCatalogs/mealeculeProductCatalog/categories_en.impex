@@ -61,4 +61,26 @@ UPDATE Category;code[unique=true];$catalogVersion;name[lang=$lang]
  ;902;;Flash Memory;
  ;934;;Camera Cables;
 
+$productCatalog=mealeculeProductCatalog
+$productCatalogName=Mealecule Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+
+
+# Language
+$lang=en
+
+
+# Create Categories
+UPDATE Category;code[unique=true];$catalogVersion;name[lang=$lang]
+               ;noodles;;Noodles
+               ;sauces ;;sauces
+               ;cereals ;;Cereals
+               ;cakes ;;Cakes
+               ;biscuits ;;Biscuits
+               ;healthDrinks ;;Health Drinks
+               ;softDrinks ;;Soft Drinks
+               ;iceCream ;;Ice Cream
+               ;juices ;;Juices
+               ;pasta ;; Pasta
+               ;chocolates;;Chocolates
 
