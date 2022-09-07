@@ -2,7 +2,7 @@ import * as $ from 'jquery'
 import Common from './common'
 
 let BASE_URL = "/api";
-let USER_BASE_URL = BASE_URL + "/mealeculecommercewebservices/v2/mealecule/users/"
+let USER_BASE_URL = BASE_URL + "/mealeculecommercewebservices/v2/mealecule/users"
       
 export default {
    getAuthToken(success, error) {
@@ -63,8 +63,8 @@ export default {
       $.ajax({
          url:url,
          method:'post',
-         data:user,
-         contentType:'Application/json',
+         data:JSON.stringify(user),
+         contentType:'application/json',
          dataType:'json',
          success:(data)=>{
             success(data)
@@ -107,7 +107,7 @@ export default {
                Common.Alert('new badge received '+data.badge.level);
             }
             localStorage.setItem('userData', JSON.stringify(user));
-            success(data);
+            success();
          },
          error:function(){
             error()
