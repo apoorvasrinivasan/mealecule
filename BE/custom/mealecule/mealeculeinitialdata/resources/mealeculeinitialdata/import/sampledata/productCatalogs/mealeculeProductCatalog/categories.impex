@@ -19,7 +19,7 @@ $categories=target(code, $catalogVersion)[unique=true]
 
 # Insert Categories
 INSERT_UPDATE Category;code[unique=true];allowedPrincipals(uid)[default='customergroup'];$catalogVersion
- ;diary
+ ;dairy
 ;milk
  ;dessert
  ;baking
@@ -45,9 +45,9 @@ INSERT_UPDATE Category;code[unique=true];allowedPrincipals(uid)[default='custome
 
 # Insert Category Structure
 INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories;
-;milk;diary
-;butter;diary
-;cheese;diary
+;milk;dairy
+;butter;dairy
+;cheese;dairy
 ;iceCream;dessert
 ;chocolates;dessert
 ;bread;baking
@@ -71,7 +71,7 @@ $categories=target(code, $catalogVersion)[unique=true]
 
 # Insert Categories
 INSERT_UPDATE Category;code[unique=true];allowedPrincipals(uid)[default='customergroup'];$catalogVersion
-                      ;diary
+                      ;dairy
                       ;milk
                       ;dessert
                       ;baking
@@ -97,9 +97,9 @@ INSERT_UPDATE Category;code[unique=true];allowedPrincipals(uid)[default='custome
 
 # Insert Category Structure
 INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories;
-                                      ;milk;diary
-                                      ;butter;diary
-                                      ;cheese;diary
+                                      ;milk;dairy
+                                      ;butter;dairy
+                                      ;cheese;dairy
                                       ;iceCream;dessert
                                       ;chocolates;dessert
                                       ;bread;baking
