@@ -1,7 +1,11 @@
 <template lang="pug">
 div.cart
   h1.ui.header My cart
-  div.ui.grid
+  div.ui.message(v-if = 'cartitems.length==0')
+    | Your cart is empty. 
+    router-link(to="/categories") Shop for products.
+
+  div.ui.grid(v-if = 'cartitems.length')
     div.ui.ten.wide.column
       h3.ui.header.teal {{ response.totalItems }} items
       ul.carts
@@ -9,13 +13,13 @@ div.cart
           div.ui.image
           div.productname  {{ c.product.name }}
           div.quantity.ui.icon.buttons.small.basic
-            div.ui.button
+            div.ui.button(v-on:click="updateCart(c.entryNumber, c.quantity-1)" :class="{'disabled':c.quantity == 1}")
               i.icon.minus
             div.ui.right.labeled.icon.basic.button
               | {{ c.quantity }}
-              i.icon.plus
+              i.icon.plus(v-on:click="updateCart(c.entryNumber, c.quantity+1)")
           div.label.price {{ c.totalPrice.value }}
-          <!-- i.icon.large.trash.alternate.outline -->
+          i.icon.large.trash.alternate.outline(v-on:click="delCartItem(c.entryNumber)")
         li.cartitems.total
           span
           b Total
@@ -69,6 +73,13 @@ export default {
         vm.mq = data.mealeculeQuotientData;
         let carttotal = parseFloat(data.totalPrice.value)
         let total = parseFloat(data.totalPriceWithTax.value)
+        vm.calcTotal(carttotal, total)
+
+        vm.cartitems = data.entries;
+      })
+    },
+    calcTotal:function(carttotal, total){
+      let vm = this;
         let maxCoins = Math.floor(0.1 * carttotal);
         let userCoins = vm.$root.total_coins;
         let discount = Math.min(userCoins, maxCoins);
@@ -78,8 +89,30 @@ export default {
           carttotal: carttotal,
           tax: total - carttotal
         }
-
-        vm.cartitems = data.entries;
+    },
+    delCartItem(i){
+      let x = confirm("are you sure you want to remove item?");
+      if(!x) return;
+      let vm = this;
+      User.updateCart(i,0,()=>{
+        alert('ss')
+        vm.cartitems.splice(i,1);
+        let carttotal = vm.cartitems.reduce((a,b)=>{
+          return a + parseFloat(b.totalPrice.value)  
+        },0);
+        vm.calcTotal(carttotal, carttotal);
+      })
+    },
+    updateCart(i,q){
+      if (q == 0) return
+      let vm = this;
+      User.updateCart(i,q,(data)=>{
+        vm.cartitems[i] = data.entry
+        vm.mq = data.mealeculeQuotientData;
+        let carttotal = vm.cartitems.reduce((a,b)=>{
+          return a + parseFloat(b.totalPrice.value)  
+        },0);
+        vm.calcTotal(carttotal, carttotal);
       })
     }
   }

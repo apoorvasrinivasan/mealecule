@@ -67,7 +67,9 @@
           </div>
           <div class="ui error" v-if="passerror" >passwods do not match</div>
         </div>
-        <button type="submit" tabindex=0 role="button" class="ui blue primary button" v-on:click="register()">Register</button>
+        <button type="submit" tabindex=0 role="button" class="ui blue primary button" v-on:click="register()">Register
+          <div class="ui circular label tiny bCoins"> 100</div>
+        </button>
       </div>
     </div>
   </div>
@@ -171,6 +173,10 @@ export default {
 }
 .error{
   color: var(--red);
+}
+.button .bCoins {
+  margin-left: 10px;
+  font-size: .5em;
 }
 @media screen and (max-width: 800px) {
   .ui.divider{display:none;}

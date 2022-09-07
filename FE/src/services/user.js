@@ -59,11 +59,11 @@ export default {
 
    },
    registerUser(user, success,error){
-      let url = USER_BASE_URL;
+      let url = USER_BASE_URL.slice(0,-1);
       $.ajax({
          url:url,
          method:'post',
-         data:user,
+         data:JSON.stringify(user),
          contentType:'Application/json',
          dataType:'json',
          success:(data)=>{
@@ -132,8 +132,8 @@ export default {
       let url = USER_BASE_URL + user.uid + '/carts/current/entries?code='+p;
       let that = this;
       $.ajax({
-         url,
          method:'POST',
+         url:url,
          success:function(data){
             user.cart ++;
             user.cartMQ = data.mealeculeQuotientData;
@@ -144,6 +144,23 @@ export default {
          error:function(response){
             that.accessHandler(response);
             Common.Alert('Couldn\'t add to cart');
+         }
+      })
+   },
+   updateCart(ind, qnty, success){
+      let user = JSON.parse(localStorage.userData);
+      let method = (qnty > 0) ? "PATCH" : 'DELETE'
+      let url = `${USER_BASE_URL}${user.uid}/carts/current/entries/${ind}?qty=${qnty}`;
+      let that = this;
+      $.ajax({
+         method:method,
+         url,
+         success:function(data){
+            success(data)
+         },
+         error:function(r){
+            that.accessHandler(r);
+            Common.Alert('Couldn\'t update cart');
          }
       })
    },
