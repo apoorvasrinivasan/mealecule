@@ -3,23 +3,22 @@
  */
 package com.mealecule.facades.populators;
 
-import com.mealecule.core.enums.StatusEnum;
-import com.mealecule.facades.customer.impl.DefaultMealeculeCustomerFacade;
 import de.hybris.platform.commercefacades.user.data.CustomerData;
 import de.hybris.platform.converters.Populator;
 import de.hybris.platform.core.model.user.UserModel;
 import de.hybris.platform.servicelayer.dto.converter.ConversionException;
-
-import com.mealecule.core.enums.DisplayNameEnum;
-import com.mealecule.core.enums.LevelEnum;
-import com.mealecule.core.model.BadgeModel;
-import com.mealecule.core.user.data.BadgeData;
 import de.hybris.platform.servicelayer.model.ModelService;
+
+import javax.annotation.Resource;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Required;
 
-import javax.annotation.Resource;
+import com.mealecule.core.enums.LevelEnum;
+import com.mealecule.core.enums.StatusEnum;
+import com.mealecule.core.model.BadgeModel;
+import com.mealecule.core.user.data.CustomerGameData;
 
 
 /**
@@ -38,62 +37,99 @@ public class UserBadgeReversePopulator implements Populator<CustomerData, UserMo
 	public void populate(final CustomerData source, final UserModel target) throws ConversionException
 	{
 		BadgeModel badgeModel = target.getBadge() == null ? new BadgeModel() : target.getBadge();
-		final Integer intCoins = source.getGameData().getCoins();
-		target.setCoins(intCoins);
-		boolean existingSilverActiveBadge = null != badgeModel.getLevel() && null != badgeModel.getStatus() && StatusEnum.ACTIVE.equals(badgeModel.getStatus()) && LevelEnum.SILVER.equals(badgeModel.getLevel());
-		boolean existingBronzeActiveBadge = null != badgeModel.getLevel() && null != badgeModel.getStatus() && StatusEnum.ACTIVE.equals(badgeModel.getStatus()) && LevelEnum.BRONZE.equals(badgeModel.getLevel());
-		if (intCoins >= 10000)
-		{
-			if(existingSilverActiveBadge || existingBronzeActiveBadge) {
-				badgeModel = getBadgeModel(badgeModel);
-			}
-			badgeModel.setLevel(LevelEnum.GOLD);
+		final CustomerGameData customerGameData = source.getGameData();
 
-			if (badgeModel.getLevel() != null && StringUtils.isEmpty(badgeModel.getId()))
+		final Integer intCoins = 0;
+		if (null != customerGameData && null != customerGameData.getCoins())
+		{
+			target.setCoins(customerGameData.getCoins());
+			intCoins = customerGameData.getCoins();
+			if (null != customerGameData.getHeight())
 			{
-				badgeModel.setId(target.getUid() + "_" + badgeModel.getLevel().getCode());
-				badgeModel.setStatus(StatusEnum.ACTIVE);
+				target.setHeight(customerGameData.getHeight());
 			}
-			getModelService().save(badgeModel);
-			target.setBadge(badgeModel);
+
+			if (null != customerGameData.getWeight())
+			{
+				target.setWeight(customerGameData.getWeight());
+			}
+
+			if (null != customerGameData.getAge())
+			{
+				target.setAge(customerGameData.getAge());
+			}
+
 		}
-		else if (intCoins >= 1000)
+		else if (null != target.getCoins())
 		{
-			if(existingBronzeActiveBadge) {
-				badgeModel = getBadgeModel(badgeModel);
-			}
-			badgeModel.setLevel(LevelEnum.SILVER);
-
-			if (badgeModel.getLevel() != null && StringUtils.isEmpty(badgeModel.getId()))
-			{
-				badgeModel.setId(target.getUid() + "_" + badgeModel.getLevel().getCode());
-				badgeModel.setStatus(StatusEnum.ACTIVE);
-			}
-			getModelService().save(badgeModel);
-			target.setBadge(badgeModel);
-		}
-		else if (intCoins >= 200 && !existingBronzeActiveBadge)
-		{
-			badgeModel.setLevel(LevelEnum.BRONZE);
-
-			if (badgeModel.getLevel() != null && StringUtils.isEmpty(badgeModel.getId()))
-			{
-				badgeModel.setId(target.getUid() + "_" + badgeModel.getLevel().getCode());
-				badgeModel.setStatus(StatusEnum.ACTIVE);
-			}
-			getModelService().save(badgeModel);
-			target.setBadge(badgeModel);
+			target.setCoins(target.getCoins());
+			intCoins = target.getCoins();
 		}
 
-		getModelService().save(target);
+		target.setHeight(source.getGameData().getHeight());
+		target.setWeight(source.getGameData().getWeight());
+		target.setAge(source.getGameData().getAge());
+		final boolean existingSilverActiveBadge = null != badgeModel.getLevel() && null != badgeModel.getStatus() && StatusEnum.ACTIVE.equals(badgeModel.getStatus()) && LevelEnum.SILVER.equals(badgeModel.getLevel());
+		final boolean existingBronzeActiveBadge = null != badgeModel.getLevel() && null != badgeModel.getStatus() && StatusEnum.ACTIVE.equals(badgeModel.getStatus()) && LevelEnum.BRONZE.equals(badgeModel.getLevel());
+
+		if (intCoins != null)
+		{
+			if (intCoins >= 10000)
+			{
+				if (existingSilverActiveBadge || existingBronzeActiveBadge)
+				{
+					badgeModel = getBadgeModel(badgeModel);
+				}
+				badgeModel.setLevel(LevelEnum.GOLD);
+
+				if (badgeModel.getLevel() != null && StringUtils.isEmpty(badgeModel.getId()))
+				{
+					badgeModel.setId(target.getUid() + "_" + badgeModel.getLevel().getCode());
+					badgeModel.setStatus(StatusEnum.ACTIVE);
+				}
+				getModelService().save(badgeModel);
+				target.setBadge(badgeModel);
+			}
+			else if (intCoins >= 1000)
+			{
+				if (existingBronzeActiveBadge)
+				{
+					badgeModel = getBadgeModel(badgeModel);
+				}
+				badgeModel.setLevel(LevelEnum.SILVER);
+
+				if (badgeModel.getLevel() != null && StringUtils.isEmpty(badgeModel.getId()))
+				{
+					badgeModel.setId(target.getUid() + "_" + badgeModel.getLevel().getCode());
+					badgeModel.setStatus(StatusEnum.ACTIVE);
+				}
+				getModelService().save(badgeModel);
+				target.setBadge(badgeModel);
+			}
+			else if (intCoins >= 200 && !existingBronzeActiveBadge)
+			{
+				badgeModel.setLevel(LevelEnum.BRONZE);
+
+				if (badgeModel.getLevel() != null && StringUtils.isEmpty(badgeModel.getId()))
+				{
+					badgeModel.setId(target.getUid() + "_" + badgeModel.getLevel().getCode());
+					badgeModel.setStatus(StatusEnum.ACTIVE);
+				}
+				getModelService().save(badgeModel);
+				target.setBadge(badgeModel);
+			}
+
+			getModelService().save(target);
+		}
 	}
+
 
 	private BadgeModel getBadgeModel(BadgeModel badgeModel) {
 		try {
 			LOG.debug("Deleting badge model: " + badgeModel.getId());
 			getModelService().remove(badgeModel);
 			LOG.debug("Succcessfully deleted associated appointment model");
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			LOG.debug("Error deleting badge model!", e);
 			LOG.error(e);
 		}
@@ -106,7 +142,7 @@ public class UserBadgeReversePopulator implements Populator<CustomerData, UserMo
 	}
 
 	@Required
-	public void setModelService(ModelService modelService) {
+	public void setModelService(final ModelService modelService) {
 		this.modelService = modelService;
 	}
 }

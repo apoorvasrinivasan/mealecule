@@ -10,7 +10,6 @@
  */
 package com.mealecule.core.v2.controller;
 
-import com.mealecule.facades.customer.MealeculeCustomerFacade;
 import de.hybris.platform.commercefacades.address.AddressVerificationFacade;
 import de.hybris.platform.commercefacades.address.data.AddressVerificationResult;
 import de.hybris.platform.commercefacades.customergroups.CustomerGroupFacade;
@@ -36,6 +35,7 @@ import de.hybris.platform.commercewebservicescommons.dto.user.UserSignUpWsDTO;
 import de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO;
 import de.hybris.platform.commercewebservicescommons.errors.exceptions.RequestParameterException;
 import de.hybris.platform.converters.Populator;
+import de.hybris.platform.core.GenericSearchConstants.LOG;
 import de.hybris.platform.core.PK.PKException;
 import de.hybris.platform.core.enums.OrderStatus;
 import de.hybris.platform.core.model.user.UserModel;
@@ -52,7 +52,6 @@ import de.hybris.platform.webservicescommons.errors.exceptions.WebserviceValidat
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -85,9 +84,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.util.UriUtils;
 
 import com.mealecule.core.constants.YcommercewebservicesConstants;
-import com.mealecule.core.enums.LevelEnum;
-import com.mealecule.core.enums.StatusEnum;
-import com.mealecule.core.model.BadgeModel;
 import com.mealecule.core.populator.HttpRequestCustomerDataPopulator;
 import com.mealecule.core.populator.options.PaymentInfoOption;
 import com.mealecule.core.user.data.AddressDataList;
@@ -96,6 +92,7 @@ import com.mealecule.core.user.data.CustomerGameWsDTO;
 import com.mealecule.core.user.data.PreferredMealeculeData;
 import com.mealecule.core.user.data.PreferredMealeculeWsDTO;
 import com.mealecule.core.validation.data.AddressValidationData;
+import com.mealecule.facades.customer.MealeculeCustomerFacade;
 
 
 /**
@@ -1457,9 +1454,32 @@ public class UsersController extends BaseCommerceController
 	{
 		final UserModel userModel = userService.getCurrentUser();
 		if(null != userModel){
-			final CustomerGameData customerGameData = mealeculeCustomerFacade.updateCustomerGameData(coins, userModel);
-			userModel.setCoins(coins);
-			modelService.save(userModel);
+			final CustomerGameData customerGameData = mealeculeCustomerFacade.updateCustomerGameData(coins, null, null, null,
+					userModel);
+			//			userModel.setCoins(coins);
+			//			modelService.save(userModel);
+			final CustomerData userData = getCustomerData(userModel);
+			if (null != userData.getGameData())
+			{
+				return getCustomerGameWsDTO(fields, userData, customerGameData);
+			}
+		}
+		return null;
+	}
+
+	@RequestMapping(value = "/{userId}/customerPersonalData", method = RequestMethod.POST)
+	@ResponseBody
+	public CustomerGameWsDTO createOrUpdateUserPersonalData(@RequestParam(defaultValue = DEFAULT_FIELD_SET)
+	final String fields, @RequestParam(defaultValue = "0")
+	final Integer height, @RequestParam(defaultValue = "0")
+	final Integer weight, @RequestParam(defaultValue = "0")
+	final Integer age, final HttpServletRequest httpRequest, final HttpServletResponse httpResponse)
+	{
+		final UserModel userModel = userService.getCurrentUser();
+		if (null != userModel)
+		{
+			final CustomerGameData customerGameData = mealeculeCustomerFacade.updateCustomerGameData(null, height, weight, age,
+					userModel);
 			final CustomerData userData = getCustomerData(userModel);
 			if (null != userData.getGameData())
 			{
