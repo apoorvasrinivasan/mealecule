@@ -127,20 +127,22 @@ export default {
          }
       })
    },
-   addToCart(p,success, error){
+   addToCart(p,success){
       let user = JSON.parse(localStorage.userData);
       let url = USER_BASE_URL + user.uid + '/carts/current/entries?code='+p;
+      let that = this;
       $.ajax({
          url,
          method:'POST',
          success:function(data){
             user.cart ++;
             localStorage.setItem('userData',JSON.stringify(user));
+            Common.Alert('Added to cart successfully');
             success(data);
          },
-         error:function(){
-            this.accessHandler();
-            error();
+         error:function(response){
+            that.accessHandler(response);
+            Common.Alert('Couldn\'t add to cart');
          }
       })
    },

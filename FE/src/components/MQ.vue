@@ -57,8 +57,6 @@ export default {
     this.prefered_mq = this.mqdata.filter(i=>{
         return i.show;
     })
-    console.log('prefered_mq')
-    console.log(this.prefered_mq)
   }
 }
 </script>
@@ -185,20 +183,22 @@ html { text-align:center; }
     display: grid;
 }
 .mq-data {
+    /*grid-gap: 2px;*/
+    background: #fff;
+    box-shadow: 0 0 1px 2px #ccc;
+    border-radius: 4px;
+    color: var(--red);
     display: none;
+    font-size: 10px;
+    grid-template-columns: auto 20px;
+    justify-content: space-between;
+    text-indent: 5px;
+    margin: 0 auto;
+    max-width: fit-content;
+    padding: 5px 15px 5px 3px;
     position: absolute;
     top:  0;
     width:  95%;
-    max-width: fit-content;
-    margin: 0 auto;
-    grid-template-columns: auto 20px;
-    /*grid-gap: 2px;*/
-    background: var(--red);
-    justify-content: space-between;
-    padding: 5px 10px;
-    border-radius: 4px;
-    color: #fff;
-    font-size: 10px;
 }
 .mq-data span:nth-child(2n-1) {
     overflow: hidden;

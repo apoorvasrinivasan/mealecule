@@ -3,7 +3,7 @@ div.ui.error.message.mobile-error
  | please play game from desktop
 div.gamearea
   div#score
-    div.ui.label.huge Score: {{score }} 
+    div.ui.label.huge Score: {{ score }} 
     div.ui.huge.circular.label.bCoins {{coins}}
     h3.ui.heading.red Avoid
     img.rule-images(v-for="img in mq_images" :src="require('../assets/' + img+'.png')")
@@ -49,7 +49,7 @@ export default {
       speed: 9000,
       startButton: 'Start',
       mq_images:[
-      'sugar','carbohydrate']
+      'sugar','carbohydrate', 'fat']
     }
   },
   mounted() {
@@ -79,7 +79,6 @@ export default {
       let coins = parseInt(vm.$root.total_coins);
       coins = vm.$root.total_coins += parseInt(vm.coins)
       User.addCoins(coins,()=>{
-        localStorage.setItem('coins', coins );
         vm.p_coins = vm.coins;
         vm.p_score = vm.score;
         vm.score = 0;
@@ -132,7 +131,7 @@ export default {
         if(p.top + 100 >=top && p.left/100 == left/100 ){
           if( $(this).hasClass('obsticle')){
             vm.stopGame();
-            Common.Alert('gameover')
+            Common.Alert('Gameover')
             return
           }
           if( $(this).hasClass('coins')){
@@ -146,6 +145,9 @@ export default {
 }
 </script>
 <style>
+.gamearea{
+  display: flex;
+}
 #gameArea {
   background: url(../assets/road.png);
   border:  1px solid #ccc;
@@ -210,9 +212,6 @@ export default {
   width: 50px;
 }
 
-#score{
-  position: absolute;
-}
 @keyframes fall {
   from {top: -50px;}
   to {top: 400px;}

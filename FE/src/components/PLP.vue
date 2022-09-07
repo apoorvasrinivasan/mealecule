@@ -78,6 +78,7 @@ export default {
   },
   mounted(){
    this.getProducts();
+   Common.Alert('hello')
 
   },
    watch: {
@@ -161,11 +162,7 @@ export default {
       e.preventDefault();
       User.addToCart(code, ()=>{
         vm.$root.cart ++;
-        Common.Alert('added to cart successfully')
-      },()=>{
-        Common.Alert('error in adding to cart')
-
-      })
+      });
     }
   }
 }

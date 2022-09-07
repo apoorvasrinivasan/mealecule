@@ -3,7 +3,7 @@ div.plp
     div.ui.grid.product(v-if="product.code")
       div.ui.grid.thirteen.wide.column.product
         section.five.wide.column.product-image.ui.image
-          img(src="'/api/'+product.imageURL" :alt="product.name")
+          img(v-if="product.imageURL" :src="'/api/'+ product.imageURL" :alt="product.name")
         section.ten.wide.column.product-detail
           div.ui.label(v-for ='c in product.categories') {{ c.code }}
           h1.header.ui {{ product.name }}
@@ -22,7 +22,7 @@ div.plp
         div.ui.section.divider
         section#Nutrients
           h3.ui.header Mealecules information
-          table.ui.table.definition
+          table.ui.table.definition.mqTable
             thead
               tr
                 th
@@ -32,9 +32,6 @@ div.plp
                 td {{ v }}
                 td {{ k }}
         div.ui.section.divider
-        section#Ingredients
-          h3.ui.header Ingredients
-          p {{ product.description }}  
 
       div.three.wide.column
         div.ui.segment.cta-box
@@ -50,13 +47,14 @@ div.plp
                 label(for="discountPrice") 
                   span.price {{product.price.discounted}}
                   span.ui.circular.label.tiny.bCoins {{product.price.coins}}
-            button.ui.button.fluid.primary Add to cart
+            button.ui.button.fluid.primary(v-on:click="addCart()") Add to cart
     
 </template>
 
 <script>
 
 import Product from '../services/product'
+import User from '../services/user'
 import MQ from './MQ.vue'
 
 export default {
@@ -83,8 +81,14 @@ export default {
         this.product = data; 
         console.log(data);
       });
-
-    
+  },
+  methods:{
+    addCart(code){
+      let vm = this;
+      User.addToCart(code, ()=>{
+        vm.$root.cart ++;
+      })
+    }
   }
 }
 </script>
@@ -119,7 +123,7 @@ export default {
   margin: 0;
   box-shadow: 0 1px 1px  #ccc;
 }
-.plutoCoin {
+.bCoins {
   display: inline-block;
   margin-left: 10px;
   vertical-align: middle;
@@ -130,5 +134,8 @@ export default {
 }
 .cta-box .checkbox {
   width: 100%;
+}
+.mqTable{
+  text-transform: capitalize;
 }
 </style>
