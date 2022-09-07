@@ -31,7 +31,28 @@ INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=d
 ;300Wx300H;504.jpg;$siteResource/images/504.jpg;;;images;/images/504.jpg
 ;300Wx300H;505.jpg;$siteResource/images/505.jpg;;;images;/images/505.jpg
 ;300Wx300H;506.jpg;$siteResource/images/506.jpg;;;images;/images/506.jpg
-
+;300Wx300H;507.jpg;$siteResource/images/507.jpg;;;images;/images/507.jpg
+;300Wx300H;508.jpg;$siteResource/images/508.jpg;;;images;/images/508.jpg
+;300Wx300H;509.jpg;$siteResource/images/509.jpg;;;images;/images/509.jpg
+;300Wx300H;510.jpg;$siteResource/images/510.jpg;;;images;/images/510.jpg
+;300Wx300H;511.jpg;$siteResource/images/511.jpg;;;images;/images/511.jpg
+;300Wx300H;701.jpg;$siteResource/images/701.jpg;;;images;/images/701.jpg
+;300Wx300H;702.jpg;$siteResource/images/702.jpg;;;images;/images/702.jpg
+;300Wx300H;703.jpg;$siteResource/images/703.jpg;;;images;/images/703.jpg
+;300Wx300H;704.jpg;$siteResource/images/704.jpg;;;images;/images/704.jpg
+;300Wx300H;705.jpg;$siteResource/images/705.jpg;;;images;/images/705.jpg
+;300Wx300H;706.jpg;$siteResource/images/706.jpg;;;images;/images/706.jpg
+;300Wx300H;707.jpg;$siteResource/images/707.jpg;;;images;/images/707.jpg
+;300Wx300H;901.jpg;$siteResource/images/901.jpg;;;images;/images/901.jpg
+;300Wx300H;902.jpg;$siteResource/images/902.jpg;;;images;/images/902.jpg
+;300Wx300H;903.jpg;$siteResource/images/903.jpg;;;images;/images/903.jpg
+;300Wx300H;904.jpg;$siteResource/images/904.jpg;;;images;/images/904.jpg
+;300Wx300H;905.jpg;$siteResource/images/905.jpg;;;images;/images/905.jpg
+;300Wx300H;906.jpg;$siteResource/images/906.jpg;;;images;/images/906.jpg
+;300Wx300H;907.jpg;$siteResource/images/907.jpg;;;images;/images/907.jpg
+;300Wx300H;908.jpg;$siteResource/images/908.jpg;;;images;/images/908.jpg
+;300Wx300H;909.jpg;$siteResource/images/909.jpg;;;images;/images/909.jpg
+;300Wx300H;910.jpg;$siteResource/images/910.jpg;;;images;/images/910.jpg
 
 
 UPDATE Product;code[unique=true];$picture;$thumbnail;$detail;$others;$normal;$thumbnails;$galleryImages;$catalogVersion;
@@ -41,6 +62,30 @@ UPDATE Product;code[unique=true];$picture;$thumbnail;$detail;$others;$normal;$th
               ;504;;;504.jpg;;;;;
               ;505;;;505.jpg;;;;;
               ;506;;;506.jpg;;;;;
+              ;507;;;507.jpg;;;;;
+              ;508;;;508.jpg;;;;;
+              ;509;;;509.jpg;;;;;
+              ;510;;;510.jpg;;;;;
+              ;511;;;511.jpg;;;;;
+              ;701;;;701.jpg;;;;;
+              ;702;;;702.jpg;;;;;
+              ;703;;;703.jpg;;;;;
+              ;704;;;704.jpg;;;;;
+              ;705;;;705.jpg;;;;;
+              ;706;;;706.jpg;;;;;
+              ;707;;;707.jpg;;;;;
+              ;901;;;901.jpg;;;;;
+              ;902;;;902.jpg;;;;;
+              ;903;;;903.jpg;;;;;
+              ;904;;;904.jpg;;;;;
+              ;905;;;905.jpg;;;;;
+              ;906;;;906.jpg;;;;;
+              ;907;;;907.jpg;;;;;
+              ;908;;;908.jpg;;;;;
+              ;909;;;909.jpg;;;;;
+              ;910;;;910.jpg;;;;;
+
+
 
 
 
@@ -75,6 +120,28 @@ INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=d
 ;300Wx300H;504.jpg;$siteResource/images/504.jpg;;;images;/images/504.jpg
 ;300Wx300H;505.jpg;$siteResource/images/505.jpg;;;images;/images/505.jpg
 ;300Wx300H;506.jpg;$siteResource/images/506.jpg;;;images;/images/506.jpg
+;300Wx300H;507.jpg;$siteResource/images/507.jpg;;;images;/images/507.jpg
+;300Wx300H;508.jpg;$siteResource/images/508.jpg;;;images;/images/508.jpg
+;300Wx300H;509.jpg;$siteResource/images/509.jpg;;;images;/images/509.jpg
+;300Wx300H;510.jpg;$siteResource/images/510.jpg;;;images;/images/510.jpg
+;300Wx300H;511.jpg;$siteResource/images/511.jpg;;;images;/images/511.jpg
+;300Wx300H;701.jpg;$siteResource/images/701.jpg;;;images;/images/701.jpg
+;300Wx300H;702.jpg;$siteResource/images/702.jpg;;;images;/images/702.jpg
+;300Wx300H;703.jpg;$siteResource/images/703.jpg;;;images;/images/703.jpg
+;300Wx300H;704.jpg;$siteResource/images/704.jpg;;;images;/images/704.jpg
+;300Wx300H;705.jpg;$siteResource/images/705.jpg;;;images;/images/705.jpg
+;300Wx300H;706.jpg;$siteResource/images/706.jpg;;;images;/images/706.jpg
+;300Wx300H;707.jpg;$siteResource/images/707.jpg;;;images;/images/707.jpg
+;300Wx300H;901.jpg;$siteResource/images/901.jpg;;;images;/images/901.jpg
+;300Wx300H;902.jpg;$siteResource/images/902.jpg;;;images;/images/902.jpg
+;300Wx300H;903.jpg;$siteResource/images/903.jpg;;;images;/images/903.jpg
+;300Wx300H;904.jpg;$siteResource/images/904.jpg;;;images;/images/904.jpg
+;300Wx300H;905.jpg;$siteResource/images/905.jpg;;;images;/images/905.jpg
+;300Wx300H;906.jpg;$siteResource/images/906.jpg;;;images;/images/906.jpg
+;300Wx300H;907.jpg;$siteResource/images/907.jpg;;;images;/images/907.jpg
+;300Wx300H;908.jpg;$siteResource/images/908.jpg;;;images;/images/908.jpg
+;300Wx300H;909.jpg;$siteResource/images/909.jpg;;;images;/images/909.jpg
+;300Wx300H;910.jpg;$siteResource/images/910.jpg;;;images;/images/910.jpg
 
 
 UPDATE Product;code[unique=true];$picture;$thumbnail;$detail;$others;$normal;$thumbnails;$galleryImages;$catalogVersion;
@@ -84,4 +151,25 @@ UPDATE Product;code[unique=true];$picture;$thumbnail;$detail;$others;$normal;$th
 ;504;;;504.jpg;;;;;
 ;505;;;505.jpg;;;;;
 ;506;;;506.jpg;;;;;
-
+;507;;;507.jpg;;;;;
+;508;;;508.jpg;;;;;
+;509;;;509.jpg;;;;;
+;510;;;510.jpg;;;;;
+;511;;;511.jpg;;;;;
+;701;;;701.jpg;;;;;
+;702;;;702.jpg;;;;;
+;703;;;703.jpg;;;;;
+;704;;;704.jpg;;;;;
+;705;;;705.jpg;;;;;
+;706;;;706.jpg;;;;;
+;707;;;707.jpg;;;;;
+;901;;;901.jpg;;;;;
+;902;;;902.jpg;;;;;
+;903;;;903.jpg;;;;;
+;904;;;904.jpg;;;;;
+;905;;;905.jpg;;;;;
+;906;;;906.jpg;;;;;
+;907;;;907.jpg;;;;;
+;908;;;908.jpg;;;;;
+;909;;;909.jpg;;;;;
+;910;;;910.jpg;;;;;

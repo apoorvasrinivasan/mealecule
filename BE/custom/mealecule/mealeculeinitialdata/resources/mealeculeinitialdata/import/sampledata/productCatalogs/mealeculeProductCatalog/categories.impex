@@ -61,3 +61,55 @@ INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories;
 ;healthDrinks;beverages
 ;softDrinks;beverages
 ;cereals;beverages
+
+
+$productCatalog=mealeculeProductCatalog
+$productCatalogName=Mealecule Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+
+# Insert Categories
+INSERT_UPDATE Category;code[unique=true];allowedPrincipals(uid)[default='customergroup'];$catalogVersion
+                      ;diary
+                      ;milk
+                      ;dessert
+                      ;baking
+                      ;snacks
+                      ;beverages
+                      ;milk
+                      ;butter
+                      ;cheese
+                      ;iceCream
+                      ;bread
+                      ;cookie
+                      ;cakes
+                      ;noodles
+                      ;pasta
+                      ;biscuits
+                      ;coffee
+                      ;juices
+                      ;healthDrinks
+                      ;softDrinks
+                      ;cereals
+                      ;chocolates
+
+
+# Insert Category Structure
+INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories;
+                                      ;milk;diary
+                                      ;butter;diary
+                                      ;cheese;diary
+                                      ;iceCream;dessert
+                                      ;chocolates;dessert
+                                      ;bread;baking
+                                      ;cookie;baking
+                                      ;cakes;baking
+                                      ;noodles;snacks
+                                      ;pasta;snacks
+                                      ;biscuits;snacks
+                                      ;coffee;beverages
+                                      ;juices;beverages
+                                      ;healthDrinks;beverages
+                                      ;softDrinks;beverages
+                                      ;cereals;beverages

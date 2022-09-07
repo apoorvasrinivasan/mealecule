@@ -43,3 +43,14 @@ INSERT_UPDATE PriceRow;productId[unique=true];unit(code[unique=true,default=piec
 ;705;pieces;USD;52;1;1;false
 ;706;pieces;USD;40;1;1;false
 ;707;pieces;USD;540;1;1;false
+
+;901;pieces;USD;293.04;1;1;false
+;902;pieces;USD;99;1;1;false
+;903;pieces;USD;30;1;1;false
+;904;pieces;USD;214;1;1;false
+;905;pieces;USD;725;1;1;false
+;906;pieces;USD;325;1;1;false
+;907;pieces;USD;125;1;1;false
+;908;pieces;USD;275;1;1;false
+;909;pieces;USD;1080;1;1;false
+;910;pieces;USD;210;1;1;false
