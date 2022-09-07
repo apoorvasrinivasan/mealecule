@@ -64,7 +64,7 @@ export default {
          url:url,
          method:'post',
          data:JSON.stringify(user),
-         contentType:'Application/json',
+         contentType:'application/json',
          dataType:'json',
          success:(data)=>{
             success(data)
