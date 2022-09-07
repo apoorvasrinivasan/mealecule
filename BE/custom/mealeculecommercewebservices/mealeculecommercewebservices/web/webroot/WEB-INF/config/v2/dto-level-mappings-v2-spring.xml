@@ -1489,11 +1489,11 @@
 		<property name="levelMapping">
 			<map>
 				<entry key="BASIC"
-					   value="coins,badge"/>
+					   value="coins,badge,height,weight,age"/>
 				<entry key="DEFAULT"
-					   value="coins,badge"/>
+					   value="coins,badge,height,weight,age"/>
 				<entry key="FULL"
-					   value="coins,badge"/>
+					   value="coins,badge,height,weight,age"/>
 			</map>
 		</property>
 	</bean>

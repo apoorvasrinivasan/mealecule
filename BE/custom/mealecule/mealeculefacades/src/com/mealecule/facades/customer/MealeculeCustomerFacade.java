@@ -10,11 +10,12 @@
  */
 package com.mealecule.facades.customer;
 
-import com.mealecule.core.user.data.CustomerGameData;
-import com.mealecule.core.user.data.PreferredMealeculeData;
 import de.hybris.platform.commercefacades.customer.CustomerFacade;
 import de.hybris.platform.commercefacades.user.data.CustomerData;
 import de.hybris.platform.core.model.user.UserModel;
+
+import com.mealecule.core.user.data.CustomerGameData;
+import com.mealecule.core.user.data.PreferredMealeculeData;
 
 
 /**
@@ -22,7 +23,7 @@ import de.hybris.platform.core.model.user.UserModel;
  */
 public interface MealeculeCustomerFacade extends CustomerFacade
 {
-	CustomerGameData updateCustomerGameData(Integer coins, UserModel userModel);
+	CustomerGameData updateCustomerGameData(Integer coins, Integer height, Integer weight, Integer age, UserModel userModel);
 
 	PreferredMealeculeData updatePreferredMealecule(String preferredMealecule, String maxMealecule, String minMealecule, UserModel userModel, CustomerData userData);
 }

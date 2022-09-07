@@ -279,6 +279,21 @@
                     <modifiers optional="true" />
                     <persistence type="property" />
                 </attribute>
+                <attribute type="java.lang.Integer" qualifier="height">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="java.lang.Integer" qualifier="weight">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="java.lang.Integer" qualifier="age">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
             </attributes>
         </itemtype>
         <itemtype code="MealeculeQuotientData">
