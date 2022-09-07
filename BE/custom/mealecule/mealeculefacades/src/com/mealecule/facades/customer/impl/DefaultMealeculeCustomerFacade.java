@@ -38,15 +38,16 @@ public class DefaultMealeculeCustomerFacade extends DefaultCustomerFacade implem
 		userModel.setPreferredMealecule(
 				StringUtils.isNotBlank(preferredMealecule) ? Arrays.asList(preferredMealecule.split(",")) : null);
 		final PreferredMealeculeData mealeculeData = new PreferredMealeculeData();
-		mealeculeData.setPreferredMealecule(userData.getPreferredMealecule());
+
 		if(StringUtils.isNotBlank(maxMealecule)){
 			userModel.setMaxMealecule(maxMealecule);
-			mealeculeData.setMaxMealecule(userModel.getMaxMealecule());
+			mealeculeData.setMaxMealecule(maxMealecule);
 		}
 		if(StringUtils.isNotBlank(minMealecule)){
 			userModel.setMinMealecule(minMealecule);
-			mealeculeData.setMinMealecule(userModel.getMinMealecule());
+			mealeculeData.setMinMealecule(minMealecule);
 		}
+		mealeculeData.setPreferredMealecule(StringUtils.isNotBlank(preferredMealecule) ? Arrays.asList(preferredMealecule.split(",")) : null);
 
 		getModelService().save(userModel);
 		return mealeculeData;
