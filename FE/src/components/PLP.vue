@@ -55,7 +55,6 @@ div.plp
 
 import Product from '../services/product'
 import User from '../services/user'
-import Common from '../services/common'
 import MQ from './MQ.vue'
 
 export default {
@@ -78,8 +77,6 @@ export default {
   },
   mounted(){
    this.getProducts();
-   Common.Alert('hello')
-
   },
    watch: {
     '$route' () {
@@ -160,8 +157,9 @@ export default {
     addCart(e, code){
       let vm = this;
       e.preventDefault();
-      User.addToCart(code, ()=>{
+      User.addToCart(code, (data)=>{
         vm.$root.cart ++;
+        vm.$root.cartMQ = data.mealeculeQuotientData;
       });
     }
   }
@@ -290,10 +288,13 @@ export default {
 }
 .ui.cards>.card> .image {
   background: #fff;
+  display: flex;
+  height: 200px;
+  align-items: center;
 }
 .ui.cards>.card>.image>img{
   width: auto;
-  height:  200px;
+  max-height:  100%;
   margin:  0 auto;
 }
 @media screen and (max-width:  800px){

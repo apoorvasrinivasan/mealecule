@@ -136,6 +136,7 @@ export default {
          method:'POST',
          success:function(data){
             user.cart ++;
+            user.cartMQ = data.mealeculeQuotientData;
             localStorage.setItem('userData',JSON.stringify(user));
             Common.Alert('Added to cart successfully');
             success(data);
