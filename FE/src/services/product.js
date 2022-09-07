@@ -41,7 +41,15 @@ export default {
          }
       )
     },
+    getMealeculeList(success){
+      let URL = BASE_URL + "/products/getAllPreferredMealecules";
+      $.get(URL,
+         (data)=>{
+            success(data)
+         }
+      )
 
+    },
     makeMQData (mq) {
         let cal = (mq)? mq.energy : 0;
         let weight = mq.weightInG || mq.weightInML;

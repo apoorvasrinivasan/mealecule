@@ -35,19 +35,17 @@ div.plp
 
       div.three.wide.column
         div.ui.segment.cta-box
-          form.ui.form
-            div.ui.grouped.fields
-              div.ui.radio.checkbox
-                input#fulPrice(type="radio" name="price")
-                label(for="fulPrice") 
-                  span.price {{product.price.value }}
+            div.ui.label.green.ribbon {{product.stock.stockLevelStatus}} 
+            div
+              span.mrp-label MRP
+              span.price {{product.price.value }}
             
-              div.ui.radio.checkbox
-                input#discountPrice(type="radio" name="price")
-                label(for="discountPrice") 
-                  span.price {{product.price.discounted}}
-                  span.ui.circular.label.tiny.bCoins {{product.price.coins}}
-            button.ui.button.fluid.primary(v-on:click="addCart()") Add to cart
+            div
+              span.discounted.price {{product.price.discounted}}
+              span.ui.circular.label.tiny.bCoins {{product.price.coins}}
+            small You can get upto Rs.{{product.price.coins}} discount. 
+
+            button.ui.button.fluid.primary.addtocart(v-on:click="addCart()") Add to cart
     
 </template>
 
@@ -72,8 +70,8 @@ export default {
       Product.getProduct(code,(data) => {
         this.product = data; 
         this.product.mq = Product.makeMQData(data.mealeculeQuotientData);
-        this.product.price.coins = Math.floor(data.value /10);
-        this.product.price.discounted = data.value - this.product.price.coins;
+        this.product.price.coins = Math.floor(data.price.value /10);
+        this.product.price.discounted = data.price.value - this.product.price.coins;
           
       },
       (data) => {
@@ -83,10 +81,12 @@ export default {
       });
   },
   methods:{
-    addCart(code){
+    addCart(){
       let vm = this;
-      User.addToCart(code, ()=>{
+      let code =  this.$route.params.code;
+      User.addToCart(code, (data)=>{
         vm.$root.cart ++;
+        vm.$root.cartMQ = data.mealeculeQuotientData;
       })
     }
   }
@@ -137,5 +137,38 @@ export default {
 }
 .mqTable{
   text-transform: capitalize;
+}
+.addtocart{
+  margin-top: 15px;
+}
+.discounted.price{
+  color: var(--red);
+  font-size:  1.1em;
+}
+.mrp-label {
+  display: inline-block;
+  margin-right:  5px;
+  font-size:  .8em;
+  color: var(--lightgrey);
+}
+
+@media screen and (max-width:  800px){
+  .ui.segment.cta-box {
+    bottom: 0;
+    height: fit-content;
+    left: 0;
+    top: unset;
+    width: 100%;
+    z-index: 5;
+  }
+  .ui.grid.product{
+    display: grid;
+    grid-gap:  24px;
+  }
+   .ui.grid>[class*="wide"].column{
+    min-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+   }
 }
 </style>

@@ -107,7 +107,7 @@ export default {
                Common.Alert('new badge received '+data.badge.level);
             }
             localStorage.setItem('userData', JSON.stringify(user));
-            success();
+            success(data);
          },
          error:function(){
             error()
@@ -136,6 +136,7 @@ export default {
          method:'POST',
          success:function(data){
             user.cart ++;
+            user.cartMQ = data.mealeculeQuotientData;
             localStorage.setItem('userData',JSON.stringify(user));
             Common.Alert('Added to cart successfully');
             success(data);
@@ -147,12 +148,30 @@ export default {
       })
    },
    myCart(success, error){
-      let user = localStorage.user;
-      let url = USER_BASE_URL + user + '/carts/current/';
+      let user = JSON.parse(localStorage.userData);
+      let url = USER_BASE_URL + user.uid + '/carts/current/';
       $.ajax({
          url,
          method:'GET',
          success:function(data){
+            success(data);
+         },
+         error:function(){
+            this.accessHandler();
+            error();
+         }
+      })
+   },
+   postMealecule(preferredMealecule, success, error){
+      let user = JSON.parse(localStorage.userData);
+      let url = USER_BASE_URL + user.uid + '/preferredMealecules?preferredMealecule='+preferredMealecule;
+      $.ajax({
+         url,
+         method:'POST',
+         success:function(data){
+            Common.Alert('Saved')
+            user.preferredMealecule = data.preferredMealecule;
+            localStorage.setItem('userData', JSON.stringify(user));
             success(data);
          },
          error:function(){

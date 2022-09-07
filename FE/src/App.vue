@@ -18,7 +18,7 @@
     </div>
     
     <div class="right menu" >
-    <div class="item"><span v-for="p in preferredMealecule" :key="p">{{p}},</span> </div>
+    <div class="item"><span v-for="k,v in cartMQ" :key="k">{{v}}:{{ Math.floor(k)}}</span> </div>
     <div class="item"> Total Coins : {{total_coins }} </div>
       <router-link to="/login" class='item' v-if="!isLogged">Login</router-link>
       <router-link :to="{name:'MyAccount'}" class="item" v-if="isLogged">
@@ -53,6 +53,7 @@ export default {
       categories:[],
       cart:1,
       total_coins: 0,
+      cartMQ:{},
       preferredMealecule:[],
       defaultPreferredMealecule:[
         'carbohydrate',
@@ -83,8 +84,11 @@ export default {
       }
       catch(e) {return;}
       if(!user) return;
+
       this.cart = user.cart;
-      this.total_coins = user.gameData.coins
+      this.cartMQ = user.cartMQ;
+      console.log(this.cartMQ);
+      this.total_coins = user.gameData.coins;
       let pm = user.preferredMealecule;
       if(pm.length > 1) this.preferredMealecule = pm;
       
