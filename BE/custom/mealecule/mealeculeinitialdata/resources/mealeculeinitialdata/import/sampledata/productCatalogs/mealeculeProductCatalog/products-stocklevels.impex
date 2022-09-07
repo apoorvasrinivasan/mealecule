@@ -1,0 +1,88 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Products stock levels into Electronics Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog=mealeculeProductCatalog
+$productCatalogName=Mealecule Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+INSERT_UPDATE Warehouse;code[unique=true];name[lang=en];name[lang=de]
+;warehouse_s;Warehouse South;Warehouse South
+;warehouse_e;Warehouse East;Warehouse East
+;warehouse_w;Warehouse West;Warehouse West
+;warehouse_n;Warehouse North;Warehouse North
+
+INSERT_UPDATE StockLevel;available;warehouse(code)[unique=true];inStockStatus(code);maxPreOrder;maxStockLevelHistoryCount;overSelling;preOrder;productCode[unique=true];reserved
+;1000;warehouse_s;notSpecified;1;0;0;0;123456;0
+;1000;warehouse_s;notSpecified;1;0;0;0;501;0
+;1000;warehouse_s;notSpecified;1;0;0;0;502;0
+;1000;warehouse_s;notSpecified;1;0;0;0;503;0
+;1000;warehouse_s;notSpecified;1;0;0;0;504;0
+;1000;warehouse_s;notSpecified;1;0;0;0;505;0
+;1000;warehouse_s;notSpecified;1;0;0;0;506;0
+;1000;warehouse_s;notSpecified;1;0;0;0;507;0
+;1000;warehouse_s;notSpecified;1;0;0;0;508;0
+;1000;warehouse_s;notSpecified;1;0;0;0;509;0
+;1000;warehouse_s;notSpecified;1;0;0;0;510;0
+;1000;warehouse_s;notSpecified;1;0;0;0;511;0
+
+;1000;warehouse_s;notSpecified;1;0;0;0;701;0
+;1000;warehouse_s;notSpecified;1;0;0;0;702;0
+;1000;warehouse_s;notSpecified;1;0;0;0;703;0
+;1000;warehouse_s;notSpecified;1;0;0;0;704;0
+;1000;warehouse_s;notSpecified;1;0;0;0;705;0
+;1000;warehouse_s;notSpecified;1;0;0;0;706;0
+;1000;warehouse_s;notSpecified;1;0;0;0;707;0
+;1000;warehouse_s;notSpecified;1;0;0;0;901;0
+;1000;warehouse_s;notSpecified;1;0;0;0;902;0
+;1000;warehouse_s;notSpecified;1;0;0;0;903;0
+;1000;warehouse_s;notSpecified;1;0;0;0;904;0
+;1000;warehouse_s;notSpecified;1;0;0;0;905;0
+;1000;warehouse_s;notSpecified;1;0;0;0;906;0
+;1000;warehouse_s;notSpecified;1;0;0;0;907;0
+;1000;warehouse_s;notSpecified;1;0;0;0;908;0
+;1000;warehouse_s;notSpecified;1;0;0;0;909;0
+;1000;warehouse_s;notSpecified;1;0;0;0;910;0
+
+
+
+UPDATE Product;code[unique=true];$catalogVersion;stockLevels(productCode,warehouse(code));vendors(code)
+;123456;;123456:warehouse_s;
+;501;;501:warehouse_s;
+;502;;502:warehouse_s;
+;503;;503:warehouse_s;
+;504;;504:warehouse_s;
+;505;;505:warehouse_s;
+;506;;506:warehouse_s;
+;507;;507:warehouse_s;
+;508;;508:warehouse_s;
+;509;;509:warehouse_s;
+;510;;510:warehouse_s;
+;511;;511:warehouse_s;
+
+;701;;701:warehouse_s;
+;702;;702:warehouse_s;
+;703;;703:warehouse_s;
+;704;;704:warehouse_s;
+;705;;706:warehouse_s;
+;707;;707:warehouse_s;
+
+;901;;901:warehouse_s;
+;902;;902:warehouse_s;
+;903;;903:warehouse_s;
+;904;;904:warehouse_s;
+;905;;905:warehouse_s;
+;906;;906:warehouse_s;
+;907;;907:warehouse_s;
+;908;;908:warehouse_s;
+;909;;909:warehouse_s;
+;910;;910:warehouse_s;

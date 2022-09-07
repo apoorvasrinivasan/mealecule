@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="items.xsd">
+
+    <collectiontypes>
+        <collectiontype code="GenderList" elementtype="Gender" autocreate="true" generate="true" type="list"/>
+        <collectiontype code="SwatchColorSet" elementtype="SwatchColorEnum" autocreate="true" generate="true"
+                        type="set"/>
+        <collectiontype code="StringList" elementtype="java.lang.String" autocreate="true" generate="true" type="list"/> 
+             
+    </collectiontypes>
+    <enumtypes>
+        <enumtype generate="true" code="SwatchColorEnum" autocreate="true" dynamic="true">
+            <value code="BLACK"/>
+            <value code="BLUE"/>
+            <value code="BROWN"/>
+            <value code="GREEN"/>
+            <value code="GREY"/>
+            <value code="ORANGE"/>
+            <value code="PINK"/>
+            <value code="PURPLE"/>
+            <value code="RED"/>
+            <value code="SILVER"/>
+            <value code="WHITE"/>
+            <value code="YELLOW"/>
+        </enumtype>
+
+        <enumtype generate="true" code="LevelEnum" autocreate="true" dynamic="true">
+        	<value code="GOLD"/>
+        	<value code="SILVER"/>
+        	<value code="BRONZE"/>
+        </enumtype>
+        
+        <enumtype generate="true" code="DisplayNameEnum" autocreate="true" dynamic="true">
+        	<value code="REGISTERED"/>
+        	<value code="NONREGISTERED"/>
+        </enumtype>
+
+        <enumtype generate="true" code="MealeculeQuotientEnum" autocreate="true" dynamic="true">
+            <value code="CARBOHYDRATE"/>
+            <value code="FAT"/>
+            <value code="PROTEIN"/>
+            <value code="FIBER"/>
+            <value code="CALORIES"/>
+            <value code="WATER"/>
+            <value code="SUGAR"/>
+        </enumtype>
+        
+         <enumtype generate="true" code="StatusEnum" autocreate="true" dynamic="true">
+            <value code="ACTIVE"/>
+            <value code="INACTIVE"/>
+            <value code="NOT_APPLICABLE"/>
+        </enumtype>
+    </enumtypes>
+
+    <relations>
+        <relation code="MealeculeQuotientToProduct" localized="false" generate="true" autocreate="true">
+            <sourceElement type="MealeculeQuotient" qualifier="mealeculeQuotient" cardinality="one" />
+            <targetElement type="Product" qualifier="product" cardinality="many"  />
+        </relation>
+        <relation code="ProductToIngredients" localized="false" generate="true" autocreate="true">
+            <sourceElement type="Ingredients" qualifier="ingredients" cardinality="one" />
+            <targetElement type="Product" qualifier="product" cardinality="many" />
+        </relation>
+        <relation code="MealeculeInfoToMealeculeQuotientDatas" localized="false" generate="true" autocreate="true">
+            <sourceElement type="MealeculeQuotient" qualifier="mealeculeQuotient" cardinality="one" />
+            <targetElement type="MealeculeQuotientData" qualifier="mealeculeQuotientData" cardinality="many" collectiontype="list"/>
+        </relation>
+    </relations>
+
+    <itemtypes>
+
+            <itemtype code="ApparelProduct" extends="Product"
+                      autocreate="true" generate="true"
+                      jaloclass="com.mealecule.core.jalo.ApparelProduct">
+                <description>Base apparel product extension that contains additional attributes.</description>
+                <attributes>
+                    <attribute qualifier="genders" type="GenderList">
+                        <description>List of genders that the ApparelProduct is designed for</description>
+                        <modifiers/>
+                        <persistence type="property"/>
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+            <itemtype code="ApparelStyleVariantProduct" extends="VariantProduct"
+                      autocreate="true" generate="true"
+                      jaloclass="com.mealecule.core.jalo.ApparelStyleVariantProduct">
+                <description>Apparel style variant type that contains additional attribute describing variant style.
+                </description>
+                <attributes>
+                    <attribute qualifier="style" type="localized:java.lang.String"
+                               metatype="VariantAttributeDescriptor">
+                        <description>Color/Pattern of the product.</description>
+                        <modifiers/>
+                        <persistence type="property"/>
+                    </attribute>
+
+                    <attribute qualifier="swatchColors" type="SwatchColorSet">
+                        <description>A normalized color mapping to a standardized front-end navigable name.
+                        </description>
+                        <modifiers/>
+                        <persistence type="property"/>
+                    </attribute>
+                </attributes>
+
+            </itemtype>
+
+            <itemtype code="ApparelSizeVariantProduct" extends="ApparelStyleVariantProduct"
+                      autocreate="true" generate="true"
+                      jaloclass="com.mealecule.core.jalo.ApparelSizeVariantProduct">
+                <description>Apparel size variant type that contains additional attribute describing variant size.
+                </description>
+                <attributes>
+                    <attribute qualifier="size" type="localized:java.lang.String"
+                               metatype="VariantAttributeDescriptor">
+                        <description>Size of the product.</description>
+                        <modifiers/>
+                        <persistence type="property"/>
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+            <itemtype code="ElectronicsColorVariantProduct" extends="VariantProduct"
+                      autocreate="true" generate="true"
+                      jaloclass="com.mealecule.core.jalo.ElectronicsColorVariantProduct">
+                <description>Electronics color variant type that contains additional attribute describing variant color.
+                </description>
+                <attributes>
+                    <attribute qualifier="color" type="localized:java.lang.String"
+                               metatype="VariantAttributeDescriptor">
+                        <description>Color of the product.</description>
+                        <modifiers/>
+                        <persistence type="property"/>
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+        <!-- Add your item definitions here -->
+        <itemtype code="MealeculeQuotient" autocreate="true" generate="true">
+            <deployment table="mealeculeQuotient" typecode="10140"/>
+            <attributes>
+                <attribute type="java.lang.String" qualifier="code">
+                    <description></description>
+                    <modifiers unique="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="java.lang.Double" qualifier="weightInG">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="java.lang.Double" qualifier="weightInML">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+        </itemtype>
+        <itemtype code="Ingredients" autocreate="true" generate="true">
+            <deployment table="ingredients" typecode="10141"/>
+            <attributes>
+                <attribute type="java.lang.String" qualifier="code">
+                    <description></description>
+                    <modifiers unique="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="java.lang.Double" qualifier="cocoa">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="java.lang.Double" qualifier="sugar">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="java.lang.Double" qualifier="cocoaButter">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="java.lang.Double" qualifier="emulsifier">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="java.lang.Double" qualifier="soya">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="java.lang.Double" qualifier="gelatin">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+        </itemtype>
+        <itemtype code="Product" autocreate="false" generate="false">
+            <attributes>
+                <attribute type="java.lang.Double" qualifier="weightInG">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="java.lang.Double" qualifier="weightInML">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="java.lang.Double" qualifier="totalCalories">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+        </itemtype>
+        <itemtype code="Badge" autocreate="true" generate="true">
+            <deployment table="badge" typecode="10142"/>
+            <attributes>
+                <attribute type="java.lang.String" qualifier="id">
+                    <description></description>
+                    <modifiers unique="true"/>
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="LevelEnum" qualifier="level">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="DisplayNameEnum" qualifier="displayName">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="StatusEnum" qualifier="status">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="User" autocreate="false" generate="false">
+            <attributes>
+                <attribute type="java.lang.Integer" qualifier="coins">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="java.lang.String" qualifier="maxMealecule">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="java.lang.String" qualifier="minMealecule">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="StringList" qualifier="preferredMealecule">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="Badge" qualifier="badge">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+        </itemtype>
+        <itemtype code="MealeculeQuotientData">
+            <deployment table="MealeculeQuotientData" typecode="10200"/>
+            <attributes>
+                <attribute type="java.lang.String" qualifier="code">
+                    <description></description>
+                    <modifiers unique="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="mealeculeQuotientType" type="MealeculeQuotientEnum">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="java.lang.Double" qualifier="value">
+                    <description></description>
+                    <modifiers optional="true" />
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+        </itemtype>
+    </itemtypes>
+</items>

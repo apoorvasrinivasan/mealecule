@@ -1,0 +1,61 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Products into Electronics Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog=mealeculeProductCatalog
+$productCatalogName=Mealecule Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+
+# Insert Products
+INSERT_UPDATE Product;code[unique=true];$supercategories;manufacturerName;manufacturerAID;unit(code);ean;variantType(code);$catalogVersion;$approved;weightInG;weightInML;totalCalories
+;123456;noodles;Maggi;MaggiID;pieces;;;;;
+;501;biscuits;Cadbury Oreo;CadburryOreoID;pieces;;;;;46.3;;483
+;502;biscuits;Britannia NutriChoice;BritanniaNutriChoiceID;pieces;;;;;50;;493
+;503;biscuits;Britannia;BritanniaID;pieces;;;;;67;;463
+;504;biscuits;Britannia;BritanniaID;pieces;;;;;600;;512
+;505;biscuits;Britannia NutriChoice;BritanniaNutriChoiceID;pieces;;;;;200;;488
+;506;biscuits;SUNFEAST;SUNFEASTID;pieces;;;;;75;;520
+;507;biscuits;Britannia;BritanniaID;pieces;;;;;150;;452
+;508;biscuits;Britannia;BritanniaID;pieces;;;;;39;;493
+;509;biscuits;Britannia;BritanniaID;pieces;;;;;827.5;;497
+;510;biscuits;Fresho Signature;FreshoSignatureID;pieces;;;;;150;;419
+;511;biscuits;Unibic;UnibicID;pieces;;;;;600;;499
+
+
+;701;chocolates;Nestle;NestleID;pieces;;;;;24.5;;497
+;702;chocolates;Nestle;NestleID;pieces;;;;;41.5;;542
+;703;chocolates;Nestle;NestleID;pieces;;;;;20;;518
+;704;chocolates;Nestle;NestleID;pieces;;;;;20;;238
+;705;chocolates;Gooddite;GoodditeID;pieces;;;;;40;;173
+;706;chocolates;Yogabar;YogabarID;pieces;;;;;38;;157
+;707;chocolates;Gooddite;GoodditeID;pieces;;;;;260;;279
+
+;901;healthDrinks;Bournvita;BournvitaID;pieces;;;;;750;;
+;902;healthDrinks;GoodDiet;GoodDietID;pieces;;;;;100;;
+;903;healthDrinks;Bournvita;BournvitaID;pieces;;;;;75;;
+;904;healthDrinks;Boost;BoostID;pieces;;;;;500;;
+;905;healthDrinks;Ensure;EnsureID;pieces;;;;;400;;
+;906;healthDrinks;Horlicks;HorlicksID;pieces;;;;;400;;
+;907;healthDrinks;NuttyYogi;NuttyYogiID;pieces;;;;;100;;
+;908;healthDrinks;MTR;MTRID;pieces;;;;;500;;
+;909;healthDrinks;Pediasure;PediasureID;pieces;;;;;750;;
+;910;healthDrinks;Hersheys;HersheysID;pieces;;;;;250;;
+
+
+
+
+
+
+

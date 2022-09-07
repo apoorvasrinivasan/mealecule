@@ -1,17 +1,18 @@
 .DS_Store
-node_modules
+FE/node_modules
 /dist
-
+FE/package-lock.json
 
 # local env files
 .env.local
 .env.*.local
 
 # Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+FE/npm-debug.log*
+FE/yarn-debug.log*
+FE/yarn-error.log*
+FE/pnpm-debug.log*
+
 
 # Editor directories and files
 .idea
@@ -21,3 +22,18 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+*.class
+BE/custom/mealecule/mealeculestorefront/web/addonsrc/*
+BE/custom/mealeculecommercewebservices/mealeculecommercewebservices/web/addonsrc/*
+BE/config/solr/*
+BE/custom/mealecule/mealeculefacades/classes/*
+BE/custom/mealecule/mealeculecommercewebservices/classes/*
+BE/custom/mealecule/mealeculecore/classes/*
+BE/custom/mealecule/mealeculeinitialdata/classes/*
+BE/*/classes/*
+BE/custom/mealecule/mealeculecockpits/gensrc/*
+BE/custom/mealecule/mealeculecore/gensrc/*
+BE/custom/mealecule/mealeculefulfilmentprocess/gensrc/*
+BE/*/gensrc/*
+BE/custom/mealecule/mealeculeinitialdata/gensrc/*
+BE/custom/mealecule/mealeculefacades/gensrc/*

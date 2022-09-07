@@ -1,0 +1,56 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Electronics Store Prices
+#% impex.setLocale( Locale.GERMAN ); 
+
+$productCatalog=mealeculeProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+$taxGroup=Europe1PriceFactory_PTG(code)[default=jp-vat-full]
+
+# Set product approval status to Approved only for those products that have prices.
+$approved=approvalstatus(code)[default='approved']
+
+UPDATE Product;code[unique=true];$approved;$catalogVersion;$taxGroup
+;123456
+
+INSERT_UPDATE PriceRow;productId[unique=true];unit(code[unique=true,default=pieces]);currency(isocode)[unique=true];price;minqtd;unitFactor;net
+;123456;pieces;USD;15;1;1;false
+;123456;pieces;JPY;130;1;1;false
+;501;pieces;USD;10;1;1;false
+;502;pieces;USD;120;1;1;false
+;503;pieces;USD;10;1;1;false
+;504;pieces;USD;130;1;1;false
+;505;pieces;USD;75;1;1;false
+;506;pieces;USD;40;1;1;false
+;507;pieces;USD;35;1;1;false
+;508;pieces;USD;10;1;1;false
+;509;pieces;USD;5;1;1;false
+;510;pieces;USD;149;1;1;false
+;511;pieces;USD;155;1;1;false
+
+;701;pieces;USD;20;1;1;false
+;702;pieces;USD;99;1;1;false
+;703;pieces;USD;10;1;1;false
+;704;pieces;USD;10;1;1;false
+;705;pieces;USD;52;1;1;false
+;706;pieces;USD;40;1;1;false
+;707;pieces;USD;540;1;1;false
+
+;901;pieces;USD;293.04;1;1;false
+;902;pieces;USD;99;1;1;false
+;903;pieces;USD;30;1;1;false
+;904;pieces;USD;214;1;1;false
+;905;pieces;USD;725;1;1;false
+;906;pieces;USD;325;1;1;false
+;907;pieces;USD;125;1;1;false
+;908;pieces;USD;275;1;1;false
+;909;pieces;USD;1080;1;1;false
+;910;pieces;USD;210;1;1;false
