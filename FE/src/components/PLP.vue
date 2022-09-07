@@ -320,7 +320,7 @@ export default {
   .mq {
     width:  113px;
   }
-  .ui.cards>.card>.image>img{
+  .ui.cards>.card>.image{
     height:  100px;
   }
 }
