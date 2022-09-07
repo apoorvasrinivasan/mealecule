@@ -107,7 +107,7 @@ export default {
                Common.Alert('new badge received '+data.badge.level);
             }
             localStorage.setItem('userData', JSON.stringify(user));
-            success();
+            success(data);
          },
          error:function(){
             error()
