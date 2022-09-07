@@ -42,6 +42,7 @@ INSERT_UPDATE StockLevel;available;warehouse(code)[unique=true];inStockStatus(co
 ;1000;warehouse_s;notSpecified;1;0;0;0;705;0
 ;1000;warehouse_s;notSpecified;1;0;0;0;706;0
 ;1000;warehouse_s;notSpecified;1;0;0;0;707;0
+;1000;warehouse_s;notSpecified;1;0;0;0;708;0
 ;1000;warehouse_s;notSpecified;1;0;0;0;901;0
 ;1000;warehouse_s;notSpecified;1;0;0;0;902;0
 ;1000;warehouse_s;notSpecified;1;0;0;0;903;0
@@ -52,7 +53,20 @@ INSERT_UPDATE StockLevel;available;warehouse(code)[unique=true];inStockStatus(co
 ;1000;warehouse_s;notSpecified;1;0;0;0;908;0
 ;1000;warehouse_s;notSpecified;1;0;0;0;909;0
 ;1000;warehouse_s;notSpecified;1;0;0;0;910;0
-
+;1000;warehouse_s;notSpecified;1;0;0;0;1101;0
+;1000;warehouse_s;notSpecified;1;0;0;0;1102;0
+;1000;warehouse_s;notSpecified;1;0;0;0;1103;0
+;1000;warehouse_s;notSpecified;1;0;0;0;1104;0
+;1000;warehouse_s;notSpecified;1;0;0;0;1105;0
+;1000;warehouse_s;notSpecified;1;0;0;0;1106;0
+;1000;warehouse_s;notSpecified;1;0;0;0;1107;0
+;1000;warehouse_s;notSpecified;1;0;0;0;1108;0
+;1000;warehouse_s;notSpecified;1;0;0;0;1109;0
+;1000;warehouse_s;notSpecified;1;0;0;0;1110;0
+;1000;warehouse_s;notSpecified;1;0;0;0;1111;0
+;1000;warehouse_s;notSpecified;1;0;0;0;1112;0
+;1000;warehouse_s;notSpecified;1;0;0;0;1113;0
+;1000;warehouse_s;notSpecified;1;0;0;0;1114;0
 
 
 UPDATE Product;code[unique=true];$catalogVersion;stockLevels(productCode,warehouse(code));vendors(code)
@@ -75,6 +89,7 @@ UPDATE Product;code[unique=true];$catalogVersion;stockLevels(productCode,warehou
 ;704;;704:warehouse_s;
 ;705;;706:warehouse_s;
 ;707;;707:warehouse_s;
+;708;;708:warehouse_s;
 
 ;901;;901:warehouse_s;
 ;902;;902:warehouse_s;
@@ -86,3 +101,18 @@ UPDATE Product;code[unique=true];$catalogVersion;stockLevels(productCode,warehou
 ;908;;908:warehouse_s;
 ;909;;909:warehouse_s;
 ;910;;910:warehouse_s;
+
+;1101;;1101:warehouse_s;
+;1102;;1102:warehouse_s;
+;1103;;1103:warehouse_s;
+;1104;;1104:warehouse_s;
+;1105;;1105:warehouse_s;
+;1106;;1106:warehouse_s;
+;1107;;1107:warehouse_s;
+;1108;;1108:warehouse_s;
+;1109;;1109:warehouse_s;
+;1110;;1110:warehouse_s;
+;1111;;1111:warehouse_s;
+;1112;;1112:warehouse_s;
+;1113;;1113:warehouse_s;
+;1114;;1114:warehouse_s;

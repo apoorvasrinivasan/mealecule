@@ -38,9 +38,10 @@ INSERT_UPDATE Product;code[unique=true];$supercategories;manufacturerName;manufa
 ;702;chocolates;Nestle;NestleID;pieces;;;;;41.5;;542
 ;703;chocolates;Nestle;NestleID;pieces;;;;;20;;518
 ;704;chocolates;Nestle;NestleID;pieces;;;;;20;;238
-;705;chocolates;Gooddite;GoodditeID;pieces;;;;;40;;173
+;705;chocolates;Gooddiet;GooddietID;pieces;;;;;40;;173
 ;706;chocolates;Yogabar;YogabarID;pieces;;;;;38;;157
-;707;chocolates;Gooddite;GoodditeID;pieces;;;;;260;;279
+;707;chocolates;Gooddiet;GooddietID;pieces;;;;;260;;279
+;708;chocolates;Gooddiet;GooddietID;pieces;;;;;260;;285
 
 ;901;healthDrinks;Bournvita;BournvitaID;pieces;;;;;750;;
 ;902;healthDrinks;GoodDiet;GoodDietID;pieces;;;;;100;;
@@ -53,6 +54,20 @@ INSERT_UPDATE Product;code[unique=true];$supercategories;manufacturerName;manufa
 ;909;healthDrinks;Pediasure;PediasureID;pieces;;;;;750;;
 ;910;healthDrinks;Hersheys;HersheysID;pieces;;;;;250;;
 
+;1101;juices;Maaza;MaazaID;pieces;;;;;;150;
+;1102;juices;Real;RealID;pieces;;;;;;180;
+;1103;juices;Frooti;FrootiID;pieces;;;;;;200;
+;1104;juices;Appy;AppyID;pieces;;;;;;150;
+;1105;juices;Tropicana;TropicanaID;pieces;;;;;;200;
+;1106;juices;Tropicana;TropicanaID;pieces;;;;;;200;
+;1107;juices;Minute Maid;MinuteMaidID;pieces;;;;;;1000;
+;1108;juices;Real;RealID;pieces;;;;;;180;
+;1109;juices;B Natural;BNaturalID;pieces;;;;;;3000;
+;1110;juices;Tropicana;TropicanaID;pieces;;;;;;200;
+;1111;juices;Alo Frut;AloFrutID;pieces;;;;;;1000;
+;1112;juices;Raw Pressery;RawPresseryID;pieces;;;;;;250;
+;1113;juices;Alo Frut;AloFrutID;pieces;;;;;;300;
+;1114;juices;Del Monte;DelMonteID;pieces;;;;;;240;
 
 
 
