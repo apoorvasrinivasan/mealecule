@@ -7,14 +7,19 @@ div.home-page
 		div.ui.two.column.grid
 			div.column
 				h2.ui.header.teal Current Progress
-				div.ui.statistic
-					span.value 
-						i.ui.huge.label.circular.bCoins $
-					span.label  {{ $root.total_coins }} Coins
-				br
-				router-link.ui.button.primary(to="/game") Play Game
+				div.ui.statistics
+					div.ui.statistic
+						span.value 
+							i.ui.huge.label.circular.bCoins $
+						span.label {{ total_coins }} Coins
+					div.ui.statistic(v-if="$root.badges")
+						span.value 
+							i.ui.huge.label.circular.badges(:class="$root.badges")
+								i.icon.ui.trophy 
+						span.label {{ $root.badges }} Badge
+				router-link.ui.button.primary.cta-button(to="/game") Play Game
 			div.column.ui.image
-				img(src="https://s3-us-east-2.amazonaws.com/maryville/wp-content/uploads/2021/03/04131433/MVU-BFADM-2020-Q4-Skyscraper-Future-of-Video-Games-Trends-Technology-Types-header-v2-1000x523.jpg")
+				img(:src="require('@/assets/ame.jpg')")
 	section#categories.categories
 			div.glutenFree.cat-images
 				div.ui.header Gluten Free
@@ -22,6 +27,24 @@ div.home-page
 				div.ui.header Vegan
 			div.childcare.cat-images
 				div.ui.header Childcare
+	section#about
+			h2.ui.header.teal About us
+			p Welcome to Mealecule. Mealecule is founded by Team Popeye. 
+			p 
+					strong Team Popeye 
+					| consists of 
+					a(href="mailto:ashwati.menon@publicissapient.com") Ashwati Menon (she/her)
+					| - Product Manager, 
+					a(href="mailto:apoorvasrinivasan@publicissapient.com") Apoorva Srinivasan(she/her) 
+					| - Senior Associate Technology Level 1, 
+					a(href="mailto:isha.mehta@publicissapient.com") Isha Mehta (she/her) 
+					| - Senior Associate Technology Level 1, 
+					a(href="mailto:priya.rawat@publicissapient.com") Priya Rawat (she her)
+					| - Associate Technology Level 1 and 
+					a(href="mailto:samarth.sharma@publicissapient.com") Samarth Sharma (he/him) 
+					| - Intern, Agile Program Management. 
+			p Being foodies, the team is happy to bring forth to you our product Mealecule - the Food Molecule and help you in your food shopping experience. We hope that through our customized info-metric MQ on products and user's cart, you would be able to gauge the impact any product you view and purchase will have on your health and bring a change in your lifestyle. 
+			p All the best with using our product and do reach out to any of us on Teams/ mail. Stay healthy, stay safe!
 
 
 
@@ -35,23 +58,27 @@ div.home-page
 <style scoped="">
 img{ max-width: 100%; max-height: 100%; }
 h1.title {
-  color: #222;
-  font-size: 15vh;
-  line-height: 1;
-  position: absolute;
-  right: 9%;
-  top: 50%;
-  transform: translate(-20%, -50%);
-  width: 394px;
+	color: #222;
+	font-size: 15vh;
+	line-height: 1;
+	position: absolute;
+	right: 9%;
+	top: 50%;
+	transform: translate(-20%, -50%);
+	width: 394px;
 }
 h1.title b{
 	color:  var(--green) ;
 }
 section {
 	width:100%;
-  height:70vh;
-  padding:  24px;
-  
+	height:70vh;
+	padding:  24px;
+	
+}
+.cta-button{
+	position:absolute;
+	bottom: 24px;
 }
 section > .grid{
 	height: 100%;
@@ -92,14 +119,18 @@ button {
 	background: url(https://cdn.cdnparenting.com/articles/2018/07/743111095-H.jpg) no-repeat;
 }
 
+.ui.label.BRONZE{
+  color: #f4f4f4;
+  background-color: var(--bronze);
+}
 @media screen and (max-width: 800px){
 	
 	h1.title {
 		right: 0;
-    top: 65%;
-    transform: none;
-    width: 90%;
-    font-size: 8vh;
+		top: 65%;
+		transform: none;
+		width: 90%;
+		font-size: 8vh;
 	}
 	.ui[class*="two column"].grid>.column:not(.row), .ui[class*="two column"].grid>.row>.column{
 		width: 100%;

@@ -53,6 +53,7 @@ export default {
       categories:[],
       cart:1,
       total_coins: 0,
+      badges:'',
       cartMQ:{},
       preferredMealecule:[],
       defaultPreferredMealecule:[
@@ -62,10 +63,10 @@ export default {
         'fat'
       ],
       colors:[
-      '#A0DD9A',
-      '#4CBE41',
-      '#2C737E',
-      '#BFE3E9'
+      '#a7cdab',
+      '#42bd7c',
+      '#2b6228',
+      '#307bcf'
 
       ]
     }
@@ -84,7 +85,7 @@ export default {
       }
       catch(e) {return;}
       if(!user) return;
-
+      this.badges = user.gameData.badge.level
       this.cart = user.cart;
       this.cartMQ = user.cartMQ;
       console.log(this.cartMQ);
