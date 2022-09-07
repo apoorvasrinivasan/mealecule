@@ -26,6 +26,22 @@ div.myaccount
         | Save   
         div.ui.circular.label.tiny.bCoins 20
 
+    div.ui.card.userinfo
+      h2.ui.header.teal Update Information
+      form.ui.form
+        div.ui.field
+          label Weight (in kg)
+          input(v-model="user.weight")
+        div.ui.field
+          label Height (in cm)
+          input(v-model="user.height")
+        div.ui.field
+          label Age
+          input(v-model="user.age")
+        button.ui.primary.fluid.button(:disabled="inform_disabled" v-on:click="saveVitals()") 
+          | Save   
+          div.ui.circular.label.tiny.bCoins 20
+          
     div.ui.card(v-if="badges")
       div.ui.top.attached.label(:class="badges") {{ badges }}
       h2.ui.header.teal BMI Calculator
@@ -45,6 +61,7 @@ div.myaccount
 <script type="text/javascript">
 import Product from '../services/product';
 import User from '../services/user';
+import Common from '../services/common';
 export default {
   name: 'MyAccount',
   data(){
@@ -66,11 +83,27 @@ export default {
     this.badges = userData.gameData.badge.level
     this.getMealeculeList()
     this.user_pm=this.$root.preferredMealecule;
+    if(this.user.weight) this.bmi.w = this.user.weight;
+    if(this.user.height) this.bmi.h = this.user.height;
   },
   computed:{
     form_disabled: function(){
       return this.user_pm.slice().sort().join(',') == this.$root.preferredMealecule.slice().sort().join(',')
-    }
+    },
+    inform_disabled: function(){
+      let u = JSON.parse(localStorage.userData);
+      let og_user_vitals = [
+        u.weight,
+        u.height,
+        u.age,
+      ]
+      let user_vitals = [
+        this.user.weight,
+        this.user.height,
+        this.user.age,
+      ]
+      return user_vitals.slice().sort().join(',') == og_user_vitals.slice().sort().join(',')
+    },
   },
   methods:{
     logout:function(){
@@ -89,6 +122,20 @@ export default {
          return i != 'calories'
       })
       })
+    },
+    saveVitals : function () {
+      let vm = this;
+      let user = this.user;
+      let data = `${vm.coins+20}&?weight=${user.weight}&height=${user.height}&age=${user.age}`;
+      localStorage.userData = JSON.stringify(user);
+      User.addCoins(data, (data)=>{
+        vm.coins = data.coins;
+        vm.badges = data.badge.level
+        vm.$root.total_coins = data.coins
+        Common.Alert('Saved. you receive 20 Coins');
+     
+      });
+
     },
     savePM:function(){
       let vm = this;
