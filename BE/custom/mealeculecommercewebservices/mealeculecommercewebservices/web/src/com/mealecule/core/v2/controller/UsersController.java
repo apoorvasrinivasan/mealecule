@@ -1456,8 +1456,6 @@ public class UsersController extends BaseCommerceController
 		if(null != userModel){
 			final CustomerGameData customerGameData = mealeculeCustomerFacade.updateCustomerGameData(coins, null, null, null,
 					userModel);
-			//			userModel.setCoins(coins);
-			//			modelService.save(userModel);
 			final CustomerData userData = getCustomerData(userModel);
 			if (null != userData.getGameData())
 			{
@@ -1471,8 +1469,8 @@ public class UsersController extends BaseCommerceController
 	@ResponseBody
 	public CustomerGameWsDTO createOrUpdateUserPersonalData(@RequestParam(defaultValue = DEFAULT_FIELD_SET)
 	final String fields, @RequestParam(defaultValue = "0")
-	final Integer height, @RequestParam(defaultValue = "0")
-	final Integer weight, @RequestParam(defaultValue = "0")
+	final Double height, @RequestParam(defaultValue = "0.00")
+	final Double weight, @RequestParam(defaultValue = "0.00")
 	final Integer age, final HttpServletRequest httpRequest, final HttpServletResponse httpResponse)
 	{
 		final UserModel userModel = userService.getCurrentUser();

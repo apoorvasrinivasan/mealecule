@@ -23,7 +23,7 @@ import com.mealecule.core.user.data.PreferredMealeculeData;
  */
 public interface MealeculeCustomerFacade extends CustomerFacade
 {
-	CustomerGameData updateCustomerGameData(Integer coins, Integer height, Integer weight, Integer age, UserModel userModel);
+	CustomerGameData updateCustomerGameData(Integer coins, Double height, Double weight, Integer age, UserModel userModel);
 
 	PreferredMealeculeData updatePreferredMealecule(String preferredMealecule, String maxMealecule, String minMealecule, UserModel userModel, CustomerData userData);
 }

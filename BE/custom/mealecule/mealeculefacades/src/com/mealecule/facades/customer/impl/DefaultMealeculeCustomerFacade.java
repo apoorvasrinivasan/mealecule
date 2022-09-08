@@ -57,7 +57,7 @@ public class DefaultMealeculeCustomerFacade extends DefaultCustomerFacade implem
 
 
 	@Override
-	public CustomerGameData updateCustomerGameData(final Integer coins, final Integer height, final Integer weight,
+	public CustomerGameData updateCustomerGameData(final Integer coins, final Double height, final Double weight,
 			final Integer age, final UserModel userModel)
 	{
 		final CustomerData userData = new CustomerData();
@@ -69,7 +69,7 @@ public class DefaultMealeculeCustomerFacade extends DefaultCustomerFacade implem
 
 		if (null != height)
 		{
-			if (height.intValue() != 0)
+			if (0.0 != height)
 			{
 				customerGameData.setHeight(height);
 			}
@@ -77,7 +77,7 @@ public class DefaultMealeculeCustomerFacade extends DefaultCustomerFacade implem
 
 		if (null != weight)
 		{
-			if (weight.intValue() != 0)
+			if (0.0 != weight)
 			{
 				customerGameData.setWeight(weight);
 			}

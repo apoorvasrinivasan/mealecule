@@ -39,7 +39,7 @@ public class UserBadgeReversePopulator implements Populator<CustomerData, UserMo
 		BadgeModel badgeModel = target.getBadge() == null ? new BadgeModel() : target.getBadge();
 		final CustomerGameData customerGameData = source.getGameData();
 
-		final Integer intCoins = 0;
+		Integer intCoins = 0;
 		if (null != customerGameData && null != customerGameData.getCoins())
 		{
 			target.setCoins(customerGameData.getCoins());

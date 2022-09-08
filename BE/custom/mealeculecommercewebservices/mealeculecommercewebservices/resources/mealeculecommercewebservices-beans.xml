@@ -118,8 +118,8 @@
 	<bean class="com.mealecule.core.user.data.CustomerGameData">
 		<property name="coins" type="Integer"/>
 		<property name="badge" type="com.mealecule.core.user.data.BadgeData"/>
-		<property name="height" type="Integer"/>
-		<property name="weight" type="Integer"/>
+		<property name="height" type="Double"/>
+		<property name="weight" type="Double"/>
 		<property name="age" type="Integer"/>
 	</bean>
 
@@ -227,8 +227,8 @@
 	<bean class="com.mealecule.core.user.data.CustomerGameWsDTO">
 		<property name="coins" type="Integer"/>
 		<property name="badge" type="com.mealecule.core.user.data.BadgeWsDTO"/>
-		<property name="height" type="Integer"/>
-		<property name="weight" type="Integer"/>
+		<property name="height" type="Double"/>
+		<property name="weight" type="Double"/>
 		<property name="age" type="Integer"/>
 	</bean>
 

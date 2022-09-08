@@ -279,12 +279,12 @@
                     <modifiers optional="true" />
                     <persistence type="property" />
                 </attribute>
-                <attribute type="java.lang.Integer" qualifier="height">
+                <attribute type="java.lang.Double" qualifier="height">
                     <description></description>
                     <modifiers optional="true" />
                     <persistence type="property" />
                 </attribute>
-                <attribute type="java.lang.Integer" qualifier="weight">
+                <attribute type="java.lang.Double" qualifier="weight">
                     <description></description>
                     <modifiers optional="true" />
                     <persistence type="property" />
