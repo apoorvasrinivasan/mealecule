@@ -106,7 +106,7 @@ export default {
         let indb = pm.indexOf(b.code.toLowerCase())
         return (inda>indb) ? 1:-1;
       })
-      console.log(vm.facetDatas)
+
       if(vm.filterKeys.length ==0)
         a= vm.products;
       else

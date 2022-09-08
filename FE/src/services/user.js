@@ -60,6 +60,7 @@ export default {
    },
    registerUser(user, success,error){
       let url = USER_BASE_URL.slice(0,-1);
+      let that =  this;
       $.ajax({
          url:url,
          method:'post',
@@ -70,13 +71,14 @@ export default {
             success(data)
          },
          error:(response) => {
-            this.accessHandler(response);
+            that.accessHandler(response);
             error(response.responseJSON)
          }
       })
 
    },
    updateUser(user, success,error){
+      let that = this;
       let url = `${USER_BASE_URL}${user.uid}/customerPersonalData?height=${user.height}&weight=${user.weight}&age=${user.age}`;
       $.ajax({
          url:url,
@@ -86,7 +88,8 @@ export default {
             success(data)
          },
          error:(response) => {
-            this.accessHandler(response);
+            that.accessHandler(response);
+            Common.Alert('some error occured')
             error(response.responseJSON)
          }
       })
@@ -150,7 +153,7 @@ export default {
          method:'POST',
          url:url,
          success:function(data){
-            user.cart ++;
+            user.cart = data.totalItems;
             user.cartMQ = data.mealeculeQuotientData;
             localStorage.setItem('userData',JSON.stringify(user));
             Common.Alert('Added to cart successfully');
@@ -171,6 +174,9 @@ export default {
          method:method,
          url,
          success:function(data){
+            user.cart -- ;
+            data.totalItems = user.cart;
+            localStorage.userData = JSON.stringify(user);
             success(data)
          },
          error:function(r){
@@ -188,6 +194,7 @@ export default {
          method:'GET',
          success:function(data){
             user.cartMQ = data.mealeculeQuotientData;
+            user.cart = data.totalItems
             localStorage.userData = JSON.stringify(user);
 
             success(data);

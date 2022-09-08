@@ -19,7 +19,7 @@
     
     <div class="right menu" >
     <div class=" item promo-bar">
-      <span  class="ui label promo-bar-item" v-for="k,v in cartMQ" :key="k">
+      <span  class="ui label promo-bar-item" v-for="k,v, ind in cartMQ" :key="k" :style="'background-color:'+ $root.colors[ind]">
       {{ Math.floor(k)}}g {{v}} 
       </span>
     </div>
