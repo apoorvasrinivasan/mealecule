@@ -1,17 +1,19 @@
 package com.mealecule.facades.customer.impl;
 
-import com.mealecule.core.user.data.CustomerGameData;
-import com.mealecule.core.user.data.PreferredMealeculeData;
-import com.mealecule.facades.customer.MealeculeCustomerFacade;
 import de.hybris.platform.commercefacades.customer.impl.DefaultCustomerFacade;
 import de.hybris.platform.commercefacades.user.data.CustomerData;
 import de.hybris.platform.core.model.user.UserModel;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
+
+import java.util.Arrays;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Required;
 
-import java.util.Arrays;
+import com.mealecule.core.user.data.CustomerGameData;
+import com.mealecule.core.user.data.PreferredMealeculeData;
+import com.mealecule.facades.customer.MealeculeCustomerFacade;
 
 
 /**
@@ -24,17 +26,7 @@ public class DefaultMealeculeCustomerFacade extends DefaultCustomerFacade implem
 	private Converter<CustomerData, Object> userBadgeReverseConverter;
 
 	@Override
-	public CustomerGameData updateCustomerGameData(Integer coins, UserModel userModel) {
-		final CustomerData userData = new CustomerData();
-		CustomerGameData customerGameData = new CustomerGameData();
-		customerGameData.setCoins(coins);
-		userData.setGameData(customerGameData);
-		getUserBadgeReverseConverter().convert(userData, userModel);
-		return userData.getGameData();
-	}
-
-	@Override
-	public PreferredMealeculeData updatePreferredMealecule(String preferredMealecule, String maxMealecule, String minMealecule, UserModel userModel, CustomerData userData) {
+	public PreferredMealeculeData updatePreferredMealecule(final String preferredMealecule, final String maxMealecule, final String minMealecule, final UserModel userModel, final CustomerData userData) {
 		userModel.setPreferredMealecule(
 				StringUtils.isNotBlank(preferredMealecule) ? Arrays.asList(preferredMealecule.split(",")) : null);
 		final PreferredMealeculeData mealeculeData = new PreferredMealeculeData();
@@ -59,7 +51,49 @@ public class DefaultMealeculeCustomerFacade extends DefaultCustomerFacade implem
 	}
 
 	@Required
-	public void setUserBadgeReverseConverter(Converter<CustomerData, Object> userBadgeReverseConverter) {
+	public void setUserBadgeReverseConverter(final Converter<CustomerData, Object> userBadgeReverseConverter) {
 		this.userBadgeReverseConverter = userBadgeReverseConverter;
 	}
+
+
+	@Override
+	public CustomerGameData updateCustomerGameData(final Integer coins, final Double height, final Double weight,
+			final Integer age, final UserModel userModel)
+	{
+		final CustomerData userData = new CustomerData();
+		final CustomerGameData customerGameData = new CustomerGameData();
+		if (null != coins)
+		{
+			customerGameData.setCoins(coins);
+		}
+
+		if (null != height)
+		{
+			if (0.0 != height)
+			{
+				customerGameData.setHeight(height);
+			}
+		}
+
+		if (null != weight)
+		{
+			if (0.0 != weight)
+			{
+				customerGameData.setWeight(weight);
+			}
+		}
+
+		if (null != age)
+		{
+			if (age.intValue() != 0)
+			{
+				customerGameData.setAge(age);
+			}
+		}
+
+		userData.setGameData(customerGameData);
+		getUserBadgeReverseConverter().convert(userData, userModel);
+		return userData.getGameData();
+	}
+
 }
