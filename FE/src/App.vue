@@ -8,7 +8,7 @@
     <div class="menu" aria-hidden>
       <router-link :to="{name:'CatList'}" class="item" >All Categories</router-link>
       <div class="ui dropdown item" :aria-label="c.name" v-for="c in categories" :key="c.id">
-        {{ c.id }}
+        {{ c.name }}
       <i class="dropdown icon"></i>
       <div class="menu">
         <router-link :to="{name:'plp', params:{id:cs.id}}" class="item" v-for="cs in c.subcategories" :key="cs.id">{{ cs.name }}</router-link>
@@ -18,7 +18,11 @@
     </div>
     
     <div class="right menu" >
-    <div class="item"><span v-for="k,v in cartMQ" :key="k">{{v}}:{{ Math.floor(k)}}</span> </div>
+    <div class=" item promo-bar">
+      <span  class="ui label promo-bar-item" v-for="k,v in cartMQ" :key="k">
+      {{ Math.floor(k)}}g {{v}} 
+      </span>
+    </div>
     <div class="item"> Total Coins : {{total_coins }} </div>
       <router-link to="/login" class='item' v-if="!isLogged">Login</router-link>
       <router-link :to="{name:'MyAccount'}" class="item" v-if="isLogged">
@@ -147,5 +151,16 @@ export default {
   height:  7px;
   position: absolute;
   bottom:  20px;
+}
+.slide-fade-enter-active {
+  transition: all .1s ease;
+}
+.slide-fade-leave-active {
+  transition: all .1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for <2.1.8 */ {
+  transform: translateY(10px);
+  opacity: 0;
 }
 </style>

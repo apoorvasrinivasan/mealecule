@@ -143,13 +143,16 @@ export default {
       User.postMealecule(pm, (data)=>{
         vm.$root.preferredMealecule = data.preferredMealecule
         vm.user_pm = data.preferredMealecule
+        User.myCart((data)=>{
+          vm.$root.cartMQ = data.mealeculeQuotientData;
+        });
+        User.addCoins(vm.coins + 20, (data)=>{
+          vm.coins = data.coins;
+          vm.badges = data.badge.level;
+          vm.$root.total_coins = data.coins;
+        });
       })
     
-      User.addCoins(vm.coins + 20, (data)=>{
-        vm.coins = data.coins;
-        vm.badges = data.badge.level
-        vm.$root.total_coins = data.coins
-      });
     },
     calcBMI:function(){
       let vm = this.bmi;

@@ -20,6 +20,26 @@ div.home-page
 				router-link.ui.button.primary.cta-button(to="/game") Play Game
 			div.column.ui.image
 				img(:src="require('@/assets/ame.jpg')")
+	section#offer
+			h2.ui.header.teal What we offer
+			div.offers-cards
+				div.offer-card
+						div.image.games(aria-hidden="true")
+						div.ui.header.tiny Play Games
+						p Play a simple single player game to help Popeye win coins and avoid foodie obstacles midway. Also collect interesting badges and unlock exciting benefits, tto help you purchase your favourite products on site.
+
+				div.offer-card
+						div.image.earn-coins(aria-hidden="true")
+						div.ui.header.tiny Earn Coins
+						p Keep collecting BCoins on site by activating your user profile, setting essential body vitals and your peference of MQ to help us serve you better. Redeem these coins during purchase and win exciting discounts on all your favourite products.
+				div.offer-card
+						div.image.mq
+						div.ui.header.tiny Mealecular Quotient(aria-hidden="true")
+						p Understand the impact of buying a product by judging its Mealecular Quotient (MQ) - an info-metrics containing information in a visual representation, of quantities (%) of protein, carbohydrate, fat, fiber and caloric values for all products viewed and added to your cart. Sort and filter based on your preferred MQ.
+				div.offer-card
+						div.image.discount(aria-hidden="true")
+						div.ui.header.tiny Get Discounts
+						p End of a level in our game helps you win coins achievement badges. Earning coins leads to earning fun and interesting badges which would provide amazing discounts on MRP of all products being bought by you. Bronze badge (achieved at 100 coins) gives you 5% discount on MRP of products
 	section#categories.categories
 			div.glutenFree.cat-images
 				div.ui.header Gluten Free
@@ -27,6 +47,25 @@ div.home-page
 				div.ui.header Vegan
 			div.childcare.cat-images
 				div.ui.header Childcare
+	section#categoryList
+			h2.ui.header.teal Online Supermarket
+			div.ui.four.cards
+					router-link.ui.card(to="/plp/biscuits")
+						div.image
+							img(src="https://us.123rf.com/450wm/karidesigner/karidesigner2104/karidesigner210400049/168154799-chocolate-chip-cookie-in-cartoon-style-vector-illustration.jpg")
+						div.content
+							div.header Buscuits
+					router-link.ui.card(to="/plp/chocolates")
+						div.image
+							img(src="https://img.freepik.com/premium-vector/illustration-chocolate-coming-out-wrapper_498928-124.jpg")
+						div.content
+							div.header Chocolates
+					router-link.ui.card(to="/plp/healthDrinks")
+						div.image
+							img(src="https://thumbs.dreamstime.com/b/health-drink-line-art-cartoon-image-80960712.jpg")
+						div.content
+							div.header Health Drinks
+			
 	section#about
 			h2.ui.header.teal About us
 			p Welcome to Mealecule. Mealecule is founded by Team Popeye. 
@@ -72,9 +111,61 @@ h1.title b{
 }
 section {
 	width:100%;
-	height:70vh;
+	min-height:70vh;
 	padding:  24px;
-	
+	overflow: hidden;
+}
+
+#offer .offers-cards{
+	margin-top: 60px;
+	display: grid;
+	grid-template-columns: repeat(4, 23%);
+	justify-content: space-between;
+}
+.offers-cards .offer-card {
+		border: 1px solid #ccc;
+		border-radius: 13%  13% 10px 10px;
+		box-shadow: 0 0 2px 2px #f4f4f4;
+		position: relative;
+		padding:  0 15px 20px;
+ }
+.offers-cards .offer-card .image {
+		width: 100px;
+		margin: 0 auto;
+		border-radius:  50%;
+		background-size: contain;
+		background-position: center center;
+		background-repeat: no-repeat;
+		height:  100px;
+		position: relative;
+		transform:  translate(0%,-50%);
+		border: 5px solid #cbcbcb;
+}
+.offer-card .image.earn-coins {
+	background-image: url(../assets/coins.jfif);
+}
+.offer-card .image.discount {
+	background-image: url(../assets/discount.jpg);
+}
+.offer-card .image.games {
+	background-image: url(../assets/game.png);
+	background-position: 2px 3px;
+}
+.offer-card .image.mq {
+	background-image: url(../assets/mq.png);
+}
+.offers-cards .offer-card > p{
+		font-size: .8rem;
+}
+.offers-cards .offer-card .header{
+	margin-top: -40px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+#categoryList .image{
+	display: flex;
+	justify-content: center;
+	height: 256px;
 }
 .cta-button{
 	position:absolute;
@@ -120,8 +211,8 @@ button {
 }
 
 .ui.label.BRONZE{
-  color: #f4f4f4;
-  background-color: var(--bronze);
+	color: #f4f4f4;
+	background-color: var(--bronze);
 }
 @media screen and (max-width: 800px){
 	

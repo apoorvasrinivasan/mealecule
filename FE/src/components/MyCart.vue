@@ -11,7 +11,11 @@ div.cart
       ul.carts
         li.cartitems(v-for ="c in cartitems")
           div.ui.image
-          div.productname  {{ c.product.name }}
+              img(:src="'api'+c.product.imageURL")
+          div
+              router-link.productname(:to="{name:'pdp', params:{code:c.product.code}}") {{ c.product.name }}
+              br
+              span {{ c.product.weightInG}}g
           div
             div.quantity.ui.icon.buttons.small.basic
               div.ui.button(v-on:click="updateCart(c.entryNumber, c.quantity-1)" :class="{'disabled':c.quantity == 1}")
@@ -130,6 +134,13 @@ export default {
       let highest_g = 100;
       let mmq = []
       let pm = this.$root.preferredMealecule;
+      
+      // update the promo bar
+      this.$root.cartMQ = mq;
+      let user = JSON.parse(localStorage.userData);
+      user.cartMQ = mq;
+      localStorage.userData = JSON.stringify(user);
+
       for( let i in pm){
         try{
           mmq.push({

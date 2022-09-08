@@ -5,7 +5,7 @@ div.plp
         section.five.wide.column.product-image.ui.image
           img(v-if="product.imageURL" :src="'/api/'+ product.imageURL" :alt="product.name")
         section.ten.wide.column.product-detail
-          div.ui.label(v-for ='c in product.categories') {{ c.code }}
+          router-link.ui.label(:to="{name:'plp', params:{id:c.code}}" v-for ='c in product.categories') {{ c.code }}
           h1.header.ui {{ product.name }}
           div.ui.two.column.grid
             div.column
@@ -13,6 +13,8 @@ div.plp
               br
               div.ui.statistic
                 div.value.price {{ product.price.value }}
+              div.ui.tiny.statistic
+                div.value.weight {{ product.weightInG}}g
             div.column
               MQ(:nutrients="product.mq")
             p.product-description
@@ -122,6 +124,10 @@ export default {
   justify-content: space-between;
   margin: 0;
   box-shadow: 0 1px 1px  #ccc;
+}
+.statistic .weight{
+  font-size: .7rem;
+  text-transform:lowercase;
 }
 .bCoins {
   display: inline-block;

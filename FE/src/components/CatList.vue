@@ -1,7 +1,7 @@
 <template lang='pug'>
 nav.catList(aria-label="category list")
 	div.ui.list(v-for="c in $root.categories" :key="c.id")
-		div.item.heading {{ c.id }}
+		div.item.heading {{ c.name }}
 		router-link.item(:to="{name:'plp', params:{id:cs.id}}" v-for="cs in c.subcategories" :key="cs.id") {{ cs.name || cs.id }}
 </template>
 <script>

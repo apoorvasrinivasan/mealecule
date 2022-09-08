@@ -101,12 +101,12 @@ export default {
          url,
          method:'POST',
          success:function(data){
-            user.gameData.coins = data.coins;
             let userbadge = user.gameData.badge.level;
             if(data.badge.level != userbadge){
                Common.Alert('new badge received '+data.badge.level);
             }
-            localStorage.setItem('userData', JSON.stringify(user));
+            user.gameData = data;
+            localStorage.userData =  JSON.stringify(user);
             success(data);
          },
          error:function(){
@@ -171,6 +171,9 @@ export default {
          url,
          method:'GET',
          success:function(data){
+            user.cartMQ = data.mealeculeQuotientData;
+            localStorage.userData = JSON.stringify(user);
+
             success(data);
          },
          error:function(){
