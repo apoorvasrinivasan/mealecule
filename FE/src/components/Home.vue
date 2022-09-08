@@ -7,7 +7,7 @@ div.home-page
 		div.ui.two.column.grid
 			div.column
 				h2.ui.header.teal Current Progress
-				div.ui.statistics
+				div.ui.statistics(v-if="$root.total_coins && $root.badges")
 					div.ui.statistic
 						span.value 
 							i.ui.huge.label.circular.bCoins $
@@ -17,8 +17,10 @@ div.home-page
 							i.ui.huge.label.circular.badges(:class="$root.badges")
 								i.icon.ui.trophy 
 						span.label {{ $root.badges }} Badge
-				div#orderGraph
-				router-link.ui.button.primary.cta-button(to="/game") Play Game
+				p.ui.message.warning(v-else) You have no coins. Play game to earn coins and get discounts
+				div#orderGraph(v-if="orderHistory")
+				router-link.ui.button.primary.cta-button(to="/game" v-if="$root.total_coins") Play Game
+				router-link.ui.button.primary.cta-button(to="/game" v-else) Earn some coins and badges
 			div.column.ui.image
 				img(:src="require('@/assets/ame.jpg')")
 	section#offer

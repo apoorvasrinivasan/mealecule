@@ -8,13 +8,14 @@ div.myaccount
       div.ui.statistics
         div.ui.statistic
           span.value 
-            i.ui.huge.label.circular.bCoins $
-          span.label {{ coins }} Coins
+            i.ui.huge.label.circular(:class="(coins>0)?'bCoins':'disabled'") $
+          span.label {{ coins || 0 }} Coins
         div.ui.statistic
           span.value 
             i.ui.huge.label.circular.badges(:class="badges")
-              i.icon.ui.trophy 
-          span.label {{ badges }} Badge
+              i.icon.ui.trophy(:class="{'disabled':!badges}")
+          span.label {{ badges || 'no' }} Badge
+      router-link.ui.primary.button(to="/game") Earn more coins
     div.ui.card
       h2.ui.header.teal My Preferred Mealecules
       form.ui.form.checkbox.preffered_mq
@@ -54,7 +55,7 @@ div.myaccount
           input(v-model="bmi.h")
         button.ui.primary.fluid.button(v-on:click="calcBMI()") Calculate BMI
         div.bmi_result.ui.message(v-if="bmi.result") {{ bmi.result }}
- section#orderHistory.orders(v-if="orderHistory")
+ section#orderHistory.orders(v-if="orderHistory.length>0")
     h2.ui.header.teal Order History
     table.ui.table
       thead
@@ -71,7 +72,8 @@ div.myaccount
             span.price {{o.total.value}}
           td {{o.status}}
           td {{o.placed}}
- section#orders
+ section#orders(v-if="orderHistory.length>0")
+ div.ui.message(v-else) You have no orders yet.
   
 </template>
 <script type="text/javascript">
@@ -100,7 +102,7 @@ export default {
     if(!userData) return
     this.user = userData;
     this.coins = userData.gameData.coins
-    this.badges = userData.gameData.badge.level
+    this.badges = (userData.gameData.badge)? userData.gameData.badge.level : '';
     this.getMealeculeList()
     this.user_pm=this.$root.preferredMealecule;
     if(this.user.weight) this.bmi.w = this.user.weight;
@@ -249,5 +251,8 @@ export default {
 }
 #orderHistory, #orders {
   margin-top: 24px;
+}
+.ui.card>.button, .ui.card>.buttons, .ui.cards>.card>.button, .ui.cards>.card>.buttons {
+  margin-top: auto;
 }
 </style>

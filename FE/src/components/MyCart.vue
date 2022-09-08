@@ -141,7 +141,6 @@ export default {
       
       // update the promo bar
       this.$root.cartMQ = mq;
-      
       for( let i in pm){
         try{
           mmq.push({
@@ -183,8 +182,7 @@ export default {
         })
       }
       product['mq_beakers'] = product_beakers;
-      return product
-      
+      return product    
     },
     async placeOrder(){
       let vm = this;
@@ -244,8 +242,6 @@ export default {
         vm.$router.go('myAccount')
 
       });
-      
-
     }
   }
 }

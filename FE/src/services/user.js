@@ -145,7 +145,7 @@ export default {
          }
       })
    },
-   addToCart(p,success){
+   addToCart(p ,success){
       let user = JSON.parse(localStorage.userData);
       let url = USER_BASE_URL + user.uid + '/carts/current/entries?code='+p;
       let that = this;
@@ -153,7 +153,8 @@ export default {
          method:'POST',
          url:url,
          success:function(data){
-            user.cart = data.totalItems;
+            console.log(data)
+            user.cart ++;
             user.cartMQ = data.mealeculeQuotientData;
             localStorage.setItem('userData',JSON.stringify(user));
             Common.Alert('Added to cart successfully');
