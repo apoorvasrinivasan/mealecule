@@ -22,8 +22,8 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.mealecule.core.enums.MealeculeQuotientEnum;
-import com.mealecule.facades.product.data.MealeculeQuotientData;
 import com.mealecule.core.model.MealeculeQuotientDataModel;
+import com.mealecule.facades.product.data.MealeculeQuotientData;
 
 
 /**
@@ -82,38 +82,38 @@ public class OrderMealeculeQuotientHistoryPopulator implements Populator<OrderMo
 				}
 			}
 		}
+
 		final MealeculeQuotientData mealeculeQuotientData = new MealeculeQuotientData();
-		if(CollectionUtils.isNotEmpty(source.getUser().getPreferredMealecule())){
-			for (final String preferredMealecule:source.getUser().getPreferredMealecule()) {
-				if (preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.CARBOHYDRATE.getCode()))
-				{
-					mealeculeQuotientData.setCarbohydrate(totalCartCarbohydrate);
-				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.PROTEIN.getCode())){
-					mealeculeQuotientData.setProtein(totalCartProtein);
-				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.FAT.getCode())){
-					mealeculeQuotientData.setFat(totalCartFat);
-				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.SUGAR.getCode())){
-					mealeculeQuotientData.setSugar(totalCartSugar);
-				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.FIBER.getCode())){
-					mealeculeQuotientData.setFiber(totalCartFiber);
-				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.CALORIES.getCode())){
-					mealeculeQuotientData.setEnergy(totalCartEnergy);
-				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.WATER.getCode())){
-					mealeculeQuotientData.setWater(totalCartWater);
-				}
-			}
-		} else {
+		//		if(CollectionUtils.isNotEmpty(source.getUser().getPreferredMealecule())){
+		//			for (final String preferredMealecule:source.getUser().getPreferredMealecule()) {
+		//				if (preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.CARBOHYDRATE.getCode()))
+		//				{
+		//					mealeculeQuotientData.setCarbohydrate(totalCartCarbohydrate);
+		//				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.PROTEIN.getCode())){
+		//					mealeculeQuotientData.setProtein(totalCartProtein);
+		//				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.FAT.getCode())){
+		//					mealeculeQuotientData.setFat(totalCartFat);
+		//				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.SUGAR.getCode())){
+		//					mealeculeQuotientData.setSugar(totalCartSugar);
+		//				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.FIBER.getCode())){
+		//					mealeculeQuotientData.setFiber(totalCartFiber);
+		//				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.CALORIES.getCode())){
+		//					mealeculeQuotientData.setEnergy(totalCartEnergy);
+		//				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.WATER.getCode())){
+		//					mealeculeQuotientData.setWater(totalCartWater);
+		//				}
+		//			}
+		//		} else {
 
-			mealeculeQuotientData.setCarbohydrate(totalCartCarbohydrate);
-			mealeculeQuotientData.setProtein(totalCartProtein);
-			mealeculeQuotientData.setFat(totalCartFat);
-			mealeculeQuotientData.setSugar(totalCartSugar);
-			mealeculeQuotientData.setFiber(totalCartFiber);
-			mealeculeQuotientData.setEnergy(totalCartEnergy);
-			mealeculeQuotientData.setWater(totalCartWater);
-		}
+		mealeculeQuotientData.setCarbohydrate(totalCartCarbohydrate);
+		mealeculeQuotientData.setProtein(totalCartProtein);
+		mealeculeQuotientData.setFat(totalCartFat);
+		mealeculeQuotientData.setSugar(totalCartSugar);
+		mealeculeQuotientData.setFiber(totalCartFiber);
+		mealeculeQuotientData.setEnergy(totalCartEnergy);
+		mealeculeQuotientData.setWater(totalCartWater);
+		//		}
 		target.setMealeculeQuotientData(mealeculeQuotientData);
-
 	}
 
 }
