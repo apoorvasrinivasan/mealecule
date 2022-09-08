@@ -34,18 +34,13 @@ public class RuleGoldBadgeTranslator implements RuleConditionTranslator
 	public static final String USER_BADGE_LEVEL = "userBadgeLevel";
 	public static final String USER_BADGE_STATUS = "userBadgeStatus";
 
-	public static final String goldLevel = LevelEnum.GOLD.toString();
-	public static final String activeStatus = StatusEnum.ACTIVE.toString();
+	public static final String goldLevel = LevelEnum.GOLD.getCode();
+	public static final String activeStatus = StatusEnum.ACTIVE.getCode();
 
 	@Override
 	public RuleIrCondition translate(final RuleCompilerContext context, final RuleConditionData condition,
 			final RuleConditionDefinitionData arg2)
 	{
-
-		final RuleParameterData parameterData = condition.getParameters().get(USER_BADGE_LEVEL);
-
-		if (parameterData != null)
-		{
 
 			final String userRaoVariable = context.generateVariable(UserRAO.class);
 
@@ -70,9 +65,6 @@ public class RuleGoldBadgeTranslator implements RuleConditionTranslator
 			irGoldBadgeCondition.setOperator(RuleIrGroupOperator.AND);
 			irGoldBadgeCondition.setChildren(irConditions);
 			return irGoldBadgeCondition;
-		}
-
-		return new RuleIrFalseCondition();
 	}
 }
 

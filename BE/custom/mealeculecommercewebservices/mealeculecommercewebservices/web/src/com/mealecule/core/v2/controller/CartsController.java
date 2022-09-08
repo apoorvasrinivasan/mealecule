@@ -752,7 +752,8 @@ public class CartsController extends BaseCommerceController
 	 *            When there is no information about stock for stores (when pickupStore parameter is filled).
 	 */
 	@RequestMapping(value = "/{cartId}/entries/{entryNumber}", method = RequestMethod.PATCH, consumes =
-	{ MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	{ MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, produces =
+			{ MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
 	public CartModificationWsDTO updateCartEntry(@PathVariable final String baseSiteId, @PathVariable final long entryNumber,
 			@RequestBody final OrderEntryWsDTO entry,
@@ -789,9 +790,9 @@ public class CartsController extends BaseCommerceController
 	 * @throws CommerceCartModificationException
 	 *            When there are some problems with cart modification
 	 */
-	@RequestMapping(value = "/{cartId}/entries/{entryNumber}", method = RequestMethod.DELETE)
-	@ResponseStatus(HttpStatus.OK)
-	public void removeCartEntry(@PathVariable final long entryNumber) throws CommerceCartModificationException
+	@RequestMapping(value = "/{cartId}/entries/{entryNumber}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public CartModificationWsDTO removeCartEntry(@PathVariable final long entryNumber, @RequestParam(required = false, defaultValue = DEFAULT_FIELD_SET) final String fields) throws CommerceCartModificationException
 	{
 		if (LOG.isDebugEnabled())
 		{
@@ -800,7 +801,8 @@ public class CartsController extends BaseCommerceController
 
 		final CartData cart = getSessionCart();
 		getCartEntryForNumber(cart, entryNumber);
-		getCartFacade().updateCartEntry(entryNumber, 0);
+		final CartModificationData cartModificationData = getCartFacade().updateCartEntry(entryNumber, 0);
+		return getDataMapper().map(cartModificationData,CartModificationWsDTO.class, fields);
 	}
 
 	/**
