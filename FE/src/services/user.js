@@ -76,7 +76,22 @@ export default {
       })
 
    },
+   updateUser(user, success,error){
+      let url = `${USER_BASE_URL}${user.uid}/customerPersonalData?height=${user.height}&weight=${user.weight}&age=${user.age}`;
+      $.ajax({
+         url:url,
+         method:'post',
+         contentType:'json',
+         success:(data)=>{
+            success(data)
+         },
+         error:(response) => {
+            this.accessHandler(response);
+            error(response.responseJSON)
+         }
+      })
 
+   },
    loginUser(user, success,error){
       let url = USER_BASE_URL + user.uid;
       $.ajax({

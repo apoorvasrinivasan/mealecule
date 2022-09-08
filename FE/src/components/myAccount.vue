@@ -75,8 +75,8 @@ div.myaccount
 </template>
 <script type="text/javascript">
 import Product from '../services/product';
-import User from '../services/user';
 import Common from '../services/common';
+import User from '../services/user';
 import Highcharts from 'highcharts';
 
 export default {
@@ -145,14 +145,13 @@ export default {
     saveVitals : function () {
       let vm = this;
       let user = this.user;
-      let data = `${vm.coins+20}&?weight=${user.weight}&height=${user.height}&age=${user.age}`;
-      localStorage.userData = JSON.stringify(user);
-      User.addCoins(data, (data)=>{
-        vm.coins = data.coins;
-        vm.badges = data.badge.level
-        vm.$root.total_coins = data.coins
-        Common.Alert('Saved. you receive 20 Coins');
-     
+      User.updateUser(user, ()=>{
+        User.updateUser(vm.coins+20, (data)=>{
+          vm.coins = data.coins;
+          vm.badges = data.badge.level
+          vm.$root.total_coins = data.coins
+          Common.Alert('Saved. you receive 20 Coins');
+        });
       });
 
     },
