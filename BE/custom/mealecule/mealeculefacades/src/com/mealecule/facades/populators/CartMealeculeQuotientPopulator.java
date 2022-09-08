@@ -10,18 +10,20 @@
  */
 package com.mealecule.facades.populators;
 
-import com.mealecule.core.enums.MealeculeQuotientEnum;
-import com.mealecule.core.model.MealeculeQuotientDataModel;
-import com.mealecule.core.model.MealeculeQuotientModel;
-import com.mealecule.facades.product.data.MealeculeQuotientData;
 import de.hybris.platform.commercefacades.order.data.AbstractOrderData;
 import de.hybris.platform.commercefacades.product.data.ProductData;
 import de.hybris.platform.converters.Populator;
 import de.hybris.platform.core.model.order.AbstractOrderEntryModel;
 import de.hybris.platform.core.model.order.AbstractOrderModel;
+
+import java.text.DecimalFormat;
+import java.util.List;
+
 import org.apache.commons.collections.CollectionUtils;
 
-import java.util.List;
+import com.mealecule.core.enums.MealeculeQuotientEnum;
+import com.mealecule.core.model.MealeculeQuotientDataModel;
+import com.mealecule.facades.product.data.MealeculeQuotientData;
 
 
 /**
@@ -40,15 +42,17 @@ public class CartMealeculeQuotientPopulator implements Populator<AbstractOrderMo
 		Double totalCartFiber = 0.0;
 		Double totalCartEnergy = 0.0;
 		Double totalCartWater = 0.0;
-		for (AbstractOrderEntryModel entry : source.getEntries()) {
-			Double productWeight = null != entry.getProduct() && null != entry.getProduct().getWeightInG() ? entry.getProduct().getWeightInG() : entry.getProduct().getWeightInML();
-			if (null != entry.getProduct().getMealeculeQuotient()) {
-				List<MealeculeQuotientDataModel> list = entry.getProduct().getMealeculeQuotient().getMealeculeQuotientData();
+		final DecimalFormat df = new DecimalFormat("#.##");
 
-				Double mqWeightInG = entry.getProduct().getMealeculeQuotient().getWeightInG();
-				Double mqWeightInML = entry.getProduct().getMealeculeQuotient().getWeightInML();
-				Double mqWeight = (null == mqWeightInG || 0.0 == mqWeightInG) ? mqWeightInML : mqWeightInG;
-				Double considerWeight = (null == mqWeight || 0.0 == mqWeight) ? 100 : mqWeight;
+		for (final AbstractOrderEntryModel entry : source.getEntries()) {
+			final Double productWeight = null != entry.getProduct() && null != entry.getProduct().getWeightInG() ? entry.getProduct().getWeightInG() : entry.getProduct().getWeightInML();
+			if (null != entry.getProduct().getMealeculeQuotient()) {
+				final List<MealeculeQuotientDataModel> list = entry.getProduct().getMealeculeQuotient().getMealeculeQuotientData();
+
+				final Double mqWeightInG = entry.getProduct().getMealeculeQuotient().getWeightInG();
+				final Double mqWeightInML = entry.getProduct().getMealeculeQuotient().getWeightInML();
+				final Double mqWeight = (null == mqWeightInG || 0.0 == mqWeightInG) ? mqWeightInML : mqWeightInG;
+				final Double considerWeight = (null == mqWeight || 0.0 == mqWeight) ? 100 : mqWeight;
 				if (CollectionUtils.isNotEmpty(list)) {
 					totalCartCarbohydrate = totalCartCarbohydrate + list.stream().filter(mq -> MealeculeQuotientEnum.CARBOHYDRATE.equals(mq.getMealeculeQuotientType())).findFirst().get().getValue() * productWeight / considerWeight * entry.getQuantity();
 					totalCartProtein = totalCartProtein + list.stream().filter(mq -> MealeculeQuotientEnum.PROTEIN.equals(mq.getMealeculeQuotientType())).findFirst().get().getValue() * productWeight / considerWeight * entry.getQuantity();
@@ -61,9 +65,20 @@ public class CartMealeculeQuotientPopulator implements Populator<AbstractOrderMo
 				}
 			}
 		}
-		MealeculeQuotientData mealeculeQuotientData = new MealeculeQuotientData();
+
+
+		totalCartCarbohydrate = Double.valueOf(df.format(totalCartCarbohydrate));
+		totalCartProtein = Double.valueOf(df.format(totalCartProtein));
+		totalCartFat = Double.valueOf(df.format(totalCartFat));
+		totalCartSugar = Double.valueOf(df.format(totalCartSugar));
+		totalCartFiber = Double.valueOf(df.format(totalCartFiber));
+		totalCartEnergy = Double.valueOf(df.format(totalCartEnergy));
+		totalCartWater = Double.valueOf(df.format(totalCartWater));
+
+
+		final MealeculeQuotientData mealeculeQuotientData = new MealeculeQuotientData();
 		if(CollectionUtils.isNotEmpty(source.getUser().getPreferredMealecule())){
-			for (String preferredMealecule:source.getUser().getPreferredMealecule()) {
+			for (final String preferredMealecule:source.getUser().getPreferredMealecule()) {
 				if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.CARBOHYDRATE.getCode())){
 					mealeculeQuotientData.setCarbohydrate(totalCartCarbohydrate);
 				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.PROTEIN.getCode())){

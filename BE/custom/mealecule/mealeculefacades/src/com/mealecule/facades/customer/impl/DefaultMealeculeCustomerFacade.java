@@ -39,8 +39,24 @@ public class DefaultMealeculeCustomerFacade extends DefaultCustomerFacade implem
 			userModel.setMinMealecule(minMealecule);
 			mealeculeData.setMinMealecule(minMealecule);
 		}
+
 		mealeculeData.setPreferredMealecule(StringUtils.isNotBlank(preferredMealecule) ? Arrays.asList(preferredMealecule.split(",")) : null);
 
+		final CustomerGameData customerGameData = userData.getGameData();
+
+		Double height = null;
+		Double weight = null;
+		Integer age = null;
+		if (null != customerGameData)
+		{
+			height = customerGameData.getHeight();
+			weight = customerGameData.getWeight();
+			age = customerGameData.getAge();
+		}
+
+		userModel.setHeight(height);
+		userModel.setWeight(weight);
+		userModel.setAge(age);
 		getModelService().save(userModel);
 		return mealeculeData;
 	}
