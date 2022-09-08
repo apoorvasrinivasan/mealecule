@@ -2,7 +2,7 @@
 div.myaccount
  h1.ui.header Welcome, {{ user.firstName }}
  button.ui.tiny.primary.button(v-on:click='logout()') Logout
- div.ui.cards
+ div.ui.four.cards
     div.ui.card
       h2.ui.header.teal Current Progress
       div.ui.statistics
@@ -54,14 +54,31 @@ div.myaccount
           input(v-model="bmi.h")
         button.ui.primary.fluid.button(v-on:click="calcBMI()") Calculate BMI
         div.bmi_result.ui.message(v-if="bmi.result") {{ bmi.result }}
-
-
+ section#orderHistory.orders
+    h2.ui.header.teal Order History
+    table.ui.table
+      thead
+        tr
+          th Mealecule Quotient
+          th Price
+          th Status
+          th Date
+      tbody
+        tr(v-for="o in orderHistory")
+          td {{o.mealeculeQuotientData}}
+          td 
+            span.price {{o.total.value}}
+          td {{o.status}}
+          td {{o.placed}}
+ section#orders
   
 </template>
 <script type="text/javascript">
 import Product from '../services/product';
 import User from '../services/user';
 import Common from '../services/common';
+import Highcharts from 'highcharts';
+
 export default {
   name: 'MyAccount',
   data(){
@@ -71,7 +88,8 @@ export default {
       badges:'',
       MQ_list: [],
       user_pm:[],
-      bmi:{ w:70, h:170}
+      bmi:{ w:70, h:170},
+      orderHistory:[]
 
     }
   },
@@ -85,6 +103,7 @@ export default {
     this.user_pm=this.$root.preferredMealecule;
     if(this.user.weight) this.bmi.w = this.user.weight;
     if(this.user.height) this.bmi.h = this.user.height;
+    this.getOrders()
   },
   computed:{
     form_disabled: function(){
@@ -159,6 +178,42 @@ export default {
       let result = Math.round(((vm.w / Math.pow(vm.h,2)) * 10000)*10)/10;
       let bmi_message = (result > 40) ? 'Severe Obesity' : (result >30) ? 'Obesity' : (result >25)? 'Overweight' :(result > 19) ? 'Normal': "Underweight";
       vm.result = "Your BMI is : " + result + " and you are " + bmi_message;
+    },
+    async getOrders(){
+      let vm = this;
+      let chartData={x:[],sData:{}, series:[]}
+      await User.userOrders(this.user).then((data)=>{
+          vm.orderHistory = data.orders; 
+          vm.orderHistory.map((i)=>{
+            chartData.x.push(i.placed);
+            for( let k in i.mealeculeQuotientData){
+              if (k in chartData.sData)
+                chartData.sData[k].push(i.mealeculeQuotientData[k])
+              else
+                chartData.sData[k] =[i.mealeculeQuotientData[k]]
+            }
+          })
+          for (let k in chartData.sData){
+            let data = chartData.sData[k]
+            chartData.series.push({
+              name : k,
+              data:data
+            })
+          }
+      });
+      console.log(chartData)
+      Highcharts.chart('orders', {
+          chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'My MQ history'
+        },
+        xAxis:{
+          categories: chartData.x
+        },
+        series: chartData.series
+      });
     }
   }
 }
@@ -184,5 +239,8 @@ export default {
 }
 .ui.button .bCoins{
   margin-left: 10px;
+}
+#orderHistory, #orders {
+  margin-top: 24px;
 }
 </style>

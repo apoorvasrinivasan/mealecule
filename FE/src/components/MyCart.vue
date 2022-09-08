@@ -46,8 +46,7 @@ div.cart
                   br
                   |{{ i.v }}g
         div.ui.form.user-add
-          textarea(placeholder="Address")
-          input(placeholder="Pincode")
+          input(placeholder="Pincode" v-model="pincode")
         div.cart-summary
           span Cart Value
           span.price {{ price.carttotal }}
@@ -57,7 +56,7 @@ div.cart
           span.price {{ price.discount }}
           span.total Total
           span.total.price {{price.total }}
-        button.ui.button.primary.cta.fluid Place Order
+        button.ui.button.primary.cta.fluid(v-on:click="placeOrder()" :disabled="orderplacing") Place Order
 </template>
 
 <script>
@@ -74,7 +73,9 @@ export default {
       response:{},
       price:{},
       mq:{},
-      preferd_mq:{}
+      preferd_mq:{},
+      pincode:'110096',
+      orderplacing:false,
     }
   },
   mounted() {
@@ -137,10 +138,7 @@ export default {
       
       // update the promo bar
       this.$root.cartMQ = mq;
-      let user = JSON.parse(localStorage.userData);
-      user.cartMQ = mq;
-      localStorage.userData = JSON.stringify(user);
-
+      
       for( let i in pm){
         try{
           mmq.push({
@@ -184,6 +182,66 @@ export default {
       product['mq_beakers'] = product_beakers;
       return product
       
+    },
+    async placeOrder(){
+      let vm = this;
+      vm.orderplacing=true
+      let user  = JSON.parse(localStorage.userData);
+      let useraddress = {
+        "id":user.uid,
+        "firstName":user.firstName,
+        "lastName":user.lastName || 'Test',
+        "titleCode":user.titleCode || 'mr',
+        "line1":"123",
+        "line2":"Road",
+        "town":"NY",
+        "region":{
+            "isocode":"US-CA",
+            "country":"US",
+            "isocodeShort":"CA",
+            "name":"California"
+        },
+        "postalCode":parseInt(vm.pincode),
+        "phone":5555500000,
+        "email":user.uid,
+        "country":{
+            "isocode":"US",
+            "name":"US"
+        },
+        "shippingAddress":true,
+        "defaultAddress":true
+      }
+      let payment;
+      await User.updateAddress(useraddress).then((d)=>{
+        alert('now here')
+        d.titleCode = 'mr'
+        payment = {
+           "id": user.uid,
+           "accountHolderName": "Test",
+           "cardType": {
+               "code":"visa",
+               "name":"Visa"
+           },
+           "cardNumber": "4111111111111111",
+           "startMonth": "10",
+           "startYear": "2020",
+           "expiryMonth": "10",
+           "expiryYear": "2030",
+           "issueNumber": "123",
+           "subscriptionId": 1245,
+           "billingAddress": d,
+           "defaultAddress": true
+        };
+      });
+      await User.updatePayment(payment);
+      alert('placing order')
+      await User.placeOrder(payment).then(()=>{
+        vm.orderplacing = false
+        vm.$router.go('myAccount')
+
+      });
+      
+
     }
   }
 }

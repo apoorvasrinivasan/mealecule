@@ -11,12 +11,13 @@ div.home-page
 					div.ui.statistic
 						span.value 
 							i.ui.huge.label.circular.bCoins $
-						span.label {{ total_coins }} Coins
+						span.label {{ $root.total_coins }} Coins
 					div.ui.statistic(v-if="$root.badges")
 						span.value 
 							i.ui.huge.label.circular.badges(:class="$root.badges")
 								i.icon.ui.trophy 
 						span.label {{ $root.badges }} Badge
+				div#orderGraph
 				router-link.ui.button.primary.cta-button(to="/game") Play Game
 			div.column.ui.image
 				img(:src="require('@/assets/ame.jpg')")
@@ -34,7 +35,7 @@ div.home-page
 						p Keep collecting BCoins on site by activating your user profile, setting essential body vitals and your peference of MQ to help us serve you better. Redeem these coins during purchase and win exciting discounts on all your favourite products.
 				div.offer-card
 						div.image.mq
-						div.ui.header.tiny Mealecular Quotient(aria-hidden="true")
+						div.ui.header.tiny(aria-hidden="true") Mealecular Quotient
 						p Understand the impact of buying a product by judging its Mealecular Quotient (MQ) - an info-metrics containing information in a visual representation, of quantities (%) of protein, carbohydrate, fat, fiber and caloric values for all products viewed and added to your cart. Sort and filter based on your preferred MQ.
 				div.offer-card
 						div.image.discount(aria-hidden="true")
@@ -90,8 +91,62 @@ div.home-page
 </template>
 <script>
 	document.body.classList.add('home');
+import User from '../services/user';
+import Highcharts from 'highcharts';
+
 	export default {
 		name: 'HomePage',
+		mounted(){
+				this.getOrders();
+		},
+		methods:{
+			async getOrders(){
+			let vm = this;
+			let userData = localStorage.userData;
+			if(!userData) return;
+			let user = JSON.parse(userData);
+			let chartData={x:[],sData:{}, series:[]}
+			await User.userOrders(user).then((data)=>{
+					vm.orderHistory = data.orders; 
+					vm.orderHistory.map((i)=>{
+						chartData.x.push(i.placed);
+						for( let k in i.mealeculeQuotientData){
+							if (k in chartData.sData)
+								chartData.sData[k].push(i.mealeculeQuotientData[k])
+							else
+								chartData.sData[k] =[i.mealeculeQuotientData[k]]
+						}
+					})
+					for (let k in chartData.sData){
+						let data = chartData.sData[k]
+						chartData.series.push({
+							name : k,
+							data:data
+						})
+					}
+			});
+			Highcharts.chart('orderGraph', {
+					chart: {
+						type: 'column'
+				},
+				title: {
+						text: 'mq history'
+				},
+				yAxis:{
+						visible:false
+				},
+				xAxis:{
+					visible: false,
+					type: 'datetime',
+					categories: chartData.x
+				},
+				legend:{
+					enabled:false
+				},
+				series: chartData.series
+			});
+		}
+		}
 	}
 </script>
 <style scoped="">
@@ -116,6 +171,10 @@ section {
 	overflow: hidden;
 }
 
+#orderGraph {
+	height:  200px;
+	width: 200px;
+}
 #offer .offers-cards{
 	margin-top: 60px;
 	display: grid;
@@ -214,6 +273,7 @@ button {
 	color: #f4f4f4;
 	background-color: var(--bronze);
 }
+
 @media screen and (max-width: 800px){
 	
 	h1.title {
@@ -236,6 +296,19 @@ button {
 	#categories {
 		grid-template-columns: 100%;
 	}
-	
+	.cta-button{
+		position:  static;
+	}
+	#offer .offers-cards{
+		grid-template-columns: 100%;
+		gap: 75px 0 ;
+	}
+	#categoryList .ui.cards{
+		flex-flow:  column;
+	}
+	#categoryList .ui.card{
+		width: 256px;
+		margin:  24px auto;
+	}
 }
 </style>

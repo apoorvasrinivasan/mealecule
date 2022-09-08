@@ -165,6 +165,7 @@ export default {
       })
    },
    myCart(success, error){
+      let that =this;
       let user = JSON.parse(localStorage.userData);
       let url = USER_BASE_URL + user.uid + '/carts/current/';
       $.ajax({
@@ -177,7 +178,7 @@ export default {
             success(data);
          },
          error:function(){
-            this.accessHandler();
+            that.accessHandler();
             error();
          }
       })
@@ -199,7 +200,67 @@ export default {
             error();
          }
       })
+   },
+   updateAddress(user){
+      return new Promise((resolve) => {
+         $.ajax({
+            url:`${USER_BASE_URL}${user.id}/carts/current/addresses/delivery`,
+            method:'post',
+            data:JSON.stringify(user),
+            contentType:'application/json',
+            dataType:'json',
+            success:function(d){
+               alert('im here');
+               resolve(d)
+            }
+         })
+      })
+   },
+   updatePayment(user){
+      alert('here')
+      return new Promise((resolve) => {
+         $.ajax({
+            url:`${USER_BASE_URL}${user.id}/carts/current/paymentdetails`,
+            method:'post',
+            data:JSON.stringify(user),
+            contentType:'application/json',
+            dataType:'json',
+            success:function(d){
+               resolve(d)
+            }
+         })
+      })
+   },
+   placeOrder(user){
+      return new Promise((resolve, reject) => {
+         $.ajax({
+            url:`${USER_BASE_URL}${user.id}/orders?cartId=current`,
+            method:'post',
+            data:JSON.stringify(user),
+            contentType:'application/json',
+            dataType:'json',
+            success:function(d){
+               alert('order placed successfully');
+               resolve(d)
+            },
+            error: function(r){
+               reject(r)
+            }
+         })
+      })
+   },
+   userOrders(user){
+      return new Promise((resolve, reject) => {
+         $.ajax({
+            url:`${USER_BASE_URL}${user.uid}/orders`,
+            success:function(d){
+               resolve(d)
+            },
+            error: function(r){
+               reject(r)
+            }
+         })
+      })
    }
-
-}
+}     
 
