@@ -110,8 +110,10 @@ export default {
       let x = confirm("are you sure you want to remove item?");
       if(!x) return;
       let vm = this;
-      User.updateCart(i,0,()=>{
+      User.updateCart(i,0,(data)=>{
         vm.cartitems.splice(i,1);
+        vm.$root.cart = data.totalItems;
+        vm.mq = vm.processCartMq(data.mealeculeQuotientData);
         let carttotal = vm.cartitems.reduce((a,b)=>{
           return a + parseFloat(b.totalPrice.value)  
         },0);
@@ -123,6 +125,7 @@ export default {
       let vm = this;
       User.updateCart(i,q,(data)=>{
         vm.cartitems[i] = vm.setPreferdMq(data.entry);
+        vm.$root.cart = data.totalItems;
         vm.mq = vm.processCartMq(data.mealeculeQuotientData);
         let carttotal = vm.cartitems.reduce((a,b)=>{
           return a + parseFloat(b.totalPrice.value)  
@@ -138,7 +141,6 @@ export default {
       
       // update the promo bar
       this.$root.cartMQ = mq;
-      
       for( let i in pm){
         try{
           mmq.push({
@@ -180,8 +182,7 @@ export default {
         })
       }
       product['mq_beakers'] = product_beakers;
-      return product
-      
+      return product    
     },
     async placeOrder(){
       let vm = this;
@@ -236,12 +237,11 @@ export default {
       await User.updatePayment(payment);
       alert('placing order')
       await User.placeOrder(payment).then(()=>{
-        vm.orderplacing = false
+        vm.orderplacing = false;
+        vm.$root.cart = -1;
         vm.$router.go('myAccount')
 
       });
-      
-
     }
   }
 }

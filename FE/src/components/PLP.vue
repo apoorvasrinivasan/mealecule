@@ -12,7 +12,7 @@ div.plp
               input(v-model="filterKeys" :name="b" :value= "b" :id="'brand_'+index" type="checkbox")
               label(:for="'brand_'+index") {{b}}
         
-        div
+        div(style="margin-top:24px")
           div.ui.header.tiny 
               | Mealecule
           span.mqRange(v-for="p in facetDatas")
@@ -43,9 +43,10 @@ div.plp
               MQ(:nutrients="p.mq" v-if='p.mq')
               div.ui.label.tiny {{ category}}
               div.price-row
-                span.mrp {{ p.price.value }}
-                span.price {{ p.price.discounted }}
-                span.ui.circular.tiny.label.bCoins {{ p.price.coins }}
+                span(:class="($root.badges)?'mrp':'price'") {{ p.price.value }}
+                span.price(v-if="$root.badges") {{ p.price.discounted }}
+                span.ui.circular.tiny.label.bCoins(v-if="$root.badges") {{ p.price.coins }}
+                div(style="height:50px" v-else)
             button.cta-button.ui.fluid.primary.button(v-on:click="addCart($event, p.code)")  Add to cart
   div.ui.message(v-if="products.length==0") Sorry no products found 
       
@@ -106,7 +107,7 @@ export default {
         let indb = pm.indexOf(b.code.toLowerCase())
         return (inda>indb) ? 1:-1;
       })
-      console.log(vm.facetDatas)
+
       if(vm.filterKeys.length ==0)
         a= vm.products;
       else

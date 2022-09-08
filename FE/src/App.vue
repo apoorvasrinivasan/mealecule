@@ -18,12 +18,13 @@
     </div>
     
     <div class="right menu" >
-    <div class=" item promo-bar">
-      <span  class="ui label promo-bar-item" v-for="k,v in cartMQ" :key="k">
+    <div class=" item promo-bar" v-if="filteredCartMq">
+      <span  class="ui label promo-bar-item tiny" v-for="k,v, ind in filteredCartMq" :key="k" :style="'background-color:'+ $root.colors[ind]">
       {{ Math.floor(k)}}g {{v}} 
       </span>
     </div>
-    <div class="item"> Total Coins : {{total_coins }} </div>
+    <div class="item"> <span class="ui circular bCoins tiny yellow label"> {{ total_coins || 0}} </span> </div>
+    
       <router-link to="/login" class='item' v-if="!isLogged">Login</router-link>
       <router-link :to="{name:'MyAccount'}" class="item" v-if="isLogged">
         <i class="user circle icon"></i>
@@ -50,6 +51,15 @@ export default {
     isLogged:function(){
       let user = localStorage.getItem('user');
       return user != null; 
+    },
+    filteredCartMq : function(){
+        if (this.cart < 1) return {};
+        let pm = this.preferredMealecule;
+        let mq = {}
+        for (let k in this.cartMQ){
+         if (pm.indexOf(k) > -1) mq[k] = this.cartMQ[k]
+        }
+       return mq;
     }
   },
   data(){
@@ -89,13 +99,14 @@ export default {
       }
       catch(e) {return;}
       if(!user) return;
-      this.badges = user.gameData.badge.level
+      this.badges = (user.gameData.badge)?user.gameData.badge.level : ''
       this.cart = user.cart;
       this.cartMQ = user.cartMQ;
-      console.log(this.cartMQ);
       this.total_coins = user.gameData.coins;
       let pm = user.preferredMealecule;
       if(pm.length > 1) this.preferredMealecule = pm;
+      localStorage.userData = JSON.stringify(user);
+
       
 
     },

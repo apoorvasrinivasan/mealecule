@@ -38,11 +38,11 @@ div.plp
       div.three.wide.column
         div.ui.segment.cta-box
             div.ui.label.green.ribbon {{product.stock.stockLevelStatus}} 
-            div
+            div(style="margin-top:24px")
               span.mrp-label MRP
               span.price {{product.price.value }}
             
-            div
+            div(v-if="$root.badges")
               span.discounted.price {{product.price.discounted}}
               span.ui.circular.label.tiny.bCoins {{product.price.coins}}
             small You can get upto Rs.{{product.price.coins}} discount. 

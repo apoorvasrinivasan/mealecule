@@ -8,13 +8,14 @@ div.myaccount
       div.ui.statistics
         div.ui.statistic
           span.value 
-            i.ui.huge.label.circular.bCoins $
-          span.label {{ coins }} Coins
+            i.ui.huge.label.circular(:class="(coins>0)?'bCoins':'disabled'") $
+          span.label {{ coins || 0 }} Coins
         div.ui.statistic
           span.value 
             i.ui.huge.label.circular.badges(:class="badges")
-              i.icon.ui.trophy 
-          span.label {{ badges }} Badge
+              i.icon.ui.trophy(:class="{'disabled':!badges}")
+          span.label {{ badges || 'no' }} Badge
+      router-link.ui.primary.button(to="/game") Earn more coins
     div.ui.card
       h2.ui.header.teal My Preferred Mealecules
       form.ui.form.checkbox.preffered_mq
@@ -22,7 +23,7 @@ div.myaccount
           div.ui.checkbox
           input(type="checkbox" :id="'mq_'+m" v-model = "user_pm" :value="m" :disabled="user_pm.length>=4 && user_pm.indexOf(m) == -1") 
           label(:for="'mq_'+m" ) {{m}}
-      button.ui.primary.fluid.button(v-on:click="savePM()" :disabled="form_disabled") 
+      button.ui.primary.fluid.button(v-on:click="savePM()" :disabled="form_disabled || loaders.pm" :class="{'loading':loaders.pm}" ) 
         | Save   
         div.ui.circular.label.tiny.bCoins 20
 
@@ -38,7 +39,7 @@ div.myaccount
         div.ui.field
           label Age
           input(v-model="user.age")
-        button.ui.primary.fluid.button(:disabled="inform_disabled" v-on:click="saveVitals()") 
+        button.ui.primary.fluid.button(:disabled="inform_disabled || loaders.info" v-on:click="saveVitals()" :class="{'loading':loaders.info}") 
           | Save   
           div.ui.circular.label.tiny.bCoins 20
           
@@ -54,7 +55,7 @@ div.myaccount
           input(v-model="bmi.h")
         button.ui.primary.fluid.button(v-on:click="calcBMI()") Calculate BMI
         div.bmi_result.ui.message(v-if="bmi.result") {{ bmi.result }}
- section#orderHistory.orders
+ section#orderHistory.orders(v-if="orderHistory.length>0")
     h2.ui.header.teal Order History
     table.ui.table
       thead
@@ -65,12 +66,14 @@ div.myaccount
           th Date
       tbody
         tr(v-for="o in orderHistory")
-          td {{o.mealeculeQuotientData}}
+          td 
+              span.ui.tiny.label(v-for="k,v in o.mealeculeQuotientData") {{ Math.round(k) }}g: {{ v}}
           td 
             span.price {{o.total.value}}
           td {{o.status}}
           td {{o.placed}}
- section#orders
+ section#orders(v-if="orderHistory.length>0")
+ div.ui.message(v-else) You have no orders yet.
   
 </template>
 <script type="text/javascript">
@@ -89,7 +92,8 @@ export default {
       MQ_list: [],
       user_pm:[],
       bmi:{ w:70, h:170},
-      orderHistory:[]
+      orderHistory:[],
+      loaders:{pm:false, info:false}
 
     }
   },
@@ -98,7 +102,7 @@ export default {
     if(!userData) return
     this.user = userData;
     this.coins = userData.gameData.coins
-    this.badges = userData.gameData.badge.level
+    this.badges = (userData.gameData.badge)? userData.gameData.badge.level : '';
     this.getMealeculeList()
     this.user_pm=this.$root.preferredMealecule;
     if(this.user.weight) this.bmi.w = this.user.weight;
@@ -145,19 +149,22 @@ export default {
     saveVitals : function () {
       let vm = this;
       let user = this.user;
+      vm.loaders.info=true;
       User.updateUser(user, ()=>{
         User.updateUser(vm.coins+20, (data)=>{
           vm.coins = data.coins;
           vm.badges = data.badge.level
           vm.$root.total_coins = data.coins
+          vm.loaders.info=false;
           Common.Alert('Saved. you receive 20 Coins');
-        });
+        })
       });
 
     },
     savePM:function(){
       let vm = this;
       let pm = this.user_pm.join(','); 
+      vm.loaders.pm=true;
       User.postMealecule(pm, (data)=>{
         vm.$root.preferredMealecule = data.preferredMealecule
         vm.user_pm = data.preferredMealecule
@@ -168,6 +175,7 @@ export default {
           vm.coins = data.coins;
           vm.badges = data.badge.level;
           vm.$root.total_coins = data.coins;
+          vm.loaders.pm=false;
         });
       })
     
@@ -184,6 +192,7 @@ export default {
       await User.userOrders(this.user).then((data)=>{
           vm.orderHistory = data.orders; 
           vm.orderHistory.map((i)=>{
+            i.placed = new Date(i.placed)
             chartData.x.push(i.placed);
             for( let k in i.mealeculeQuotientData){
               if (k in chartData.sData)
@@ -191,6 +200,7 @@ export default {
               else
                 chartData.sData[k] =[i.mealeculeQuotientData[k]]
             }
+
           })
           for (let k in chartData.sData){
             let data = chartData.sData[k]
@@ -241,5 +251,8 @@ export default {
 }
 #orderHistory, #orders {
   margin-top: 24px;
+}
+.ui.card>.button, .ui.card>.buttons, .ui.cards>.card>.button, .ui.cards>.card>.buttons {
+  margin-top: auto;
 }
 </style>
