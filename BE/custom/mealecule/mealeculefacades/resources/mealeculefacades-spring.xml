@@ -257,27 +257,26 @@
 	<bean id="ruleSilverBadgeTranslator" class="com.mealecule.facades.definitions.conditions.RuleSilverBadgeTranslator" />
 	<bean id="ruleBronzeBadgeTranslator" class="com.mealecule.facades.definitions.conditions.RuleBronzeBadgeTranslator" />
 
+	<alias name="mqUserRaoPopulator" alias="userRaoPopulator" />
+	<bean id="mqUserRaoPopulator" class="com.mealecule.facades.populators.MQUserRaoPopulator" parent="defaultUserRaoPopulator"/>
 
-	<bean id="userRaoPopulator" class="com.mealecule.facades.populators.UserRaoPopulator"/>
+<!--	<bean id="userRaoConverter"-->
+<!--		parent="abstractPopulatingConverter">-->
+<!--		<property name="targetClass"-->
+<!--			value="de.hybris.platform.ruleengineservices.rao.UserRAO" />-->
+<!--		<property name="populators">-->
+<!--			<list>-->
+<!--				<ref bean="userRaoPopulator" />-->
+<!--			</list>-->
+<!--		</property>-->
+<!--	</bean>-->
 
-	<bean id="userRaoConverter"
-		parent="abstractPopulatingConverter">
-		<property name="targetClass"
-			value="de.hybris.platform.ruleengineservices.rao.UserRAO" />
-		<property name="populators">
-			<list>
-				<ref bean="userRaoPopulator" />
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="userBadgeRaoExtractor"
-		class="com.mealecule.facades.rao.providers.UserBadgeRaoExtractor" />
 
-	<bean
-		id="userBadgeCartRAOProviderExtractorsListMergeDirective"
-		depends-on="cartRAOProviderExtractors" parent="listMergeDirective">
-		<property name="add" ref="userBadgeRaoExtractor" />
+	<alias name="mqUserBadgeRaoExtractor" alias="userBadgeRaoExtractor"/>
+	<bean id="mqUserBadgeRaoExtractor" class="com.mealecule.facades.rao.providers.MQUserBadgeRaoExtractor"/>
+
+	<bean id="userBadgeRaoExtractorListMergeDirective" depends-on="cartRAOProviderExtractors" parent="listMergeDirective">
+		<property name="add" ref="userBadgeRaoExtractor"/>
 	</bean>
 
 	<alias name="mealeculeCustomerFacade" alias="customerFacade"/>
@@ -310,6 +309,14 @@
 	<bean parent="modifyPopulatorList">
    		<property name="list" ref="orderHistoryConverter" />
    		<property name="add" ref="orderMealeculeQuotientHistoryPopulator" />
+	</bean>
+
+	<bean id="mqUserBadgePlaceOrderMethodHook" class="com.mealecule.facades.hook.MQUserBadgePlaceOrderMethodHook">
+		<property name="modelService" ref="modelService" />
+	</bean>
+
+	<bean id="mqUserBadgePlaceOrderMethodHooksMergeDirective" depends-on="commercePlaceOrderMethodHooks" parent="listMergeDirective">
+		<property name="add" ref="mqUserBadgePlaceOrderMethodHook"/>
 	</bean>
 	
 </beans>

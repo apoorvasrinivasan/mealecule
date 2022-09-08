@@ -23,43 +23,28 @@ $lang=en
 
 # Create Categories
 UPDATE Category;code[unique=true];$catalogVersion;name[lang=$lang]
- ;noodles;;Noodles
- ;sauces ;;sauces
- ;cereals ;;Cereals
- ;cakes ;;Cakes
- ;biscuits ;;Biscuits
- ;healthDrinks ;;Health Drinks
- ;softDrinks ;;Soft Drinks
- ;iceCream ;;Ice Cream
- ;juices ;;Juices
- ;pasta ;; Pasta
- ;chocolates;;Chocolates
- ;1;;Open Catalogue;
- ;106;;Components;
- ;1201;;Fixatives;
- ;1288;;Camera Kits;
- ;1421;;Binoculars;
- ;206;;Data storage;
- ;571;;Cameras;
- ;574;;Film cameras;
- ;575;;Digital Cameras;
- ;576;;Digital Compacts;
- ;577;;Webcams;
- ;578;;Digital SLR;
- ;584;;Hand-held Camcorders;
- ;585;;Camera Accessories & Supplies;
- ;586;;Camera Flashes;
- ;587;;Tripods;
- ;588;;Camera Lenses;
- ;597;;Colour Films;
- ;598;;Black & White Films;
- ;604;;Blank Video Tapes;
- ;814;;Rechargeable Batteries;
- ;816;;Power Supplies;
- ;827;;Power Adapters & Inverters;
- ;829;;Battery Chargers;
- ;902;;Flash Memory;
- ;934;;Camera Cables;
+               ;noodles;;Noodles
+               ;sauces ;;sauces
+               ;cereals ;;Cereals
+               ;cakes ;;Cakes
+               ;biscuits ;;Biscuits
+               ;healthDrinks ;;Health Drinks
+               ;softDrinks ;;Soft Drinks
+               ;iceCream ;;Ice Cream
+               ;juices ;;Juices
+               ;pasta ;; Pasta
+               ;chocolates;;Chocolates
+               ;dairy;;Dairy
+               ;milk;;Milk
+               ;dessert;;Dessert
+               ;baking;;Baking
+               ;snacks;;Snacks
+               ;beverages;;Beverages
+               ;butter;;Butter;
+               ;bread;;Bread
+               ;cookie;;Cookie
+               ;coffee;;Coffee
+               ;cheese;;cheese
 
 $productCatalog=mealeculeProductCatalog
 $productCatalogName=Mealecule Product Catalog
@@ -83,4 +68,15 @@ UPDATE Category;code[unique=true];$catalogVersion;name[lang=$lang]
                ;juices ;;Juices
                ;pasta ;; Pasta
                ;chocolates;;Chocolates
+               ;dairy;;Dairy
+               ;milk;;Milk
+               ;dessert;;Dessert
+               ;baking;;Baking
+               ;snacks;;Snacks
+               ;beverages;;Beverages
+               ;butter;;Butter;
+               ;bread;;Bread
+               ;cookie;;Cookie
+               ;coffee;;Coffee
+               ;cheese;;cheese
 

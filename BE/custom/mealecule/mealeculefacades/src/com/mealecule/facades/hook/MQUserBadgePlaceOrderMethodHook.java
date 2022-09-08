@@ -36,7 +36,7 @@ public class MQUserBadgePlaceOrderMethodHook  implements CommercePlaceOrderMetho
 
 	@Override
 	public void afterPlaceOrder(CommerceCheckoutParameter parameter, CommerceOrderResult orderModel) throws InvalidCartException {
-		if(CollectionUtils.isNotEmpty(orderModel.getOrder().getDiscounts())){
+		if(null != orderModel.getOrder().getTotalDiscounts()){
 			OrderModel order = orderModel.getOrder();
 			final CustomerModel customer = (CustomerModel) order.getUser();
 			if(null != customer.getType() && CustomerType.REGISTERED.getCode().equals(customer.getType().getCode())){

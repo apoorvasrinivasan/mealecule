@@ -32,8 +32,8 @@ public class RuleSilverBadgeTranslator implements RuleConditionTranslator
 	public static final String USER_BADGE_LEVEL = "userBadgeLevel";
 	public static final String USER_BADGE_STATUS = "userBadgeStatus";
 
-	public static final String silverLevel = LevelEnum.SILVER.toString();
-	public static final String activeStatus = StatusEnum.ACTIVE.toString();
+	public static final String silverLevel = "SILVER";
+	public static final String activeStatus = StatusEnum.ACTIVE.getCode();
 
 
 	@Override
@@ -44,33 +44,25 @@ public class RuleSilverBadgeTranslator implements RuleConditionTranslator
 
 		final List<RuleIrCondition> irConditions = new ArrayList<>();
 
-		final RuleParameterData parameterData = condition.getParameters().get(USER_BADGE_LEVEL);
+		final RuleIrAttributeCondition ruleIrAttributeCondition = new RuleIrAttributeCondition();
+		ruleIrAttributeCondition.setVariable(userRaoVariable);
+		ruleIrAttributeCondition.setOperator(RuleIrAttributeOperator.EQUAL);
+		ruleIrAttributeCondition.setAttribute(USER_BADGE_LEVEL);
+		ruleIrAttributeCondition.setValue(silverLevel);
 
-		if (parameterData != null)
-		{
-			final RuleIrAttributeCondition ruleIrAttributeCondition = new RuleIrAttributeCondition();
-			ruleIrAttributeCondition.setVariable(userRaoVariable);
-			ruleIrAttributeCondition.setOperator(RuleIrAttributeOperator.EQUAL);
-			ruleIrAttributeCondition.setAttribute(USER_BADGE_LEVEL);
-			ruleIrAttributeCondition.setValue(activeStatus);
+		final RuleIrAttributeCondition ruleIrAttributeCondition2 = new RuleIrAttributeCondition();
+		ruleIrAttributeCondition2.setVariable(userRaoVariable);
+		ruleIrAttributeCondition2.setOperator(RuleIrAttributeOperator.EQUAL);
+		ruleIrAttributeCondition2.setAttribute(USER_BADGE_STATUS);
+		ruleIrAttributeCondition2.setValue(activeStatus);
 
-			final RuleIrAttributeCondition ruleIrAttributeCondition2 = new RuleIrAttributeCondition();
-			ruleIrAttributeCondition2.setVariable(userRaoVariable);
-			ruleIrAttributeCondition2.setOperator(RuleIrAttributeOperator.EQUAL);
-			ruleIrAttributeCondition2.setAttribute(USER_BADGE_STATUS);
-			ruleIrAttributeCondition2.setValue(activeStatus);
+		irConditions.add(ruleIrAttributeCondition);
+		irConditions.add(ruleIrAttributeCondition2);
 
-			irConditions.add(ruleIrAttributeCondition);
-			irConditions.add(ruleIrAttributeCondition2);
-
-			final RuleIrGroupCondition irSilverBadgeCondition = new RuleIrGroupCondition();
-			irSilverBadgeCondition.setOperator(RuleIrGroupOperator.AND);
-			irSilverBadgeCondition.setChildren(irConditions);
-			return irSilverBadgeCondition;
-		}
-
-
-		return new RuleIrFalseCondition();
+		final RuleIrGroupCondition irSilverBadgeCondition = new RuleIrGroupCondition();
+		irSilverBadgeCondition.setOperator(RuleIrGroupOperator.AND);
+		irSilverBadgeCondition.setChildren(irConditions);
+		return irSilverBadgeCondition;
 	}
 
 }

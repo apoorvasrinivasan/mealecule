@@ -74,7 +74,7 @@ public class UserBadgeReversePopulator implements Populator<CustomerData, UserMo
 
 		if (intCoins != null)
 		{
-			if (intCoins >= 10000)
+			if (intCoins >= 11000)
 			{
 				if (existingSilverActiveBadge || existingBronzeActiveBadge)
 				{
@@ -90,7 +90,7 @@ public class UserBadgeReversePopulator implements Populator<CustomerData, UserMo
 				getModelService().save(badgeModel);
 				target.setBadge(badgeModel);
 			}
-			else if (intCoins >= 1000)
+			else if (intCoins >= 1100)
 			{
 				if (existingBronzeActiveBadge)
 				{
@@ -106,7 +106,7 @@ public class UserBadgeReversePopulator implements Populator<CustomerData, UserMo
 				getModelService().save(badgeModel);
 				target.setBadge(badgeModel);
 			}
-			else if (intCoins >= 200 && !existingBronzeActiveBadge)
+			else if (intCoins >= 100 && !existingBronzeActiveBadge)
 			{
 				badgeModel.setLevel(LevelEnum.BRONZE);
 
