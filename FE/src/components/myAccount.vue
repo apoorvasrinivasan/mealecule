@@ -61,6 +61,7 @@ div.myaccount
       thead
         tr
           th Mealecule Quotient
+          th Energy
           th Price
           th Status
           th Date
@@ -69,9 +70,11 @@ div.myaccount
           td 
               span.ui.tiny.label(v-for="k,v in o.mealeculeQuotientData") {{ Math.round(k) }}g: {{ v}}
           td 
+            span.ui.tiny.label.teal {{ Math.round(o.energy) }} kCal
+          td 
             span.price {{o.total.value}}
           td {{o.status}}
-          td {{o.placed}}
+          td {{o.placed.toDateString() }}
  section#orders(v-if="orderHistory.length>0")
  div.ui.message(v-else) You have no orders yet.
   
@@ -151,7 +154,8 @@ export default {
       let user = this.user;
       vm.loaders.info=true;
       User.updateUser(user, ()=>{
-        User.updateUser(vm.coins+20, (data)=>{
+        localStorage.userData = JSON.stringify(user)
+        User.addCoins(vm.coins+20, (data)=>{
           vm.coins = data.coins;
           vm.badges = data.badge.level
           vm.$root.total_coins = data.coins
@@ -168,15 +172,15 @@ export default {
       User.postMealecule(pm, (data)=>{
         vm.$root.preferredMealecule = data.preferredMealecule
         vm.user_pm = data.preferredMealecule
-        User.myCart((data)=>{
-          vm.$root.cartMQ = data.mealeculeQuotientData;
-        });
-        User.addCoins(vm.coins + 20, (data)=>{
-          vm.coins = data.coins;
-          vm.badges = data.badge.level;
-          vm.$root.total_coins = data.coins;
-          vm.loaders.pm=false;
-        });
+          User.addCoins(vm.coins + 20, (data)=>{
+            User.myCart((data)=>{
+              vm.$root.cartMQ = data.mealeculeQuotientData;
+            });
+            vm.coins = data.coins;
+            vm.badges = data.badge.level;
+            vm.$root.total_coins = data.coins;
+            vm.loaders.pm=false;
+          });
       })
     
     },
@@ -193,8 +197,11 @@ export default {
           vm.orderHistory = data.orders; 
           vm.orderHistory.map((i)=>{
             i.placed = new Date(i.placed)
-            chartData.x.push(i.placed);
+            chartData.x.push(i.placed.toDateString());
+            i.energy = i.mealeculeQuotientData.energy;
+            delete i.mealeculeQuotientData.energy;
             for( let k in i.mealeculeQuotientData){
+
               if (k in chartData.sData)
                 chartData.sData[k].push(i.mealeculeQuotientData[k])
               else
@@ -210,7 +217,7 @@ export default {
             })
           }
       });
-      console.log(chartData)
+      
       Highcharts.chart('orders', {
           chart: {
             type: 'column'

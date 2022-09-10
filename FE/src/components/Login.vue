@@ -148,14 +148,17 @@ export default {
           name: data.name,
           firstName: data.firstName,
           gameData: data.gameData,
-          preferredMealecule: data.preferredMealecule
+          preferredMealecule: data.preferredMealecule,
+          weight:data.weight,
+          height:data.height,
+          age:data.age,
         }
         localStorage.setItem('userData',JSON.stringify(userData));
         vm.$root.preferredMealeacule = data.preferredMealeacule;
         vm.$root.total_coins = data.gameData.coins;
         User.createCart(()=>{
             vm.$root.cart = 0;
-            vm.$router.go('/categories');
+          vm.$router.push('/categories');
         })
       }, (r)=> {
         vm.log_error = r.errors[0].message;

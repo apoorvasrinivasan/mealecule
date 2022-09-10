@@ -60,7 +60,7 @@ export default {
   },
   mounted() {
     // this.startGame();
-    this.total_coin = localStorage.coins || 0;
+    // this.total_coin = localStorage.coins || 0;
   },
   methods: {
 
@@ -82,26 +82,35 @@ export default {
     },
     stopGame: function(){
       let vm =this;
-      let coins = parseInt(vm.$root.total_coins);
-      coins = vm.$root.total_coins += parseInt(vm.coins)
-      User.addCoins(coins,()=>{
+      let u = localStorage.userData;
+      let coins = vm.$root.total_coins || 0;
+      if(u) {
+        coins += parseInt(vm.coins)
+        User.addCoins(coins,()=>{
+          vm.$root.total_coins = coins;
+          vm.p_coins = vm.coins;
+          vm.p_score = vm.score;
+          vm.score = 0;
+          vm.coins =  0;
+        }, 
+        ()=>{
+          Common.Alert('error occured in saving');
+          vm.score = 0;
+          vm.coins =  0;
+        });
+      }
+      else {
+        vm.$root.total_coins = vm.coins;
         vm.p_coins = vm.coins;
         vm.p_score = vm.score;
         vm.score = 0;
         vm.coins =  0;
-      }, 
-      ()=>{
-        Common.Alert('error occured in saving');
-        vm.score = 0;
-        vm.coins =  0;
-      });
-
+      }
       clearInterval(gameInterval);
       clearInterval(gameInterval2);
       $('#obst').empty();
       this.gamepaused =true;
       this.startButton = 'Play again'
-      $('startbutton').focus();
     },
     createbox:function(idx){
       let vm=this;

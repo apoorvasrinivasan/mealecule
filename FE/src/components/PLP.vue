@@ -93,6 +93,7 @@ export default {
       let col = this.$root.colors;
 
       vm.facetDatas = vm.facetDatas.filter(i=>{
+        if(i.code == "CALORIES") return true
         let ind = pm.indexOf(i.code.toLowerCase())
         if(ind > -1) i.style = "background-color:"+col[ind];
         return (ind > -1)
@@ -143,7 +144,7 @@ export default {
           if(vm.brands.indexOf(i.manufacturer) < 0)
             vm.brands.push(i.manufacturer)
           i.mq = Product.makeMQData(i.mealeculeQuotientData);
-          i.price.coins = Math.floor(i.price.value /10);
+          i.price.coins = Math.ceil((vm.$root.disc/100) * i.price.value);
           i.price.discounted = i.price.value - i.price.coins;
           return i
         });

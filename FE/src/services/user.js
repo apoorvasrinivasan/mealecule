@@ -119,8 +119,8 @@ export default {
          url,
          method:'POST',
          success:function(data){
-            let userbadge = user.gameData.badge.level;
-            if(data.badge.level != userbadge){
+            let userbadge = (user.gameData.badge)?user.gameData.badge.level : '';
+            if(data.badge && data.badge.level != userbadge){
                Common.Alert('new badge received '+data.badge.level);
             }
             user.gameData = data;
@@ -233,14 +233,12 @@ export default {
             contentType:'application/json',
             dataType:'json',
             success:function(d){
-               alert('im here');
                resolve(d)
             }
          })
       })
    },
    updatePayment(user){
-      alert('here')
       return new Promise((resolve) => {
          $.ajax({
             url:`${USER_BASE_URL}${user.id}/carts/current/paymentdetails`,
@@ -263,7 +261,7 @@ export default {
             contentType:'application/json',
             dataType:'json',
             success:function(d){
-               alert('order placed successfully');
+               Common.Alert('order placed successfully');
                resolve(d)
             },
             error: function(r){
