@@ -42,8 +42,11 @@ public class MQUserBadgePlaceOrderMethodHook  implements CommercePlaceOrderMetho
 			if(null != customer.getType() && CustomerType.REGISTERED.getCode().equals(customer.getType().getCode())){
 				BadgeModel badgeModel = customer.getBadge();
 				if(null != badgeModel){
-					badgeModel.setStatus(StatusEnum.INACTIVE);
-					getModelService().save(badgeModel);
+					Integer customerCoins = customer.getCoins();
+					final Integer orderDiscount = order.getTotalDiscounts().intValue();
+					customerCoins = customerCoins - orderDiscount;
+					customer.setCoins(customerCoins);
+					getModelService().save(customer);
 				}
 			}
 		}
