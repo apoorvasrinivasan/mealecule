@@ -1,6 +1,9 @@
 <template>
   <nav aria-label="Main menu" class="ui menu" :class="{'secondary':currentRouteName == 'home'}">
-    <router-link to="/" class='item'>Mealecule</router-link>
+    <router-link to="/" class=''>
+      <img src="/logowhitesmall.png" class="logo" alt="mealecule logo" v-if="currentRouteName == 'home'"/>
+      <img v-else src="/logosmall.png" class="logo" alt="mealecule logo"/>
+    </router-link>
     <router-link to="/game" class='item'>Play Game</router-link>
     <div  tabindex=0 aria-label="Shop By Categories" role="button" class='ui dropdown item' v-if="categories.length">
     Shop By
@@ -151,20 +154,23 @@ export default {
     flex-wrap: wrap;
   }
   #homepage.home-banner {
-    background-position: 0 69px;
-    background-size: 100% auto;
+    background-position: 0 0;
+    background-size: auto 100%;
     margin-top: -86px;
-    width: 90vh;
+    width: 100%;
+    filter: grayscale(0.3);
+    opacity:0.6;
   }
 }
 .home-banner {
-  background:url('assets/hero-image.png') no-repeat #dff7ce;
+  background:url('assets/leaf.png') no-repeat #dff7ce;
   background-attachment: fixed;
-  background-size: cover;
+  background-size: contain;
   width:100%;
   height:100vh;
   margin-top: -54px;
 }
+
 .cart-number{
   background-color: var(--red);
   border-radius: 50%;
@@ -176,15 +182,9 @@ export default {
   position: absolute;
   bottom:  20px;
 }
-.slide-fade-enter-active {
-  transition: all .1s ease;
-}
-.slide-fade-leave-active {
-  transition: all .1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active for <2.1.8 */ {
-  transform: translateY(10px);
-  opacity: 0;
+img.logo {
+    height: 25px;
+    margin-top: 8px;
+    margin-left: 8px;
 }
 </style>

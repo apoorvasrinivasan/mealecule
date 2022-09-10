@@ -1,0 +1,156 @@
+
+.ui.card, .ui.cards>.card {
+  width:  212px;
+}
+
+.check-box input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
+.check-box input[type="checkbox"]:focus-visible +label {
+  outline: 1px solid var(--yellow);
+  border-radius: 3px;
+}
+
+.check-box input:checked +label:before {
+  background-color: var(--green);
+  border-color: var(--green) ;
+  box-shadow:  0 0 2px #fff inset;
+}
+
+.check-box label:before {
+    content: "";
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    border: 1px solid var(--lightgrey) ;
+    box-shadow: 0 0 0 1px var(--lightgrey) ;
+    border-radius: 2px;
+    left: -13px;
+    position: relative;
+}
+.check-box label {
+  display: block;
+  padding: 0 5px;
+  padding-left: 20px;
+  margin: 5px 0;
+}
+
+.select-box {
+    width: fit-content;
+    display:flex;
+    margin-left: auto;
+    margin-bottom: 27px;
+    margin-top: -8px;
+    position:relative
+}
+.select-box .sort-box {
+  border-radius: 5px;
+  border: 1px solid var(--lightgrey) ;
+  margin-right: 10px;
+  padding: 5px 10px;
+}
+.select-box:before {
+    content: "sort by";
+    position: absolute;
+    font-size: 9px;
+    top: -15px;
+    background: var(--white) ;
+    display: block;
+    padding: 0 4px;
+    color: var(--secondary) ;
+}
+.select-box select{
+  border:0;
+  outline: 0;
+  text-transform: capitalize;
+}
+.product-card .product-name{
+  margin-bottom:  10px;
+}
+.product-card > .content {
+  display: grid;
+  grid-gap: 10px;
+}
+.price-row {
+  width:50%;
+  margin-top: 5px;
+}
+
+.meta {
+  position: relative;
+}
+.mrp {
+  color: var(--lightgrey);
+   /*text-decoration: line-through;*/
+  display: block;
+}
+.price {
+  font-size: 1.2rem;
+  color:  #222;
+  /*color: var(--red);*/
+}
+.cta-button{
+  margin-top: auto;
+}
+.mq{
+    position:absolute;
+    right: -10px;
+    bottom:-10px;
+    width: 60%;
+}
+.mqRange{
+  display: block;
+  margin-bottom:  14px;
+  font-size:  .9em;
+}
+.slider {
+  appearance:  none;
+  background-color: var(--lightgrey);
+      border-radius: 18px;
+    height: 8px;
+}
+.slider:focus-visible {
+  outline-color: var(--yellow);
+}
+.brandname{
+  color: var(--secondary);
+}
+.ui.cards>.card> .image {
+  background: #fff;
+  display: flex;
+  height: 200px;
+  align-items: center;
+}
+.ui.cards>.card>.image>img{
+  width: auto;
+  max-height:  100%;
+  margin:  0 auto;
+}
+@media screen and (max-width:  800px){
+  .ui.column{
+    min-width: 100%;
+  }
+  .ui.segment.filter-form.form {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+  .filter-form .header{
+    grid-column:  1/3;
+    font-size:  1.5rem;
+    font-weight: 700;
+  }
+
+  .ui.cards {
+    justify-content: center;
+  }
+  .ui.card, .ui.cards>.card {
+    width: 90%;
+  }
+  .mq {
+    width:  113px;
+  }
+  .ui.cards>.card>.image{
+    height:  100px;
+  }
+}

@@ -7,11 +7,21 @@ h1.title {
 	right: 9%;
 	top: 50%;
 	transform: translate(-20%, -50%);
-	width: 394px;
+	background-image:url('../plate.png');
+	background-repeat: no-repeat;
+	background-position: center left;
+		padding-left: 400px;
+		height: 350px;
+		width: 800px;
+		background-color: transparent;
+		/*background-attachment: fixed;*/
+		background-size: contain;
+	
 }
 h1.title b{
 	color:  var(--green) ;
 }
+
 section {
 	width:100%;
 	min-height:70vh;
@@ -125,11 +135,22 @@ button {
 @media screen and (max-width: 800px){
 	
 	h1.title {
-		right: 0;
-		top: 65%;
-		transform: none;
-		width: 90%;
-		font-size: 8vh;
+			background-position: top center;
+			background-size: 300px auto;
+			font-size: 8vh;
+			height: 515px;
+			padding:  344px 20px 0 20px;
+			text-align: center;
+			top: 50%;
+			right:  unset;
+			left: 0;
+			transform: translate(0, -50%);
+			width: 100%;
+
+	}
+	h1.title b{
+		text-shadow:  0 0 5px #000;
+
 	}
 	.ui[class*="two column"].grid>.column:not(.row), .ui[class*="two column"].grid>.row>.column{
 		width: 100%;

@@ -1,0 +1,107 @@
+.gamearea{
+  display: flex;
+}
+#gameArea {
+  background: url(../road.png);
+  border:  1px solid #ccc;
+  height: 400px;
+  margin:  0 auto;
+  overflow: hidden;
+  position: relative;
+  width:600px;
+}
+#gameArea.active {
+  animation: move 6s linear infinite;
+  border:  solid #fff;
+  border-width: 0 3px;
+  outline: 4px solid #565852;
+}
+#obst{
+  background: red;
+}
+.overlay {
+  align-items: center;
+  background: rgba(0,0,0,0.5);
+  display: grid;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 4;
+}
+#player{
+  background: url(../popeye.png) no-repeat;
+  background-size:contain ;
+  bottom:  0;
+  height:  100px;
+  position:  absolute;
+  width: 100px;
+}
+.obsticle{
+  animation: fall 6s linear infinite;
+  background: black;
+  background-size:  contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border:  5px solid transparent;
+  color:  #fff;
+  height:  90px;
+  position:  absolute;
+  width: 90px;
+  z-index: 2;
+}
+.coins{
+  animation: fall 5s linear 2;
+  background: #ebdc60;
+  border-radius: 50%;
+  border: 3px solid gold;
+  box-shadow: 2px 2px 2px #222, 2px 2px 0 #222 inset;
+  color:  #222;
+  height:  50px;
+  position:  absolute;
+  top:  -50px;
+  width: 50px;
+}
+
+@keyframes fall {
+  from {top: -50px;}
+  to {top: 400px;}
+}
+@keyframes move {
+  from {background-position: 0 0}
+  from {background-position: 0 -100px}
+}
+.gameSummary {
+  background: var(--red);
+  border-radius: 10px;
+  color: white;
+  display: block;
+  list-style-type: none;
+  margin: 0;
+  padding: 20px;
+  width: 200px;
+}
+.gameSummary li {
+  display: flex;
+  justify-content: space-between;
+}
+#rules{
+  margin-top: 24px;
+}
+.rule-images {
+    max-width: 78px;
+    margin-right: 24px;
+}
+@media screen and (max-width: 600px){
+  #gameArea {display:none;}
+  #score{
+    position: static;
+  }
+}
+@media screen and (min-width: 600px){
+  .mobile-error {
+    display:none
+  }
+}

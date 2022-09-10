@@ -175,7 +175,6 @@ export default {
          method:method,
          url,
          success:function(data){
-            user.cart -- ;
             data.totalItems = user.cart;
             localStorage.userData = JSON.stringify(user);
             success(data)
