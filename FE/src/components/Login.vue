@@ -68,7 +68,7 @@
           <div class="ui error" v-if="passerror" >passwods do not match</div>
         </div>
         <button type="submit" tabindex=0 role="button" class="ui blue primary button" v-on:click="register()">Register
-          <div class="ui circular label tiny bCoins"> 100</div>
+          <div class="ui circular label tiny bCoins"> 50</div>
         </button>
       </div>
     </div>
@@ -83,6 +83,7 @@
 
 <script>
 import User from '../services/user'
+import Common from '../services/common'
 
 export default {
   name: 'UserLogin',
@@ -116,7 +117,6 @@ export default {
     register(){
       let vm = this;
       vm.reg_error = '';
-      vm.reg_success = false;
       for (let i in vm.user){
         if( vm.user[i].trim().length == 0){
           vm.reg_error = i + ' is required';
@@ -124,9 +124,9 @@ export default {
         }
       }
       User.registerUser(vm.user, ()=>{
-        setTimeout(()=>{
-          vm.reg_success = false
-        }, 1000);
+        Common.Alert('user registered. please login');
+        vm.ulogin.user = vm.user.uid;
+        User.addCoins(50);
       }, (r)=>{
         vm.reg_error = r.errors[0].message;
          console.log(r)

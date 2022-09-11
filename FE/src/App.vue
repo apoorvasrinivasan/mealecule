@@ -149,6 +149,10 @@ export default {
   margin-top: 54px;
 }
 
+nav{
+  position: relative;
+  z-index: 1;
+}
 @media screen and (max-width: 600px){
   .menu {
     flex-wrap: wrap;
@@ -159,7 +163,6 @@ export default {
     margin-top: -86px;
     width: 100%;
     filter: grayscale(0.3);
-    opacity:0.6;
   }
 }
 .home-banner {

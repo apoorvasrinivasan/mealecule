@@ -10,12 +10,12 @@ h1.title {
 	background-image:url('../plate.png');
 	background-repeat: no-repeat;
 	background-position: center left;
-		padding-left: 400px;
-		height: 350px;
-		width: 800px;
-		background-color: transparent;
-		/*background-attachment: fixed;*/
-		background-size: contain;
+	padding-left: 400px;
+	height: 350px;
+	width: 800px;
+	background-color: transparent;
+	/*background-attachment: fixed;*/
+	background-size: contain;
 	
 }
 h1.title b{

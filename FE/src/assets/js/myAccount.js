@@ -90,7 +90,7 @@ export default {
       User.postMealecule(pm, (data)=>{
         vm.$root.preferredMealecule = data.preferredMealecule
         vm.user_pm = data.preferredMealecule
-          User.addCoins(vm.coins + 20, (data)=>{
+          User.addCoins(vm.coins + 10, (data)=>{
             User.myCart((data)=>{
               vm.$root.cartMQ = data.mealeculeQuotientData;
             });

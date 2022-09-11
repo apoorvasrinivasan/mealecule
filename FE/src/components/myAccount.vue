@@ -25,7 +25,7 @@ div.myaccount
           label(:for="'mq_'+m" ) {{m}}
       button.ui.primary.fluid.button(v-on:click="savePM()" :disabled="form_disabled || loaders.pm" :class="{'loading':loaders.pm}" ) 
         | Save   
-        div.ui.circular.label.tiny.bCoins 20
+        div.ui.circular.label.tiny.bCoins 10
 
     div.ui.card.userinfo
       h2.ui.header.teal Update Information
