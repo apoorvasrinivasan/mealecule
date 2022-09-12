@@ -4,12 +4,12 @@
   <div class="ui two column very relaxed stackable grid">
     <div class="column">
       <h3 class="ui header huge  teal"> Login </h3>
-      <div class="ui form">
         <div class="ui error message" v-if="log_error"> {{log_error}} </div>
+      <div class="ui form">
         <div class="field">
           <label>Username</label>
           <div class="ui left icon input">
-            <input v-model = "ulogin.uid" type="text" placeholder="Username">
+            <input v-model = "ulogin.uid" type="email" placeholder="Username">
             <i class="user icon"></i>
           </div>
         </div>
@@ -41,7 +41,7 @@
             <option value="mrs">Mrs</option>
             <option value="dr">Dr</option>
           </select>
-            <input v-model="user.firstName" type="text" placeholder="Firstname"  required>
+            <input v-model="user.firstName" type="email" placeholder="Firstname"  required>
             <input v-model="user.lastName" type="text" placeholder="Last Name"  required>
           </div>
         </div>
@@ -123,14 +123,14 @@ export default {
           return;
         }
       }
-      User.registerUser(vm.user, ()=>{
+      // User.registerUser(vm.user, ()=>{
         Common.Alert('user registered. please login');
-        vm.ulogin.user = vm.user.uid;
+        vm.ulogin.uid = vm.user.uid;
         User.addCoins(50);
-      }, (r)=>{
-        vm.reg_error = r.errors[0].message;
-         console.log(r)
-      })
+      // }, (r)=>{
+      //   vm.reg_error = r.errors[0].message;
+      //    console.log(r)
+      // })
     },
     login: function(){
       let vm = this;
@@ -162,7 +162,7 @@ export default {
         })
       }, (r)=> {
         vm.log_error = r.errors[0].message;
-         console.log(r)
+  
       })
     }
   }

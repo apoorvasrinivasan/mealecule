@@ -22,7 +22,7 @@ div.home-page
 				router-link.ui.button.primary.cta-button(to="/game" v-if="$root.total_coins") Play Game
 				router-link.ui.button.primary.cta-button(to="/game" v-else) Earn some coins and badges
 			div.column.ui.image
-				img(:src="require('@/assets/ame.jpg')")
+				img(:src="require('@/assets/ame.webp')" alt="Play game with popoye")
 	section#offer
 			h2.ui.header.teal What we offer
 			div.offers-cards
@@ -55,17 +55,17 @@ div.home-page
 			div.ui.four.cards
 					router-link.ui.card(to="/plp/biscuits")
 						div.image
-							img(src="https://us.123rf.com/450wm/karidesigner/karidesigner2104/karidesigner210400049/168154799-chocolate-chip-cookie-in-cartoon-style-vector-illustration.jpg")
+							img(alt="View biscuits products" :src="require('@/assets/cookie.png')")
 						div.content
 							div.header Buscuits
 					router-link.ui.card(to="/plp/chocolates")
 						div.image
-							img(src="https://img.freepik.com/premium-vector/illustration-chocolate-coming-out-wrapper_498928-124.jpg")
+							img(alt="View chocolates products" :src="require('@/assets/chocolate.jpg')")
 						div.content
 							div.header Chocolates
 					router-link.ui.card(to="/plp/healthDrinks")
 						div.image
-							img(src="https://thumbs.dreamstime.com/b/health-drink-line-art-cartoon-image-80960712.jpg")
+							img(alt="View healthDrinks products" :src="require('@/assets/healthdrinks.jpg')")
 						div.content
 							div.header Health Drinks
 			
@@ -96,5 +96,4 @@ div.home-page
 	name: 'HomePage',
 }
 </script>
-<style scoped="" src="@/assets/css/home.css">
-</style>
+<style scoped="" src="@/assets/css/home.css"></style>

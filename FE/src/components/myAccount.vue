@@ -2,7 +2,7 @@
 div.myaccount
  h1.ui.header Welcome, {{ user.firstName }}
  button.ui.tiny.primary.button(v-on:click='logout()') Logout
- div.ui.four.cards
+ div.ui.cards.accounts-cards
     div.ui.card
       h2.ui.header.teal Current Progress
       div.ui.statistics
@@ -16,9 +16,9 @@ div.myaccount
               i.icon.ui.trophy(:class="{'disabled':!badges}")
           span.label {{ badges || 'no' }} Badge
       router-link.ui.primary.button(to="/game") Earn more coins
-    div.ui.card
+    div.ui.card.checkbox
       h2.ui.header.teal My Preferred Mealecules
-      form.ui.form.checkbox.preffered_mq
+      form.ui.form.preffered_mq
         div.ui.field(v-for="m in MQ_list")
           div.ui.checkbox
           input(type="checkbox" :id="'mq_'+m" v-model = "user_pm" :value="m" :disabled="user_pm.length>=4 && user_pm.indexOf(m) == -1") 
@@ -83,6 +83,9 @@ div.myaccount
 
 </script>
 <style scoped>
+.ui.cards.accounts-cards{
+  display: flex;
+}
 .ui.cards{
   margin-top: 24px;
 }
@@ -95,7 +98,7 @@ div.myaccount
 }
 .preffered_mq {
   display: grid;
-    grid-template-columns: 50% 50%;
+  grid-template-columns: 50% 50%;
 }
 .preffered_mq.ui.form .field>label {
   font-weight: 400;
@@ -109,5 +112,15 @@ div.myaccount
 }
 .ui.card>.button, .ui.card>.buttons, .ui.cards>.card>.button, .ui.cards>.card>.buttons {
   margin-top: auto;
+}
+@media screen and (max-width:800px){
+  .accounts-cards{
+    display: grid;
+    grid-template-columns: 90%;
+    justify-content: center;
+  }
+  .ui.card, .ui.cards>.card {
+    width:  90%;
+  }
 }
 </style>

@@ -2,7 +2,7 @@
   display: flex;
 }
 #gameArea {
-  background: url(../road.png);
+  background: url(../road.webp);
   border:  1px solid #ccc;
   height: 400px;
   margin:  0 auto;

@@ -133,8 +133,8 @@
 }
 @media screen and (max-width:  800px){
   .cart-grid{
-  grid-template-columns: 100%;
-  grid-gap:  50px;
+    grid-template-columns: 100%;
+    grid-gap:  50px;
 
   }
   

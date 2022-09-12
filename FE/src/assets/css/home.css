@@ -7,7 +7,7 @@ h1.title {
 	right: 9%;
 	top: 50%;
 	transform: translate(-20%, -50%);
-	background-image:url('../plate.png');
+	background-image:url('../plate.webp');
 	background-repeat: no-repeat;
 	background-position: center left;
 	padding-left: 400px;
@@ -53,10 +53,11 @@ section {
 		background-size: contain;
 		background-position: center center;
 		background-repeat: no-repeat;
+		background-color:  #fff;
 		height:  100px;
 		position: relative;
 		transform:  translate(0%,-50%);
-		border: 5px solid #cbcbcb;
+		border: 2px solid #ccc;
 }
 .offer-card .image.earn-coins {
 	background-image: url(../coins.jfif);
