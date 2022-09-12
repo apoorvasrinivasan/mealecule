@@ -22,8 +22,7 @@ import de.hybris.platform.core.model.user.CustomerModel;
 import de.hybris.platform.core.model.user.UserModel;
 import de.hybris.platform.order.InvalidCartException;
 import de.hybris.platform.servicelayer.model.ModelService;
-import javafx.print.Collation;
-import org.apache.commons.collections.CollectionUtils;
+
 import org.springframework.beans.factory.annotation.Required;
 
 /**
