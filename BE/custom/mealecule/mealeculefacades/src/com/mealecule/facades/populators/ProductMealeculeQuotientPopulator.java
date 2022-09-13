@@ -42,24 +42,35 @@ public class ProductMealeculeQuotientPopulator implements Populator<ProductModel
 			quotientData.setCode(mq.getCode());
 			quotientData.setWeightInG(mq.getWeightInG());
 			quotientData.setWeightInML(mq.getWeightInML());
+			final Double mqWeightInG = mq.getWeightInG();
+			final Double mqWeightInML = mq.getWeightInML();
+			final Double mqWeight = (null == mqWeightInG || 0.0 == mqWeightInG) ? mqWeightInML : mqWeightInG;
+			Double considerWeight = (null == mqWeight || 0.0 == mqWeight) ? 100 : mqWeight;
 			List<MealeculeQuotientDataModel> mealeculeQuotientDatas = mq.getMealeculeQuotientData().stream().collect(Collectors.toList());
 			if(CollectionUtils.isNotEmpty(mealeculeQuotientDatas)){
 				for (MealeculeQuotientDataModel mealeculeQuotientDataModel: mealeculeQuotientDatas) {
 					MealeculeQuotientEnum mealeculeQuotientType = mealeculeQuotientDataModel.getMealeculeQuotientType();
 					if (MealeculeQuotientEnum.CARBOHYDRATE.equals(mealeculeQuotientType)) {
-						quotientData.setCarbohydrate(mealeculeQuotientDataModel.getValue());
+						Double carbs = mealeculeQuotientDataModel.getValue() * 100 /considerWeight;
+						quotientData.setCarbohydrate(carbs);
 					} else if (MealeculeQuotientEnum.FAT.equals(mealeculeQuotientType)) {
-						quotientData.setFat(mealeculeQuotientDataModel.getValue());
+						Double fat = mealeculeQuotientDataModel.getValue() * 100 /considerWeight;
+						quotientData.setFat(fat);
 					} else if (MealeculeQuotientEnum.PROTEIN.equals(mealeculeQuotientType)) {
-						quotientData.setProtein(mealeculeQuotientDataModel.getValue());
+						Double protein = mealeculeQuotientDataModel.getValue() * 100 /considerWeight;
+						quotientData.setProtein(protein);
 					} else if (MealeculeQuotientEnum.FIBER.equals(mealeculeQuotientType)) {
-						quotientData.setFiber(mealeculeQuotientDataModel.getValue());
+						Double fiber = mealeculeQuotientDataModel.getValue() * 100 /considerWeight;
+						quotientData.setFiber(fiber);
 					} else if (MealeculeQuotientEnum.SUGAR.equals(mealeculeQuotientType)) {
-						quotientData.setSugar(mealeculeQuotientDataModel.getValue());
+						Double sugar = mealeculeQuotientDataModel.getValue() * 100 /considerWeight;
+						quotientData.setSugar(sugar);
 					} else if (MealeculeQuotientEnum.CALORIES.equals(mealeculeQuotientType)) {
-						quotientData.setEnergy(mealeculeQuotientDataModel.getValue());
+						Double energy = mealeculeQuotientDataModel.getValue() * 100 /considerWeight;
+						quotientData.setEnergy(energy);
 					} else if (MealeculeQuotientEnum.WATER.equals(mealeculeQuotientType)) {
-						quotientData.setWater(mealeculeQuotientDataModel.getValue());
+						Double water = mealeculeQuotientDataModel.getValue() * 100 /considerWeight;
+						quotientData.setWater(water);
 					}
 				}
 			}
