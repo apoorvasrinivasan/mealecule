@@ -20,7 +20,7 @@ $categories=target(code, $catalogVersion)[unique=true]
 # Insert Categories
 INSERT_UPDATE Category;code[unique=true];allowedPrincipals(uid)[default='customergroup'];$catalogVersion
  ;dairy
-;milk
+ ;milk
  ;dessert
  ;baking
  ;snacks
@@ -41,6 +41,7 @@ INSERT_UPDATE Category;code[unique=true];allowedPrincipals(uid)[default='custome
  ;softDrinks
  ;cereals
  ;chocolates
+ ;special diet
 
 
 # Insert Category Structure
@@ -61,6 +62,9 @@ INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories;
 ;healthDrinks;beverages
 ;softDrinks;beverages
 ;cereals;beverages
+;keto;special diet
+;vegan;special diet
+;gluten;special diet
 
 
 $productCatalog=mealeculeProductCatalog
@@ -93,6 +97,7 @@ INSERT_UPDATE Category;code[unique=true];allowedPrincipals(uid)[default='custome
                       ;softDrinks
                       ;cereals
                       ;chocolates
+                      ;specialDiet
 
 
 # Insert Category Structure
@@ -113,3 +118,6 @@ INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories;
                                       ;healthDrinks;beverages
                                       ;softDrinks;beverages
                                       ;cereals;beverages
+                                      ;gluten;specialDiet
+                                      ;vegan;specialDiet
+                                      ;keto;specialDiet
