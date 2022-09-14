@@ -17,6 +17,7 @@ import de.hybris.platform.core.model.order.AbstractOrderEntryModel;
 import de.hybris.platform.core.model.order.OrderModel;
 import de.hybris.platform.servicelayer.dto.converter.ConversionException;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -42,6 +43,7 @@ public class OrderMealeculeQuotientHistoryPopulator implements Populator<OrderMo
 		Double totalCartFiber = 0.0;
 		Double totalCartEnergy = 0.0;
 		Double totalCartWater = 0.0;
+		final DecimalFormat df = new DecimalFormat("#.##");
 		for (final AbstractOrderEntryModel entry : source.getEntries())
 		{
 			final Double productWeight = null != entry.getProduct() && null != entry.getProduct().getWeightInG()
@@ -84,35 +86,14 @@ public class OrderMealeculeQuotientHistoryPopulator implements Populator<OrderMo
 		}
 
 		final MealeculeQuotientData mealeculeQuotientData = new MealeculeQuotientData();
-		//		if(CollectionUtils.isNotEmpty(source.getUser().getPreferredMealecule())){
-		//			for (final String preferredMealecule:source.getUser().getPreferredMealecule()) {
-		//				if (preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.CARBOHYDRATE.getCode()))
-		//				{
-		//					mealeculeQuotientData.setCarbohydrate(totalCartCarbohydrate);
-		//				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.PROTEIN.getCode())){
-		//					mealeculeQuotientData.setProtein(totalCartProtein);
-		//				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.FAT.getCode())){
-		//					mealeculeQuotientData.setFat(totalCartFat);
-		//				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.SUGAR.getCode())){
-		//					mealeculeQuotientData.setSugar(totalCartSugar);
-		//				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.FIBER.getCode())){
-		//					mealeculeQuotientData.setFiber(totalCartFiber);
-		//				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.CALORIES.getCode())){
-		//					mealeculeQuotientData.setEnergy(totalCartEnergy);
-		//				} else if(preferredMealecule.equalsIgnoreCase(MealeculeQuotientEnum.WATER.getCode())){
-		//					mealeculeQuotientData.setWater(totalCartWater);
-		//				}
-		//			}
-		//		} else {
 
-		mealeculeQuotientData.setCarbohydrate(totalCartCarbohydrate);
-		mealeculeQuotientData.setProtein(totalCartProtein);
-		mealeculeQuotientData.setFat(totalCartFat);
-		mealeculeQuotientData.setSugar(totalCartSugar);
-		mealeculeQuotientData.setFiber(totalCartFiber);
-		mealeculeQuotientData.setEnergy(totalCartEnergy);
-		mealeculeQuotientData.setWater(totalCartWater);
-		//		}
+		mealeculeQuotientData.setCarbohydrate(Double.valueOf(df.format(totalCartCarbohydrate)));
+		mealeculeQuotientData.setProtein(Double.valueOf(df.format(totalCartProtein)));
+		mealeculeQuotientData.setFat(Double.valueOf(df.format(totalCartFat)));
+		mealeculeQuotientData.setSugar(Double.valueOf(df.format(totalCartSugar)));
+		mealeculeQuotientData.setFiber(Double.valueOf(df.format(totalCartFiber)));
+		mealeculeQuotientData.setEnergy(Double.valueOf(df.format(totalCartEnergy)));
+		mealeculeQuotientData.setWater(Double.valueOf(df.format(totalCartWater)));
 		target.setMealeculeQuotientData(mealeculeQuotientData);
 	}
 

@@ -43,6 +43,7 @@ INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=d
 ;300Wx300H;705.jpg;$siteResource/images/705.jpg;;;images;/images/705.jpg
 ;300Wx300H;706.jpg;$siteResource/images/706.jpg;;;images;/images/706.jpg
 ;300Wx300H;707.jpg;$siteResource/images/707.jpg;;;images;/images/707.jpg
+;300Wx300H;708.jpg;$siteResource/images/708.jpg;;;images;/images/708.jpg
 ;300Wx300H;901.jpg;$siteResource/images/901.jpg;;;images;/images/901.jpg
 ;300Wx300H;902.jpg;$siteResource/images/902.jpg;;;images;/images/902.jpg
 ;300Wx300H;903.jpg;$siteResource/images/903.jpg;;;images;/images/903.jpg
@@ -74,6 +75,7 @@ UPDATE Product;code[unique=true];$picture;$thumbnail;$detail;$others;$normal;$th
               ;705;;;705.jpg;;;;;
               ;706;;;706.jpg;;;;;
               ;707;;;707.jpg;;;;;
+              ;708;;;708.jpg;;;;;
               ;901;;;901.jpg;;;;;
               ;902;;;902.jpg;;;;;
               ;903;;;903.jpg;;;;;
@@ -132,6 +134,7 @@ INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=d
 ;300Wx300H;705.jpg;$siteResource/images/705.jpg;;;images;/images/705.jpg
 ;300Wx300H;706.jpg;$siteResource/images/706.jpg;;;images;/images/706.jpg
 ;300Wx300H;707.jpg;$siteResource/images/707.jpg;;;images;/images/707.jpg
+;300Wx300H;708.jpg;$siteResource/images/708.jpg;;;images;/images/708.jpg
 ;300Wx300H;901.jpg;$siteResource/images/901.jpg;;;images;/images/901.jpg
 ;300Wx300H;902.jpg;$siteResource/images/902.jpg;;;images;/images/902.jpg
 ;300Wx300H;903.jpg;$siteResource/images/903.jpg;;;images;/images/903.jpg
@@ -163,6 +166,7 @@ UPDATE Product;code[unique=true];$picture;$thumbnail;$detail;$others;$normal;$th
 ;705;;;705.jpg;;;;;
 ;706;;;706.jpg;;;;;
 ;707;;;707.jpg;;;;;
+;708;;;708.jpg;;;;;
 ;901;;;901.jpg;;;;;
 ;902;;;902.jpg;;;;;
 ;903;;;903.jpg;;;;;

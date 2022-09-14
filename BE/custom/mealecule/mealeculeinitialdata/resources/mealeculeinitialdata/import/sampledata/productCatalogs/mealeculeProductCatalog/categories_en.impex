@@ -44,7 +44,7 @@ UPDATE Category;code[unique=true];$catalogVersion;name[lang=$lang]
                ;bread;;Bread
                ;cookie;;Cookie
                ;coffee;;Coffee
-               ;cheese;;cheese
+               ;cheese;;Cheese
 
 $productCatalog=mealeculeProductCatalog
 $productCatalogName=Mealecule Product Catalog
