@@ -11,11 +11,6 @@ export default {
       // display different menu for home page
       return this.$route.name;
     },
-    isLogged:function(){
-      // check if user is logged in or not
-      let user = localStorage.getItem('user');
-      return user != null; 
-    },
     filteredCartMq : function(){
         // filter the carMQ acc to user preference and energy
         let pm = this.preferredMealecule;
@@ -41,6 +36,7 @@ export default {
       cart:1,
       total_coins: 0,
       badges:'',
+      isLogged:false,
       cartMQ:{},
       preferredMealecule:[],
       defaultPreferredMealecule:[
@@ -59,10 +55,16 @@ export default {
     }
   },
   created(){
+    this.checkLogged();
     this.getCategories()
     this.setMealecule()
   },
   methods:{
+    checkLogged: function(){
+        // check if user is logged in or not
+        let user = localStorage.getItem('user');
+        this.isLogged =  user != null; 
+    },
     setMealecule:function(){
       // read from localstorgage and set page values.
       let user = {}

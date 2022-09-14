@@ -79,13 +79,15 @@ export default {
     getProducts (){
       let vm = this;
       let category = this.$route['params'].id;
+      vm.products = [];
       Product.getProducts(category,(data) => {
         vm.category = data.name;
+        if(data.products.length == 0) return
+        vm.products = data.products.map((i)=>{
         vm.facetDatas = data.facetDatas.filter((i)=>{
           i.val = i.maxValue;
           return i.maxValue >=1;
         })
-        vm.products = data.products.map((i)=>{
           if(vm.brands.indexOf(i.manufacturer) < 0)
             vm.brands.push(i.manufacturer)
           i.mq = Product.makeMQData(i.mealeculeQuotientData);
@@ -94,7 +96,7 @@ export default {
           return i
         });
         
-          vm.mealecules = [...vm.$root.preferredMealecule, 'energy'];
+        vm.mealecules = [...vm.$root.preferredMealecule, 'energy'];
       },
       (data) => {
         console.log("error");

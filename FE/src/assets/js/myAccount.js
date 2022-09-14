@@ -55,7 +55,8 @@ export default {
       localStorage.removeItem('user')
       localStorage.removeItem('userData')
       this.$root.cart = -1;
-      this.$router.go('/login')
+      this.$root.isLogged = false;
+      this.$router.push('/login')
     },
     getMealeculeList: function(){
       let vm = this;

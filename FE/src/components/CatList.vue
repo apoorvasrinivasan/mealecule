@@ -41,6 +41,7 @@ export default {
 	display:flex;
 	justify-content:space-evenly;
 	align-items: flex-start;
+	z-index: 0;
 }
 
 .ui.list{

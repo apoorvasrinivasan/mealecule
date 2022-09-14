@@ -6,14 +6,14 @@
     </router-link>
     <router-link to="/game" class='item'>Play Game</router-link>
     <div id="dropdown" tabindex=0 aria-label="Shop By Categories" role="button" class='ui dropdown item' v-if="categories.length">
-    Shop By
+    Online Supermarket
     <i class="dropdown icon" aria-hidden></i>
     <div class="menu" aria-hidden>
       <router-link :to="{name:'CatList'}" class="item" >All Categories</router-link>
       <div class="ui dropdown item" :aria-label="c.name" v-for="c in categories" :key="c.id">
         {{ c.name }}
       <i class="dropdown icon"></i>
-      <div class=" submenu menu">
+      <div class=" submenu menu" aria-hidden>
         <router-link :to="{name:'plp', params:{id:cs.id}}"  class="item" v-for="cs in c.subcategories" :key="cs.id">{{ cs.name }}</router-link>
       </div>
       </div>
