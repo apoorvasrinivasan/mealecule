@@ -1,6 +1,8 @@
 import Product from '../../services/product';
+import * as $ from 'jquery';
+import  D from './dropdown';
 
-
+// console.log(D.a)
 export default {
   name: 'App',
   computed: {
@@ -8,11 +10,6 @@ export default {
       // to check the current page 
       // display different menu for home page
       return this.$route.name;
-    },
-    isLogged:function(){
-      // check if user is logged in or not
-      let user = localStorage.getItem('user');
-      return user != null; 
     },
     filteredCartMq : function(){
         // filter the carMQ acc to user preference and energy
@@ -39,6 +36,7 @@ export default {
       cart:1,
       total_coins: 0,
       badges:'',
+      isLogged:false,
       cartMQ:{},
       preferredMealecule:[],
       defaultPreferredMealecule:[
@@ -57,10 +55,16 @@ export default {
     }
   },
   created(){
+    this.checkLogged();
     this.getCategories()
     this.setMealecule()
   },
   methods:{
+    checkLogged: function(){
+        // check if user is logged in or not
+        let user = localStorage.getItem('user');
+        this.isLogged =  user != null; 
+    },
     setMealecule:function(){
       // read from localstorgage and set page values.
       let user = {}
@@ -85,9 +89,10 @@ export default {
       // category list for dropdown menu
       let vm =this;
       Product.getCategories((data) => {
-        vm.categories = data.categories
-        // eslint-disable-next-line
-        setDropdown();
+        vm.categories = data.categories;
+        setTimeout(function(){
+          D.a($('#dropdown'));
+        },300)
       },
       (data) => {
         console.log("error");

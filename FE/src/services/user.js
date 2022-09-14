@@ -112,6 +112,13 @@ export default {
       })
 
    },
+   addRegCoins(coin, user){
+      let url = USER_BASE_URL + user + '/gameData?coins='+coin;
+      $.ajax({
+         url,
+         method:'POST'
+      });
+   },
    addCoins(coin,success, error){
       let user = JSON.parse(localStorage.userData);
       let url = USER_BASE_URL + user.uid + '/gameData?coins='+coin;

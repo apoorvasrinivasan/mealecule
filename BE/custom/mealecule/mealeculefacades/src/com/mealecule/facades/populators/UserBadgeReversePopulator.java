@@ -65,10 +65,6 @@ public class UserBadgeReversePopulator implements Populator<CustomerData, UserMo
 			target.setCoins(target.getCoins());
 			intCoins = target.getCoins();
 		}
-
-		target.setHeight(source.getGameData().getHeight());
-		target.setWeight(source.getGameData().getWeight());
-		target.setAge(source.getGameData().getAge());
 		final boolean existingSilverActiveBadge = null != badgeModel.getLevel() && null != badgeModel.getStatus() && StatusEnum.ACTIVE.equals(badgeModel.getStatus()) && LevelEnum.SILVER.equals(badgeModel.getLevel());
 		final boolean existingBronzeActiveBadge = null != badgeModel.getLevel() && null != badgeModel.getStatus() && StatusEnum.ACTIVE.equals(badgeModel.getStatus()) && LevelEnum.BRONZE.equals(badgeModel.getLevel());
 

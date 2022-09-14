@@ -10,20 +10,19 @@
  */
 package com.mealecule.facades.hook;
 
-import com.mealecule.core.enums.StatusEnum;
 import com.mealecule.core.model.BadgeModel;
-import com.mealecule.facades.constants.GeneratedMealeculeFacadesConstants;
 import de.hybris.platform.commerceservices.enums.CustomerType;
 import de.hybris.platform.commerceservices.order.hook.CommercePlaceOrderMethodHook;
 import de.hybris.platform.commerceservices.service.data.CommerceCheckoutParameter;
 import de.hybris.platform.commerceservices.service.data.CommerceOrderResult;
 import de.hybris.platform.core.model.order.OrderModel;
 import de.hybris.platform.core.model.user.CustomerModel;
-import de.hybris.platform.core.model.user.UserModel;
 import de.hybris.platform.order.InvalidCartException;
 import de.hybris.platform.servicelayer.model.ModelService;
-
 import org.springframework.beans.factory.annotation.Required;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  *@author @isha.mehta
@@ -42,8 +41,8 @@ public class MQUserBadgePlaceOrderMethodHook  implements CommercePlaceOrderMetho
 				BadgeModel badgeModel = customer.getBadge();
 				if(null != badgeModel){
 					Integer customerCoins = customer.getCoins();
-					final Integer orderDiscount = order.getTotalDiscounts().intValue();
-					customerCoins = customerCoins - orderDiscount;
+					Integer roundedDiscountValue = new BigDecimal(order.getTotalDiscounts()).setScale(0, RoundingMode.UP).intValue();
+					customerCoins = customerCoins - roundedDiscountValue;
 					customer.setCoins(customerCoins);
 					getModelService().save(customer);
 				}

@@ -8,9 +8,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@material/menu": "^14.0.0",
     "core-js": "^3.8.3",
     "highcharts": "^10.2.1",
+    "http-server": "^14.1.1",
     "jquery": "^3.6.0",
     "pug": "^3.0.2",
     "pug-plain-loader": "^1.1.0",

@@ -48,6 +48,7 @@ UPDATE Category;code[unique=true];$catalogVersion;name[lang=$lang]
                ;vegan;;Vegan
                ;gluten;;Gluten
 
+
 $productCatalog=mealeculeProductCatalog
 $productCatalogName=Mealecule Product Catalog
 $catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]

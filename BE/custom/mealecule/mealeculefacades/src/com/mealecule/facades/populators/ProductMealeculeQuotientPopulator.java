@@ -20,6 +20,8 @@ import de.hybris.platform.core.model.product.ProductModel;
 import de.hybris.platform.servicelayer.dto.converter.ConversionException;
 import org.apache.commons.collections.CollectionUtils;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,25 +53,25 @@ public class ProductMealeculeQuotientPopulator implements Populator<ProductModel
 				for (MealeculeQuotientDataModel mealeculeQuotientDataModel: mealeculeQuotientDatas) {
 					MealeculeQuotientEnum mealeculeQuotientType = mealeculeQuotientDataModel.getMealeculeQuotientType();
 					if (MealeculeQuotientEnum.CARBOHYDRATE.equals(mealeculeQuotientType)) {
-						Double carbs = mealeculeQuotientDataModel.getValue() * 100 /considerWeight;
+						Double carbs = getMealeculeValueInDouble(considerWeight, mealeculeQuotientDataModel);
 						quotientData.setCarbohydrate(carbs);
 					} else if (MealeculeQuotientEnum.FAT.equals(mealeculeQuotientType)) {
-						Double fat = mealeculeQuotientDataModel.getValue() * 100 /considerWeight;
+						Double fat = getMealeculeValueInDouble(considerWeight, mealeculeQuotientDataModel);
 						quotientData.setFat(fat);
 					} else if (MealeculeQuotientEnum.PROTEIN.equals(mealeculeQuotientType)) {
-						Double protein = mealeculeQuotientDataModel.getValue() * 100 /considerWeight;
+						Double protein = getMealeculeValueInDouble(considerWeight, mealeculeQuotientDataModel);
 						quotientData.setProtein(protein);
 					} else if (MealeculeQuotientEnum.FIBER.equals(mealeculeQuotientType)) {
-						Double fiber = mealeculeQuotientDataModel.getValue() * 100 /considerWeight;
+						Double fiber = getMealeculeValueInDouble(considerWeight, mealeculeQuotientDataModel);
 						quotientData.setFiber(fiber);
 					} else if (MealeculeQuotientEnum.SUGAR.equals(mealeculeQuotientType)) {
-						Double sugar = mealeculeQuotientDataModel.getValue() * 100 /considerWeight;
+						Double sugar = getMealeculeValueInDouble(considerWeight, mealeculeQuotientDataModel);
 						quotientData.setSugar(sugar);
 					} else if (MealeculeQuotientEnum.CALORIES.equals(mealeculeQuotientType)) {
-						Double energy = mealeculeQuotientDataModel.getValue() * 100 /considerWeight;
+						Double energy = getMealeculeValueInDouble(considerWeight, mealeculeQuotientDataModel);
 						quotientData.setEnergy(energy);
 					} else if (MealeculeQuotientEnum.WATER.equals(mealeculeQuotientType)) {
-						Double water = mealeculeQuotientDataModel.getValue() * 100 /considerWeight;
+						Double water = getMealeculeValueInDouble(considerWeight, mealeculeQuotientDataModel);
 						quotientData.setWater(water);
 					}
 				}
@@ -83,6 +85,12 @@ public class ProductMealeculeQuotientPopulator implements Populator<ProductModel
 				target.setImageURL(source.getDetail().stream().findFirst().get().getURL());
 			}
 		}
+	}
+
+	private static Double getMealeculeValueInDouble(Double considerWeight, MealeculeQuotientDataModel mealeculeQuotientDataModel) {
+		Double value = mealeculeQuotientDataModel.getValue() * 100 / considerWeight;
+		Double roundedValue = new BigDecimal(value).setScale(1, RoundingMode.HALF_UP).doubleValue();
+		return roundedValue;
 	}
 
 }
