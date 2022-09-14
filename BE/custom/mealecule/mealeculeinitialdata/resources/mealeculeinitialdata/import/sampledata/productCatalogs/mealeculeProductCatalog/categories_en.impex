@@ -45,6 +45,9 @@ UPDATE Category;code[unique=true];$catalogVersion;name[lang=$lang]
                ;cookie;;Cookie
                ;coffee;;Coffee
                ;cheese;;Cheese
+               ;vegan;;Vegan
+               ;gluten;;Gluten
+
 
 $productCatalog=mealeculeProductCatalog
 $productCatalogName=Mealecule Product Catalog
@@ -79,4 +82,7 @@ UPDATE Category;code[unique=true];$catalogVersion;name[lang=$lang]
                ;cookie;;Cookie
                ;coffee;;Coffee
                ;cheese;;cheese
+               ;vegan;;Vegan
+               ;gluten;;Gluten
+               ;keto;;Keto
 
