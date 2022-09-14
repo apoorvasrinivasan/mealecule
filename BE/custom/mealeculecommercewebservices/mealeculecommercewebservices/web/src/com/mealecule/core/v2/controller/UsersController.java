@@ -1468,10 +1468,7 @@ public class UsersController extends BaseCommerceController
 	@RequestMapping(value = "/{userId}/customerPersonalData", method = RequestMethod.POST)
 	@ResponseBody
 	public CustomerGameWsDTO createOrUpdateUserPersonalData(@RequestParam(defaultValue = DEFAULT_FIELD_SET)
-	final String fields, @RequestParam(defaultValue = "0")
-	final Double height, @RequestParam(defaultValue = "0.00")
-	final Double weight, @RequestParam(defaultValue = "0.00")
-	final Integer age, final HttpServletRequest httpRequest, final HttpServletResponse httpResponse)
+	final String fields,final Double height, final Double weight, final Integer age, final HttpServletRequest httpRequest, final HttpServletResponse httpResponse)
 	{
 		final UserModel userModel = userService.getCurrentUser();
 		if (null != userModel)

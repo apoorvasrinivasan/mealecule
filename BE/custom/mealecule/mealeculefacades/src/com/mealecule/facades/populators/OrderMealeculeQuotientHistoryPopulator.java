@@ -41,7 +41,7 @@ public class OrderMealeculeQuotientHistoryPopulator implements Populator<OrderMo
 		Double totalCartFat = 0.0;
 		Double totalCartSugar = 0.0;
 		Double totalCartFiber = 0.0;
-		Double totalCartEnergy = 0.0;
+		Double totalCartCalories = 0.0;
 		Double totalCartWater = 0.0;
 		final DecimalFormat df = new DecimalFormat("#.##");
 		for (final AbstractOrderEntryModel entry : source.getEntries())
@@ -74,7 +74,7 @@ public class OrderMealeculeQuotientHistoryPopulator implements Populator<OrderMo
 					totalCartFiber = totalCartFiber
 							+ list.stream().filter(mq -> MealeculeQuotientEnum.FIBER.equals(mq.getMealeculeQuotientType())).findFirst()
 									.get().getValue() * productWeight / considerWeight * entry.getQuantity();
-					totalCartEnergy = totalCartEnergy
+					totalCartCalories = totalCartCalories
 							+ list.stream().filter(mq -> MealeculeQuotientEnum.CALORIES.equals(mq.getMealeculeQuotientType()))
 									.findFirst().get().getValue() * productWeight / considerWeight * entry.getQuantity();
 					totalCartWater = totalCartWater
@@ -92,7 +92,7 @@ public class OrderMealeculeQuotientHistoryPopulator implements Populator<OrderMo
 		mealeculeQuotientData.setFat(Double.valueOf(df.format(totalCartFat)));
 		mealeculeQuotientData.setSugar(Double.valueOf(df.format(totalCartSugar)));
 		mealeculeQuotientData.setFiber(Double.valueOf(df.format(totalCartFiber)));
-		mealeculeQuotientData.setEnergy(Double.valueOf(df.format(totalCartEnergy)));
+		mealeculeQuotientData.setCalories(Double.valueOf(df.format(totalCartCalories)));
 		mealeculeQuotientData.setWater(Double.valueOf(df.format(totalCartWater)));
 		target.setMealeculeQuotientData(mealeculeQuotientData);
 	}

@@ -147,7 +147,7 @@ public class CatalogsController extends BaseController
 	public CategoryHierarchyWsDTO getCategories(@PathVariable final String catalogId, @PathVariable final String catalogVersionId,
 			@PathVariable final String categoryId, @RequestParam(defaultValue = "DEFAULT") final String fields)
 	{
-		final PageOption page = PageOption.createForPageNumberAndPageSize(0, 10);
+		final PageOption page = PageOption.createForPageNumberAndPageSize(0, 100);
 		OPTIONS.add(CatalogOption.PRODUCTS);
 		final CategoryHierarchyData categoryHierarchyData = catalogFacade.getCategoryById(catalogId, catalogVersionId, categoryId,
 				page, OPTIONS);

@@ -174,7 +174,7 @@
 		<property name="fiber" type="Double"/>
 		<property name="sugar" type="Double"/>
 		<property name="water" type="Double"/>
-		<property name="energy" type="Double"/>
+		<property name="calories" type="Double"/>
 		<property name="nitrogen" type="Double"/>
 	</bean>
 

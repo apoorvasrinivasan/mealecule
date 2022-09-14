@@ -68,8 +68,8 @@ public class ProductMealeculeQuotientPopulator implements Populator<ProductModel
 						Double sugar = getMealeculeValueInDouble(considerWeight, mealeculeQuotientDataModel);
 						quotientData.setSugar(sugar);
 					} else if (MealeculeQuotientEnum.CALORIES.equals(mealeculeQuotientType)) {
-						Double energy = getMealeculeValueInDouble(considerWeight, mealeculeQuotientDataModel);
-						quotientData.setEnergy(energy);
+						Double calories = getMealeculeValueInDouble(considerWeight, mealeculeQuotientDataModel);
+						quotientData.setCalories(calories);
 					} else if (MealeculeQuotientEnum.WATER.equals(mealeculeQuotientType)) {
 						Double water = getMealeculeValueInDouble(considerWeight, mealeculeQuotientDataModel);
 						quotientData.setWater(water);

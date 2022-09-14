@@ -1430,11 +1430,11 @@
 		<property name="levelMapping">
 			<map>
 				<entry key="BASIC"
-					   value="code,weightInG,weightInML,carbohydrate,protein,fat,energy,fiber,sugar,water,nitrogen"/>
+					   value="code,weightInG,weightInML,carbohydrate,protein,fat,calories,fiber,sugar,water,nitrogen"/>
 				<entry key="DEFAULT"
-					   value="code,weightInG,weightInML,carbohydrate,protein,fat,energy,fiber,sugar,water,nitrogen"/>
+					   value="code,weightInG,weightInML,carbohydrate,protein,fat,calories,fiber,sugar,water,nitrogen"/>
 				<entry key="FULL"
-					   value="code,weightInG,weightInML,carbohydrate,protein,fat,energy,fiber,sugar,water,nitrogen"/>
+					   value="code,weightInG,weightInML,carbohydrate,protein,fat,calories,fiber,sugar,water,nitrogen"/>
 			</map>
 		</property>
 	</bean>
