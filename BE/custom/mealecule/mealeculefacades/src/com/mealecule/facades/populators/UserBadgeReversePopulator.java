@@ -40,30 +40,27 @@ public class UserBadgeReversePopulator implements Populator<CustomerData, UserMo
 		final CustomerGameData customerGameData = source.getGameData();
 
 		Integer intCoins = 0;
-		if (null != customerGameData && null != customerGameData.getCoins())
+		final boolean isCustomerGameDataNotNull = null != customerGameData ? Boolean.TRUE : Boolean.FALSE;
+		if (isCustomerGameDataNotNull && null != customerGameData.getCoins())
 		{
 			target.setCoins(customerGameData.getCoins());
 			intCoins = customerGameData.getCoins();
-			if (null != customerGameData.getHeight())
-			{
-				target.setHeight(customerGameData.getHeight());
-			}
-
-			if (null != customerGameData.getWeight())
-			{
-				target.setWeight(customerGameData.getWeight());
-			}
-
-			if (null != customerGameData.getAge())
-			{
-				target.setAge(customerGameData.getAge());
-			}
-
 		}
 		else if (null != target.getCoins())
 		{
 			target.setCoins(target.getCoins());
 			intCoins = target.getCoins();
+		}
+		if(isCustomerGameDataNotNull) {
+			if (null != customerGameData.getHeight()) {
+				target.setHeight(customerGameData.getHeight());
+			}
+			if (null != customerGameData.getWeight()) {
+				target.setWeight(customerGameData.getWeight());
+			}
+			if (null != customerGameData.getAge()) {
+				target.setAge(customerGameData.getAge());
+			}
 		}
 		final boolean existingSilverActiveBadge = null != badgeModel.getLevel() && null != badgeModel.getStatus() && StatusEnum.ACTIVE.equals(badgeModel.getStatus()) && LevelEnum.SILVER.equals(badgeModel.getLevel());
 		final boolean existingBronzeActiveBadge = null != badgeModel.getLevel() && null != badgeModel.getStatus() && StatusEnum.ACTIVE.equals(badgeModel.getStatus()) && LevelEnum.BRONZE.equals(badgeModel.getLevel());
