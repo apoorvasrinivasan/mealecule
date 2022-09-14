@@ -13,8 +13,10 @@ div.plp
               br
               div.ui.statistic
                 div.value.price {{ product.price.value }}
+              br
               div.ui.tiny.statistic
-                div.value.weight {{ product.weightInG}}g
+                div.value.weight {{ product.weightInG}}
+                div.labe.weight net weight (in g)
             div.column
               MQ(:nutrients="product.mq")
             p.product-description
@@ -45,7 +47,7 @@ div.plp
             div(v-if="$root.badges")
               span.discounted.price {{product.price.discounted}}
               span.ui.circular.label.tiny.bCoins {{product.price.coins}}
-            small You can get upto Rs.{{product.price.coins}} discount. 
+            small You can get upto Rs.{{product.price.maxdiscount}} discount. 
 
             button.ui.button.fluid.primary.addtocart(v-on:click="addCart()") Add to cart
     
@@ -72,8 +74,9 @@ export default {
       Product.getProduct(code,(data) => {
         this.product = data; 
         this.product.mq = Product.makeMQData(data.mealeculeQuotientData);
-        this.product.price.coins = Math.floor(data.price.value /10);
+        this.product.price.coins = Math.floor(data.price.value / this.$root.disc);
         this.product.price.discounted = data.price.value - this.product.price.coins;
+        this.product.price.maxdiscount = Math.floor(data.price.value * 0.20);
           
       },
       (data) => {
@@ -95,6 +98,8 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped src="@/assets/css/cart.css">
+<style scoped>
+td{
+  text-transform: capitalize;
+}
 </style>

@@ -23,7 +23,7 @@
     <span :style="'border-left-color:'+item.color"> {{ item.key }}</span>
     <span> {{  item.value }}g</span>
 </template>
-  <span>Energy </span>
+  <span>Calories </span>
   <span> {{  nutrients.cal }}K</span>
     
  </div>

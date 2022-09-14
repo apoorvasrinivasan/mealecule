@@ -18,11 +18,12 @@ div.plp
           span.mqRange(v-for="p in facetDatas")
             label(:for="p.code") {{ p.name }}:
               small {{ p.val }}g
-            input.slider(:id="p.code" type="range"  :min="p.minValue", :max="Math.ceil(p.maxValue)" :name="p.code" v-model="p.val" :style="p.style")
+            input.slider(:id="p.code" type="range"  :min="p.minValue", :max="p.maxValue" :name="p.code" v-model="p.val" :style="p.style")
 
         
 
     div.ui.thirteen.wide.column  
+      div.ui.active.loader
       div.select-box
         label.sort-box(for="sortby" aria-label ="Sort by")
           select#sortby(v-model="sortKey")
@@ -32,7 +33,7 @@ div.plp
           label.checkbox(for="asc" :aria-label ="(sortAs)?'Low to High' : 'High to Low'" v-html="(sortAs)?'Low to High' : 'High to Low'")
 
       div.ui.link.cards
-         router-link.card.product-card(:to="{ name: 'pdp', params: { code: p.code }}" v-for="p in filteredList" :key="p.code")
+        router-link.card.product-card(:to="{ name: 'pdp', params: { code: p.code }}" v-for="p in filteredList" :key="p.code")
           div.image
             img( v-lazy="'/api/'+p.imageURL" :alt="p.name")
           
@@ -47,8 +48,9 @@ div.plp
                 span.price(v-if="$root.badges") {{ p.price.discounted }}
                 span.ui.circular.tiny.label.bCoins(v-if="$root.badges") {{ p.price.coins }}
                 div(style="height:50px" v-else)
-            button.cta-button.ui.fluid.primary.button(v-on:click="addCart($event, p.code)")  Add to cart
-  div.ui.message(v-if="products.length==0") Sorry no products found 
+            button.cta-button.ui.fluid.primary.button(v-on:click="addCart($event, p)" :class="{'loading disabled':p.loaders}")  Add to cart
+      
+  div.ui.message(v-if="products.length==0 && !loaders.page") Sorry no products found 
       
 </template>
 

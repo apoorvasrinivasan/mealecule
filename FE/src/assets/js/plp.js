@@ -13,12 +13,15 @@ export default {
     category: "",
     filterKeys : [],
     mqKeys : [],
-    sortKey:'energy',
+    sortKey:'calories',
     products: [],
     mealecules:[],
     brands:[],
     sortAs:true,
-    facetDatas:[]
+    facetDatas:[],
+    loaders:{
+      page:true
+    }
   }
   },
   mounted(){
@@ -36,22 +39,17 @@ export default {
       let mqRange = {};
       let pm = this.$root.preferredMealecule;
       let col = this.$root.colors;
-
+      console.log(pm)
       vm.facetDatas = vm.facetDatas.filter(i=>{
+        console.log(i.code)
+    
         if(i.code == "CALORIES") return true
         let ind = pm.indexOf(i.code.toLowerCase())
         if(ind > -1) i.style = "background-color:"+col[ind];
         return (ind > -1)
       }).map(i=>{
-        if(i.code == 'CALORIES')
-          mqRange['energy'] = i.val
-        else
           mqRange[i.code.toLowerCase()] = i.val
         return i;
-      }).sort((a,b)=>{
-        let inda = pm.indexOf(a.code.toLowerCase())
-        let indb = pm.indexOf(b.code.toLowerCase())
-        return (inda>indb) ? 1:-1;
       })
 
       if(vm.filterKeys.length ==0)
@@ -81,13 +79,14 @@ export default {
       let category = this.$route['params'].id;
       vm.products = [];
       Product.getProducts(category,(data) => {
+        vm.loaders.page = false;
         vm.category = data.name;
         if(data.products.length == 0) return
-        vm.products = data.products.map((i)=>{
-        vm.facetDatas = data.facetDatas.filter((i)=>{
-          i.val = i.maxValue;
-          return i.maxValue >=1;
-        })
+          vm.products = data.products.map((i)=>{
+            vm.facetDatas = data.facetDatas.filter((i)=>{
+              i.val = Math.ceil(i.maxValue);
+              return i.maxValue >=1;
+            })
           if(vm.brands.indexOf(i.manufacturer) < 0)
             vm.brands.push(i.manufacturer)
           i.mq = Product.makeMQData(i.mealeculeQuotientData);
@@ -96,19 +95,24 @@ export default {
           return i
         });
         
-        vm.mealecules = [...vm.$root.preferredMealecule, 'energy'];
+        vm.mealecules = [...vm.$root.preferredMealecule, 'calories'];
       },
       (data) => {
+        vm.loaders.page = false;
         console.log("error");
         console.log(data);
       });
     },
-    addCart(e, code){
+    addCart(e, p){
       let vm = this;
+        p.loaders = true;
       e.preventDefault();
-      User.addToCart(code, (data)=>{
+      User.addToCart(p.code, (data)=>{
+        vm.loaders.atc = false;
         vm.$root.cart ++;
         vm.$root.cartMQ = data.mealeculeQuotientData;
+      }),(()=>{
+        p.loaders = false;
       });
     }
   }

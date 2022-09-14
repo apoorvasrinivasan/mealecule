@@ -92,13 +92,13 @@ export default {
         vm.$root.preferredMealecule = data.preferredMealecule
         vm.user_pm = data.preferredMealecule
           User.addCoins(vm.coins + 10, (data)=>{
+            vm.loaders.pm=false;
+            vm.$root.total_coins = data.coins;
+            vm.coins = data.coins;
+            vm.badges = data.badge.level;
             User.myCart((data)=>{
               vm.$root.cartMQ = data.mealeculeQuotientData;
             });
-            vm.coins = data.coins;
-            vm.badges = data.badge.level;
-            vm.$root.total_coins = data.coins;
-            vm.loaders.pm=false;
           });
       })
     

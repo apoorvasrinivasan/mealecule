@@ -51,12 +51,12 @@ export default {
 
     },
     makeMQData (mq) {
-        let cal = (mq)? mq.energy : 0;
+        let cal = (mq)? mq.calories : 0;
         let weight = mq.weightInG || mq.weightInML;
         if (mq.code) delete mq['code']
         let mqArray = [];
         for (let k in mq) {
-            if (['energy','weightInG','code'].indexOf(k) >-1) continue;
+            if (['calories','weightInG','code'].indexOf(k) >-1) continue;
             let v = mq[k];
             // console.log(k)
             mqArray.push({key:k, value:v})

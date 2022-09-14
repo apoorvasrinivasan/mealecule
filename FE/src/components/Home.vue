@@ -72,6 +72,11 @@ div.home-page
 							img(alt="View healthDrinks products"  v-lazy="require('@/assets/healthdrinks.webp')")
 						div.content
 							div.header Health Drinks
+					router-link.ui.card(to="/plp/juices")
+						div.image
+							img(alt="View Juices products"  v-lazy="require('@/assets/healthdrinks.webp')")
+						div.content
+							div.header Juices
 			
 	section#about
 			h2.ui.header.teal About us

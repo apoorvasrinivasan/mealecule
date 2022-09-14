@@ -15,9 +15,15 @@ export default {
         // filter the carMQ acc to user preference and energy
         let pm = this.preferredMealecule;
         let mq = {}
-        for (let k in this.cartMQ){
-         if (pm.indexOf(k) > -1) mq[k] = this.cartMQ[k]
+        if(this.cartMQ) {
+          for (let k in this.cartMQ){
+           if (pm.indexOf(k) > -1) mq[k] = this.cartMQ[k]
+          }
         }
+        else
+          pm.map((i)=>{
+            mq[i] = 0;
+          })
        return mq;
     },
     disc() {
