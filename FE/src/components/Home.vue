@@ -57,7 +57,7 @@ div.home-page
 						div.image
 							img(alt="View biscuits products" :src="require('@/assets/cookie.png')")
 						div.content
-							div.header Buscuits
+							div.header Biscuits
 					router-link.ui.card(to="/plp/chocolates")
 						div.image
 							img(alt="View chocolates products" :src="require('@/assets/chocolate.jpg')")

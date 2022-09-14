@@ -5,7 +5,7 @@
       <img v-else src="/logosmall.png" class="logo" alt="mealecule logo"/>
     </router-link>
     <router-link to="/game" class='item'>Play Game</router-link>
-    <div  tabindex=0 aria-label="Shop By Categories" role="button" class='ui dropdown item' v-if="categories.length">
+    <div id="dropdown" tabindex=0 aria-label="Shop By Categories" role="button" class='ui dropdown item' v-if="categories.length">
     Shop By
     <i class="dropdown icon" aria-hidden></i>
     <div class="menu" aria-hidden>
@@ -13,14 +13,14 @@
       <div class="ui dropdown item" :aria-label="c.name" v-for="c in categories" :key="c.id">
         {{ c.name }}
       <i class="dropdown icon"></i>
-      <div class="menu">
-        <router-link :to="{name:'plp', params:{id:cs.id}}" class="item" v-for="cs in c.subcategories" :key="cs.id">{{ cs.name }}</router-link>
+      <div class=" submenu menu">
+        <router-link :to="{name:'plp', params:{id:cs.id}}"  class="item" v-for="cs in c.subcategories" :key="cs.id">{{ cs.name }}</router-link>
       </div>
       </div>
     </div>
     </div>
     
-    <div class="right menu" >
+    <div class="right menu" > 
     <div class=" item promo-bar" v-if="filteredCartMq">
       <span  class="ui label promo-bar-item tiny" v-for="k,v, ind in filteredCartMq" :key="k" :style="'background-color:'+ $root.colors[ind]">
       {{ Math.floor(k)}}g {{v}} 

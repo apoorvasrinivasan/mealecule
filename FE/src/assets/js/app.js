@@ -1,6 +1,8 @@
 import Product from '../../services/product';
+import * as $ from 'jquery';
+import  D from './dropdown';
 
-
+// console.log(D.a)
 export default {
   name: 'App',
   computed: {
@@ -85,9 +87,10 @@ export default {
       // category list for dropdown menu
       let vm =this;
       Product.getCategories((data) => {
-        vm.categories = data.categories
-        // eslint-disable-next-line
-        setDropdown();
+        vm.categories = data.categories;
+        setTimeout(function(){
+          D.a($('#dropdown'));
+        },300)
       },
       (data) => {
         console.log("error");
