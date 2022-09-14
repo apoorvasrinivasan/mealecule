@@ -12,7 +12,7 @@ export default {
          return
       }
         $.ajax({
-         url : BASE_URL+'authorizationserver/oauth/token',
+         url : BASE_URL+'/authorizationserver/oauth/token',
          method:'POST',
          headers:{
             "Access-Control-Allow-Origin": "*",
@@ -195,7 +195,7 @@ export default {
    myCart(success, error){
       let that =this;
       let user = JSON.parse(localStorage.userData);
-      let url = USER_BASE_URL + user.uid + '/carts/current/';
+      let url = USER_BASE_URL + user.uid + '/carts/current/?fields=FULL';
       $.ajax({
          url,
          method:'GET',
