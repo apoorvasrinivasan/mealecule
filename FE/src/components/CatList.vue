@@ -37,14 +37,14 @@ export default {
     font-size: 1em;
     margin-bottom: 60px;
 }
-.catList{
+.catList {
 	display:flex;
-	justify-content:space-evenly;
+	justify-content:space-between;
 	align-items: flex-start;
 	z-index: 0;
 }
 
-.ui.list{
+.catList .ui.list{
 	margin: 0;
 }
 .item.heading{
@@ -57,9 +57,8 @@ export default {
 }
 @media screen and (max-width: 800px){
 	.catList {
-		flex-wrap:wrap;
-		max-height: 100vh;
-		flex-flow: column;
+		display: grid;
+		grid-template-columns: repeat(2,auto);
 		gap: 24px;
 	}
 }

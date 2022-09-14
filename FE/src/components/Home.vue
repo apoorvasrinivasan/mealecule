@@ -48,12 +48,12 @@ div.home-page
 						p End of a level in our game helps you win coins achievement badges. Earning coins leads to earning fun and interesting badges which would provide amazing discounts on MRP of all products being bought by you. Bronze badge (achieved at 100 coins) gives you 5% discount on MRP of products
 						router-link(to="/game") View More
 	section#categories.categories
-			div.glutenFree.cat-images
+			router-link(to="/plp/gluten"  aria-label="go to Gluten category ").glutenFree.cat-images
 				div.ui.header Gluten Free
-			div.vegan.cat-images
+			router-link(to="/plp/vegan" aria-label="go to Vegan category ").vegan.cat-images
 				div.ui.header Vegan
-			div.childcare.cat-images
-				div.ui.header Childcare
+			router-link(to="/plp/keto" aria-label="go to Keto category ").childcare.cat-images
+				div.ui.header Keto
 	section#categoryList
 			h2.ui.header.teal Online Supermarket
 			div.ui.four.cards

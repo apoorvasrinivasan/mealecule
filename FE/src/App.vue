@@ -61,8 +61,12 @@ nav{
 }
 
 @media screen and (max-width: 600px){
-  .menu {
-    flex-wrap: wrap;
+  nav.ui.menu {
+    display: grid;
+  }
+  .ui.menu .item.promo-bar{ 
+    display: none !important;
+    opacity: 0;
   }
   #homepage.home-banner {
     background-position: 0 0;

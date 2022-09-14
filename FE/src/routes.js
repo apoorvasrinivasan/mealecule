@@ -37,7 +37,7 @@ const routes = [
   },
   {
     path: '/game',
-    component: lazyLoad('GameArea') , 
+    component: lazyLoad('Game') , 
     name:"game",
     meta: {title:"Play game to win coins."}
   },
@@ -55,7 +55,7 @@ const routes = [
   },
   {
     path: '/myAccount',
-    component: lazyLoad('MyAccount') , 
+    component: lazyLoad('myAccount') , 
     name:"MyAccount",
     meta: {title:"MyAccount",loginRequired:true}
   },
