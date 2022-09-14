@@ -1,7 +1,8 @@
 <template>
   <nav aria-label="Main menu" class="ui menu" :class="{'secondary':currentRouteName == 'home'}">
     <router-link to="/" class=''>
-      <img  src="/logosmall.png" class="logo" alt="mealecule logo"/>
+      <img  src="/logowhitesmall.png"  v-if="currentRouteName == 'home'" class="logo" alt="mealecule logo"/>
+      <img  src="/logosmall.png" class="logo" v-else alt="mealecule logo"/>
     </router-link>
     <router-link to="/game" class='item'>Play Game</router-link>
     <div id="dropdown" tabindex=0 aria-label="Shop By Categories" role="button" class='ui dropdown item' v-if="categories.length">
@@ -49,8 +50,8 @@
   margin-top: 54px;
 }
 
-.home .ui.secondary.menu{
-  background-color: #dff7ced9;
+.home .ui.menu.secondary > .item {
+  color: #fff;
 }
 nav{
   position: relative;
@@ -61,13 +62,6 @@ nav{
 }
 
 @media screen and (max-width: 600px){
-  nav.ui.menu {
-    display: grid;
-  }
-  .ui.menu .item.promo-bar{ 
-    display: none !important;
-    opacity: 0;
-  }
   #homepage.home-banner {
     background-position: 0 0;
     background-size: auto 100%;
@@ -77,7 +71,7 @@ nav{
   }
 }
 .home-banner {
-  background:url('assets/leaf.webp') no-repeat #dff7ce;
+  background:url('assets/images/leaf.webp') no-repeat #dff7ce;
   background-attachment: fixed;
   background-size: contain;
   width:100%;

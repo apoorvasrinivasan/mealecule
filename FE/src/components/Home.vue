@@ -22,30 +22,32 @@ div.home-page
 				router-link.ui.button.primary.cta-button(to="/game" v-if="$root.total_coins") Play Game
 				router-link.ui.button.primary.cta-button(to="/game" v-else) Earn some coins and badges
 			div.column.ui.image
-				img(:src="require('@/assets/ame.webp')" alt="Play game with popoye")
+				img(:src="require('@/assets/images/ame.webp')" alt="Play game with popoye")
 	section#offer
 			h2.ui.header.teal What we offer
 			div.offers-cards
 				div.offer-card
 						div.image.games(aria-hidden="true")
 						div.ui.header.tiny Play Games
-						p Play a simple single player game to help Popeye win coins and avoid foodie obstacles midway. Also collect interesting badges and unlock exciting benefits, tto help you purchase your favourite products on site.
+						p Play a simple single player game to help Popeye win coins and avoid foodie obstacles. Collect interesting badges and unlock exciting benefits, to keep you healthy, fit and fine throughout.
 						router-link(to="/game") View More
 
 				div.offer-card
 						div.image.earn-coins(aria-hidden="true")
 						div.ui.header.tiny Earn Coins
-						p Keep collecting BCoins on site by activating your user profile, setting essential body vitals and your peference of MQ to help us serve you better. Redeem these coins during purchase and win exciting discounts on all your favourite products.
+						p Collect B Coins on site by activating your user profile, setting essential body vitals and your peference of MQ to help us serve you better. Redeem these coins and win exciting discounts on all your favourite products.
+
 						router-link(to="/game") View More
 				div.offer-card
 						div.image.mq
 						div.ui.header.tiny(aria-hidden="true") Mealecular Quotient
-						p Understand the impact of buying a product by judging its Mealecular Quotient (MQ) - an info-metrics containing information in a visual representation, of quantities (%) of protein, carbohydrate, fat, fiber and caloric values for all products viewed and added to your cart. Sort and filter based on your preferred MQ.
+						p Our personalized info-metrics containing information of quantities (%) of product ingredients such as protein, carbohydrate, fat for all products viewed and added to cart. Sort and filter based on your preferred MQ.
 						router-link(to="/myAccount") View More
 				div.offer-card
 						div.image.discount(aria-hidden="true")
 						div.ui.header.tiny Get Discounts
-						p End of a level in our game helps you win coins achievement badges. Earning coins leads to earning fun and interesting badges which would provide amazing discounts on MRP of all products being bought by you. Bronze badge (achieved at 100 coins) gives you 5% discount on MRP of products
+						p Earning coins and interesting badges provides you with amazing discounts on MRP of all products being bought by you.
+						p Win 10% off on all products with bronze badge, 15% off with silver badge and 20% off with gold badge.
 						router-link(to="/game") View More
 	section#categories.categories
 			router-link(to="/plp/gluten"  aria-label="go to Gluten category ").glutenFree.cat-images
@@ -59,24 +61,24 @@ div.home-page
 			div.ui.four.cards
 					router-link.ui.card(to="/plp/biscuits")
 						div.image
-							img(alt="View biscuits products"  v-lazy="require('@/assets/cookie.webp')")
+							img(alt="View biscuits products"  v-lazy="require('@/assets/images/cookie.webp')")
 						div.content
 							div.header Biscuits
 					router-link.ui.card(to="/plp/chocolates")
 						div.image
-							img(alt="View chocolates products"  v-lazy="require('@/assets/chocolate.webp')")
+							img(alt="View chocolates products"  v-lazy="require('@/assets/images/chocolate.webp')")
 						div.content
 							div.header Chocolates
 					router-link.ui.card(to="/plp/healthDrinks")
 						div.image
-							img(alt="View healthDrinks products"  v-lazy="require('@/assets/healthdrinks.webp')")
+							img(alt="View healthDrinks products"  v-lazy="require('@/assets/images/healthdrinks.webp')")
 						div.content
 							div.header Health Drinks
-					router-link.ui.card(to="/plp/juices")
+					router-link.ui.card(to="/plp/noodles")
 						div.image
-							img(alt="View Juices products"  v-lazy="require('@/assets/healthdrinks.webp')")
+							img(alt="View Noodles products"  v-lazy="require('@/assets/images/noodles.webp')")
 						div.content
-							div.header Juices
+							div.header Noodles
 			
 	section#about
 			h2.ui.header.teal About us

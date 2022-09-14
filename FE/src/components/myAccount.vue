@@ -85,6 +85,7 @@ div.myaccount
 <style scoped>
 .ui.cards.accounts-cards{
   display: flex;
+  flex-wrap: nowrap;
 }
 .ui.cards{
   margin-top: 24px;

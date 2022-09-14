@@ -45,7 +45,9 @@ export default {
 					type: 'column'
 			},
 			title: {
-					text: 'purchase mq history'
+					text: 'MQ history',
+					verticalAlign: 'bottom',
+					style:{"fontSize": "12px" }
 			},
 			yAxis:{
 					visible:false

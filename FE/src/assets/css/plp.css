@@ -3,6 +3,9 @@
   width:  212px;
 }
 
+.ui.header.product-count{
+  margin-bottom: -32px;
+}
 .check-box input[type="checkbox"] {
   position: absolute;
   opacity: 0;

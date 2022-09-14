@@ -54,8 +54,11 @@ export default {
       
       localStorage.removeItem('user')
       localStorage.removeItem('userData')
+      localStorage.removeItem('coins')
       this.$root.cart = -1;
       this.$root.isLogged = false;
+      this.$root.total_coins = 0;
+      this.$root.cartMQ = {};
       this.$router.push('/login')
     },
     getMealeculeList: function(){
@@ -106,8 +109,8 @@ export default {
     calcBMI:function(){
       let vm = this.bmi;
       let result = Math.round(((vm.w / Math.pow(vm.h,2)) * 10000)*10)/10;
-      let bmi_message = (result > 40) ? 'Severe Obesity' : (result >30) ? 'Obesity' : (result >25)? 'Overweight' :(result > 19) ? 'Normal': "Underweight";
-      vm.result = "Your BMI is : " + result + " and you are " + bmi_message;
+      let bmi_message = (result > 40) ? 'Severely Obese' : (result >30) ? 'Obese' : (result >25)? 'Overweight' :(result > 19) ? 'Normal': "Underweight";
+      vm.result = `Your BMI is : ${result} and you are ${bmi_message}`;
     },
     async getOrders(){
       let vm = this;
@@ -117,8 +120,8 @@ export default {
           vm.orderHistory.map((i)=>{
             i.placed = new Date(i.placed)
             chartData.x.push(i.placed.toDateString());
-            i.energy = i.mealeculeQuotientData.energy;
-            delete i.mealeculeQuotientData.energy;
+            i.energy = i.mealeculeQuotientData.calories;
+            delete i.mealeculeQuotientData.calories;
             for( let k in i.mealeculeQuotientData){
 
               if (k in chartData.sData)

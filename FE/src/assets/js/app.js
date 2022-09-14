@@ -29,9 +29,9 @@ export default {
     disc() {
       // what % discount will the user get
       switch (this.badges){
-        case 'BRONZE' : return 5;
-        case 'SILVER' : return 10;
-        case 'GOLD' : return 13;
+        case 'BRONZE' : return 10;
+        case 'SILVER' : return 15;
+        case 'GOLD' : return 20;
         default: return 0;
       }
     }

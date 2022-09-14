@@ -2,7 +2,7 @@
   display: flex;
 }
 #gameArea {
-  background: url(../road.webp);
+  background: url(../images/road.webp);
   border:  1px solid #ccc;
   height: 400px;
   margin:  0 auto;
@@ -32,7 +32,7 @@
   z-index: 4;
 }
 #player{
-  background: url(../popeye.png) no-repeat;
+  background: url(../images/popeye.png) no-repeat;
   background-size:contain ;
   bottom:  0;
   height:  100px;

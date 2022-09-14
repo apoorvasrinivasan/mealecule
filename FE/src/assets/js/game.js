@@ -83,7 +83,7 @@ export default {
       $(box).addClass("obsticle");
       let randomI = Math.floor(Math.random() * vm.mq_images.length);
       $(box).css({
-        'background-image':'url('+require("../"+vm.mq_images[randomI]+".png")+')'
+        'background-image':'url('+require("../images/"+vm.mq_images[randomI]+".png")+')'
       })
       $('#obst').append(box);
       $(box).on('animationiteration',function(){

@@ -16,6 +16,7 @@
   text-align: right;
   align-self: center;
   font-size:  1.7rem;
+  white-space: nowrap;
 
 }
 .ui.form textarea{
@@ -63,7 +64,7 @@
   display: grid;
   grid-gap: 5px;
   margin-top:  20px;
-  grid-template-columns: 1fr 40px;
+  grid-template-columns: 1fr 60px;
   justify-content: space-between;
 }
 .cart-summary .price{

@@ -196,6 +196,7 @@ export default {
       let that =this;
       let user = JSON.parse(localStorage.userData);
       let url = USER_BASE_URL + user.uid + '/carts/current/?fields=FULL';
+      
       $.ajax({
          url,
          method:'GET',

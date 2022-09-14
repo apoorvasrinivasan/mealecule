@@ -25,27 +25,30 @@ export default {
       User.myCart((data)=>{
         vm.response = data;
         vm.mq = vm.processCartMq(data.mealeculeQuotientData);
-        let carttotal = parseFloat(data.totalPrice.value)
-        let total = parseFloat(data.totalPriceWithTax.value)
-        vm.calcTotal(carttotal, total)
+        let total = parseFloat(data.totalPrice.value)
+        let dis = parseFloat(data.totalDiscounts.value)
 
         vm.cartitems = data.entries.map(vm.setPreferdMq)
+        vm.calcTotal(dis, total)
       })
     },
-    calcTotal:function(carttotal, total){
+
+    calcTotal:function(discount, total){
       let vm = this;
 
-        let absmaxCoins = Math.ceil((.12) * carttotal);
-        let maxCoins = Math.ceil((vm.$root.disc/100) * carttotal);
-        let userCoins = vm.$root.total_coins;
-        let discount = 0;
-        if( userCoins > 0 && vm.$root.badges)
-            discount = Math.min(userCoins, maxCoins);
+        let tax = vm.response.totalTax.value;
+        let carttotal = vm.cartitems.reduce((a,b)=>{
+          return a + parseFloat(b.totalPrice.value)  
+        },0);
+
+        let absmaxCoins = Math.ceil((.30) * carttotal);
+        discount = (discount)? discount : ((vm.$root.disc/100) * carttotal) ;
+        total = (total) ? total : carttotal - discount;
         vm.price = {
-          discount: discount,
-          total: total - discount,
+          discount: Math.ceil(discount),
           carttotal: carttotal,
-          tax: total - carttotal,
+          total: total,
+          tax: tax,
           maxDiscount: absmaxCoins
         }
     },
@@ -54,13 +57,14 @@ export default {
       if(!x) return;
       let vm = this;
       User.updateCart(i,0,(data)=>{
-        vm.cartitems.splice(i,1);
+        vm.cartitems.splice(i,1)
+        for(let j=i;j<vm.cartitems.length; j++){
+          vm.cartitems[j].entryNumber = j;
+        }
         vm.$root.cart = data.totalItems;
         vm.mq = vm.processCartMq(data.mealeculeQuotientData);
-        let carttotal = vm.cartitems.reduce((a,b)=>{
-          return a + parseFloat(b.totalPrice.value)  
-        },0);
-        vm.calcTotal(carttotal, carttotal);
+        
+        vm.calcTotal();
       })
     },
     updateCart(i,q){
@@ -70,11 +74,7 @@ export default {
         vm.cartitems[i] = vm.setPreferdMq(data.entry);
         vm.$root.cart = data.totalItems;
         vm.mq = vm.processCartMq(data.mealeculeQuotientData);
-        let carttotal = vm.cartitems.reduce((a,b)=>{
-          return a + parseFloat(b.totalPrice.value)  
-        },0);
-
-        vm.calcTotal(carttotal, carttotal);
+        vm.calcTotal();
       })
     },
     processCartMq(mq){
@@ -133,6 +133,9 @@ export default {
       let vm = this;
       vm.orderplacing=true
       let user  = JSON.parse(localStorage.userData);
+      user.gameData.coins = parseInt(user.gameData.coins) -  parseInt(vm.price.discount);
+      user.cart = -1;
+      localStorage.userData = JSON.stringify(user);
       let useraddress = {
         "id":user.uid,
         "firstName":user.firstName,
@@ -182,6 +185,8 @@ export default {
       await User.placeOrder(payment).then(()=>{
         vm.orderplacing = false;
         vm.$root.cart = -1;
+        vm.$root.total_coins = parseInt(vm.$root.total_coins) -   parseInt(vm.price.discount);
+        alert(vm.$root.total_coins)
         vm.$router.push('/myAccount')
 
       });

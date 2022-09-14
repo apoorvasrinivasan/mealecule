@@ -22,8 +22,9 @@ div.plp
 
         
 
-    div.ui.thirteen.wide.column  
-      div.ui.active.loader
+    div.ui.thirteen.wide.column 
+      div.ui.active.loader(v-if='loaders.page')
+      div.ui.header.large.teal.product-count {{ filteredList.length }} Results
       div.select-box
         label.sort-box(for="sortby" aria-label ="Sort by")
           select#sortby(v-model="sortKey")

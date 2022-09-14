@@ -6,7 +6,7 @@ div.gamearea
     div.ui.label.huge Score: {{ score }} 
     div.ui.huge.circular.label.bCoins {{coins}}
     h3.ui.heading.red Avoid
-    img.rule-images(v-for="img in mq_images" :src="require('../assets/' + img+'.png')")
+    img.rule-images(v-for="img in mq_images" :src="require('../assets/images/' + img+'.png')")
     
   div#gameArea(:class="{'active':!gamepaused}")
     div#obst

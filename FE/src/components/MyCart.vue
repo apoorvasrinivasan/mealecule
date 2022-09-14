@@ -7,13 +7,15 @@ div.cart
 
   div.ui.grid.cart-grid(v-if = 'cartitems.length')
     div
-      h3.ui.header.teal {{ response.totalItems }} items
+      h3.ui.header.teal {{ cartitems.length }} items
       ul.carts
         li.cartitems(v-for ="c in cartitems")
           div.ui.image
               img(:src="'api'+c.product.imageURL")
           div
               router-link.productname(:to="{name:'pdp', params:{code:c.product.code}}") {{ c.product.name }}
+              br
+              span Entry {{ c.entryNumber}}
               br
               span {{ c.product.weightInG}}g
           div
@@ -26,7 +28,7 @@ div.cart
                 i.icon.plus(v-on:click="updateCart(c.entryNumber, c.quantity+1)")
           div
               span.label.price {{ c.totalPrice.value }}
-              span.ui.tiny.teal.label {{ c.product.mealeculeQuotientData.energy}} kcal
+              span.ui.tiny.teal.label {{ c.product.mealeculeQuotientData.calories}} kcal
           i.icon.large.trash.alternate.outline(v-on:click="delCartItem(c.entryNumber)")
           div.mq_wise
             div(v-for="p in c.mq_beakers")
@@ -55,13 +57,13 @@ div.cart
           span Coins Discount
           span.price {{ price.discount }}
           small You can get upto Rs. {{ price.maxDiscount }} discount. 
-          router-link(style="font-size:.6em" to="/game") learn more
+          router-link(style="font-size:.6em" to="/") learn more
           span.total Total
           span.total.price {{price.total }}
         div.ui.form.user-add
           label(for="pincode") Delivering to 
           input#pincode(placeholder="Pincode" v-model="pincode")
-        button.ui.button.primary.cta.fluid(v-on:click="placeOrder()" :disabled="orderplacing") Place Order
+        button.ui.button.primary.cta.fluid(v-on:click="placeOrder()" :disabled="orderplacing || !pincode.trim()") Place Order
 </template>
 
 <script src="@/assets/js/cart.js">
