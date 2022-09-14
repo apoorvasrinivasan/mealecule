@@ -217,24 +217,24 @@ INSERT_UPDATE Product;code[unique=true];$supercategories;manufacturerName;manufa
 ;1914;gluten;GoodDiet;GoodDietID;pieces;;;;;150;;
 ;1915;gluten;Graminway;GraminwayID;pieces;;;;;400;;
 ;1916;gluten;Dr.Gluten;DrGlutenID;pieces;;;;;400;;
-;1917;gluten;GoodDiet;GoodDietID;;;;;250;;
-;1918;gluten;GoodDiet;GoodDietID;;;;;250;;
-;1919;gluten;GoodDiet;GoodDietID;;;;;250;;
-;1920;gluten;Nutriorg;NutriorgID;;;;;4000;;
-;1921;gluten;Monsoon Harvest;MonsoonHarvestID;;;;;500;;
-;1922;gluten;Nutty Yogi;NuttyYogiID;;;;;400;;
-;1923;gluten;Nutriwish;NutriwishID;;;;;250;;
-;1924;gluten;GoodDiet;GoodDietID;;;;;250;;
-;1925;gluten;IMPRESSO;IMPRESSOID;;;;;300;;
-;1926;gluten;IMPRESSO;IMPRESSOID;;;;;300;;
-;1927;gluten;GoodDiet;GoodDietID;;;;;150;;
-;1928;gluten;Graminway;GraminwayID;;;;;1000;;
-;1929;gluten;KELLY'S;KELLYSID;;;;;340;;
-;1930;gluten;Graminway;GraminwayID;;;;;1000;;
-;1931;gluten;Darkins;DarkinsID;;;;;65;;
-;1932;gluten;Monsoon Harvest;MonsoonHarvestID;;;;;500;;
-;1933;gluten;Graminway;GraminwayID;;;;;1000;;
-;1934;gluten;Nutty Yogi;NuttyYogiID;;;;;1000;;
+;1917;gluten;GoodDiet;GoodDietID;pieces;;;;;250;;
+;1918;gluten;GoodDiet;GoodDietID;pieces;;;;;250;;
+;1919;gluten;GoodDiet;GoodDietID;pieces;;;;;250;;
+;1920;gluten;Nutriorg;NutriorgID;pieces;;;;;4000;;
+;1921;gluten;Monsoon Harvest;MonsoonHarvestID;pieces;;;;;500;;
+;1922;gluten;Nutty Yogi;NuttyYogiID;pieces;;;;;400;;
+;1923;gluten;Nutriwish;NutriwishID;pieces;;;;;250;;
+;1924;gluten;GoodDiet;GoodDietID;pieces;;;;;250;;
+;1925;gluten;IMPRESSO;IMPRESSOID;pieces;;;;;300;;
+;1926;gluten;IMPRESSO;IMPRESSOID;pieces;;;;;300;;
+;1927;gluten;GoodDiet;GoodDietID;pieces;;;;;150;;
+;1928;gluten;Graminway;GraminwayID;pieces;;;;;1000;;
+;1929;gluten;KELLY'S;KELLYSID;pieces;;;;;340;;
+;1930;gluten;Graminway;GraminwayID;pieces;;;;;1000;;
+;1931;gluten;Darkins;DarkinsID;pieces;;;;;65;;
+;1932;gluten;Monsoon Harvest;MonsoonHarvestID;pieces;;;;;500;;
+;1933;gluten;Graminway;GraminwayID;pieces;;;;;1000;;
+;1934;gluten;Nutty Yogi;NuttyYogiID;pieces;;;;;1000;;
 
 
 

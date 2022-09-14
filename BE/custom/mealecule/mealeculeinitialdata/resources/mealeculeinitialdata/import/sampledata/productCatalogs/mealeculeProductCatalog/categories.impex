@@ -41,7 +41,10 @@ INSERT_UPDATE Category;code[unique=true];allowedPrincipals(uid)[default='custome
  ;softDrinks
  ;cereals
  ;chocolates
- ;special diet
+ ;specialDiet
+ ;gluten
+ ;keto
+ ;vegan
 
 
 # Insert Category Structure
@@ -62,9 +65,9 @@ INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories;
 ;healthDrinks;beverages
 ;softDrinks;beverages
 ;cereals;beverages
-;keto;special diet
-;vegan;special diet
-;gluten;special diet
+;keto;specialDiet
+;vegan;specialDiet
+;gluten;specialDiet
 
 
 $productCatalog=mealeculeProductCatalog
@@ -98,6 +101,9 @@ INSERT_UPDATE Category;code[unique=true];allowedPrincipals(uid)[default='custome
                       ;cereals
                       ;chocolates
                       ;specialDiet
+                      ;gluten
+                      ;vegan
+                      ;keto
 
 
 # Insert Category Structure
