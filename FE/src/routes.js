@@ -1,73 +1,67 @@
 import {createWebHashHistory,createRouter}  from 'vue-router';
-import HelloWorld from './components/HelloWorld.vue'
-import Home from './components/Home.vue'
-import PLP from './components/PLP.vue'
-import PDP from './components/PDP.vue'
-import GameArea from './components/Game.vue'
-import Login from './components/Login.vue'
-import MyCart from './components/MyCart.vue'
-import MyAccount from './components/myAccount.vue'
-import CatList from './components/CatList.vue'
-import NotFound from './components/NotFound.vue'
+
+function lazyLoad(view){
+  return() => import(`@/components/${view}.vue`)
+}
 
 const routes = [ 
   {
     path: '/', 
-    component: Home,
+    component: lazyLoad('Home'),
     name:"home",
     meta: {title:"How healthy is your cart"}
      },
   {
     path: '/about',
-    component: HelloWorld,
+    component: lazyLoad('HelloWorld'),
     name:'about',
     meta: {title:"about"}
      },
   {
     path: '/plp/:id',
-    component: PLP , 
+    component: lazyLoad('PLP') , 
     name:"plp",
     meta: {title:"Products listing "}
   },
   {
     path: '/categories',
-    component: CatList , 
+    component: lazyLoad('CatList') , 
     name:"CatList",
     meta: {title:"All Categories Listing"}
   },
   {
     path: '/pdp/:code',
-    component: PDP , 
+    component: lazyLoad('PDP') , 
     name:"pdp",
     meta: {title:"pdp"}
   },
   {
     path: '/game',
-    component: GameArea , 
+    component: lazyLoad('GameArea') , 
     name:"game",
     meta: {title:"Play game to win coins."}
   },
   {
     path: '/mycart',
-    component: MyCart , 
+    component: lazyLoad('MyCart') , 
     name:"MyCart",
     meta: {title:"MyCart",loginRequired:true}
   },
   {
     path: '/login',
-    component: Login , 
+    component: lazyLoad('Login') , 
     name:"Login",
     meta: {title:"Login"}
   },
   {
     path: '/myAccount',
-    component: MyAccount , 
+    component: lazyLoad('MyAccount') , 
     name:"MyAccount",
     meta: {title:"MyAccount",loginRequired:true}
   },
   {
   path: "/:catchAll(.*)",
-  component: NotFound,
+  component: lazyLoad('NotFound'),
 },
 ]
 

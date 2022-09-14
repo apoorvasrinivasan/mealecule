@@ -60,17 +60,17 @@ section {
 		border: 2px solid #ccc;
 }
 .offer-card .image.earn-coins {
-	background-image: url(../coins.jfif);
+	background-image: url(../coins.webp);
 }
 .offer-card .image.discount {
-	background-image: url(../discount.jpg);
+	background-image: url(../discount.webp);
 }
 .offer-card .image.games {
-	background-image: url(../game.png);
+	background-image: url(../game.webp);
 	background-position: 2px 3px;
 }
 .offer-card .image.mq {
-	background-image: url(../mq.png);
+	background-image: url(../mq.webp);
 }
 .offers-cards .offer-card > p{
 		font-size: .8rem;

@@ -24,7 +24,7 @@
     <span> {{  item.value }}g</span>
 </template>
   <span>Energy </span>
-  <span> {{  nutrients.cal }}kcal</span>
+  <span> {{  nutrients.cal }}K</span>
     
  </div>
 </div>

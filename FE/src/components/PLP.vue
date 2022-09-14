@@ -34,7 +34,7 @@ div.plp
       div.ui.link.cards
          router-link.card.product-card(:to="{ name: 'pdp', params: { code: p.code }}" v-for="p in filteredList" :key="p.code")
           div.image
-            img(:src="'/api/'+p.imageURL" :alt="p.name")
+            img( v-lazy="'/api/'+p.imageURL" :alt="p.name")
           
           div.content
             span.brandname {{p.manufacturer}}

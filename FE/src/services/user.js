@@ -12,7 +12,7 @@ export default {
          return
       }
         $.ajax({
-         url : BASE_URL+'authorizationserver/oauth/token',
+         url : BASE_URL+'/authorizationserver/oauth/token',
          method:'POST',
          headers:{
             "Access-Control-Allow-Origin": "*",

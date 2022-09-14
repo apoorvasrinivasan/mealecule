@@ -1,20 +1,19 @@
 <template>
   <nav aria-label="Main menu" class="ui menu" :class="{'secondary':currentRouteName == 'home'}">
     <router-link to="/" class=''>
-      <img src="/logowhitesmall.png" class="logo" alt="mealecule logo" v-if="currentRouteName == 'home'"/>
-      <img v-else src="/logosmall.png" class="logo" alt="mealecule logo"/>
+      <img  src="/logosmall.png" class="logo" alt="mealecule logo"/>
     </router-link>
     <router-link to="/game" class='item'>Play Game</router-link>
     <div id="dropdown" tabindex=0 aria-label="Shop By Categories" role="button" class='ui dropdown item' v-if="categories.length">
     Online Supermarket
-    <i class="dropdown icon" aria-hidden></i>
-    <div class="menu" aria-hidden>
+    <i class="dropdown icon" aria-hidden="true"></i>
+    <div class="menu" aria-hidden="true">
       <router-link :to="{name:'CatList'}" class="item" >All Categories</router-link>
-      <div class="ui dropdown item" :aria-label="c.name" v-for="c in categories" :key="c.id">
+      <div class="ui dropdown item" role="link" :aria-label="c.name"  v-for="c in categories" :key="c.id">
         {{ c.name }}
       <i class="dropdown icon"></i>
-      <div class=" submenu menu" aria-hidden>
-        <router-link :to="{name:'plp', params:{id:cs.id}}"  class="item" v-for="cs in c.subcategories" :key="cs.id">{{ cs.name }}</router-link>
+      <div class=" submenu menu" aria-hidden="true">
+        <router-link :to="{name:'plp', params:{id:cs.id}}" role="link" class="item" v-for="cs in c.subcategories" :key="cs.id">{{ cs.name }}</router-link>
       </div>
       </div>
     </div>
@@ -50,9 +49,12 @@
   margin-top: 54px;
 }
 
+.home .ui.secondary.menu{
+  background-color: #dff7ced9;
+}
 nav{
   position: relative;
-  z-index: 1;
+  z-index: 11;
 }
 .ui.dropdown.item:focus-within, .menu .item:focus-within {
     outline: 1px solid #222;

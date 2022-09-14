@@ -30,19 +30,23 @@ div.home-page
 						div.image.games(aria-hidden="true")
 						div.ui.header.tiny Play Games
 						p Play a simple single player game to help Popeye win coins and avoid foodie obstacles midway. Also collect interesting badges and unlock exciting benefits, tto help you purchase your favourite products on site.
+						router-link(to="/game") View More
 
 				div.offer-card
 						div.image.earn-coins(aria-hidden="true")
 						div.ui.header.tiny Earn Coins
 						p Keep collecting BCoins on site by activating your user profile, setting essential body vitals and your peference of MQ to help us serve you better. Redeem these coins during purchase and win exciting discounts on all your favourite products.
+						router-link(to="/game") View More
 				div.offer-card
 						div.image.mq
 						div.ui.header.tiny(aria-hidden="true") Mealecular Quotient
 						p Understand the impact of buying a product by judging its Mealecular Quotient (MQ) - an info-metrics containing information in a visual representation, of quantities (%) of protein, carbohydrate, fat, fiber and caloric values for all products viewed and added to your cart. Sort and filter based on your preferred MQ.
+						router-link(to="/myAccount") View More
 				div.offer-card
 						div.image.discount(aria-hidden="true")
 						div.ui.header.tiny Get Discounts
 						p End of a level in our game helps you win coins achievement badges. Earning coins leads to earning fun and interesting badges which would provide amazing discounts on MRP of all products being bought by you. Bronze badge (achieved at 100 coins) gives you 5% discount on MRP of products
+						router-link(to="/game") View More
 	section#categories.categories
 			div.glutenFree.cat-images
 				div.ui.header Gluten Free
@@ -55,17 +59,17 @@ div.home-page
 			div.ui.four.cards
 					router-link.ui.card(to="/plp/biscuits")
 						div.image
-							img(alt="View biscuits products" :src="require('@/assets/cookie.png')")
+							img(alt="View biscuits products"  v-lazy="require('@/assets/cookie.webp')")
 						div.content
 							div.header Biscuits
 					router-link.ui.card(to="/plp/chocolates")
 						div.image
-							img(alt="View chocolates products" :src="require('@/assets/chocolate.jpg')")
+							img(alt="View chocolates products"  v-lazy="require('@/assets/chocolate.webp')")
 						div.content
 							div.header Chocolates
 					router-link.ui.card(to="/plp/healthDrinks")
 						div.image
-							img(alt="View healthDrinks products" :src="require('@/assets/healthdrinks.jpg')")
+							img(alt="View healthDrinks products"  v-lazy="require('@/assets/healthdrinks.webp')")
 						div.content
 							div.header Health Drinks
 			
