@@ -105,6 +105,14 @@ export default{
     $src.on('keydown', function(e){
       let $t = getActiveElement();
       switch(e.keyCode){
+        case 13:{
+          if($t.prop('tagName') == 'A'){
+            $t.trigger('click');
+            location.href = $t.attr('href');
+            closeMenu();
+          }
+            break;
+        }
         case 40 :{
          e.preventDefault();
          moveDown($t);
