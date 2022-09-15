@@ -37,9 +37,9 @@ export default{
        if($t.hasClass('dropdown')) {
         if(!$t.hasClass('active')) {
           closeMenu($src.find('.submenu.visible').parent())
-          $t.addClass('active visible');
+          $t.addClass('active visible').attr('aria-expanded','true');
           $t.find('.menu').addClass('transition hidden');
-          $t.children('.menu').removeClass('hidden').addClass('transition visible').show();
+          $t.children('.menu').removeClass('hidden').addClass('transition visible').attr('aria-hidden','false').show();
         }
       }
     }

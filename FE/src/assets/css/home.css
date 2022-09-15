@@ -118,14 +118,14 @@ button {
 	font-weight: bold;
 }
 .glutenFree {
-	background: url(https://www.picpedia.org/chalkboard/images/gluten-free-foods.jpg) no-repeat;
+	background: url(../../assets/images/gluten-free-foods.webp) no-repeat;
 	grid-row:  1/3;
 }
 .vegan {
-	background: url(https://images.news18.com/ibnlive/uploads/2019/07/vegan.jpg?im=FitAndFill,width=1200,height=675) no-repeat;
+	background: url(../../assets/images/vegan.webp) no-repeat;
 }
 .childcare {
-	background: url(https://cdn.cdnparenting.com/articles/2018/07/743111095-H.jpg) no-repeat;
+	background: url(../../assets/images/keto.webp) no-repeat;
 }
 
 .ui.label.BRONZE{

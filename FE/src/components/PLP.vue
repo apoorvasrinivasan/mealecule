@@ -36,18 +36,18 @@ div.plp
       div.ui.link.cards
         router-link.card.product-card(:to="{ name: 'pdp', params: { code: p.code }}" v-for="p in filteredList" :key="p.code")
           div.image
-            img( v-lazy="'/api/'+p.imageURL" :alt="p.name")
+            img( v-lazy="'/api/'+p.imageURL" :alt="'image: ' + p.name")
           
           div.content
-            span.brandname {{p.manufacturer}}
-            div.header.product-name {{ p.name }}
+            span.brandname(:aria-label ="'brand: '+p.manufacturer") {{p.manufacturer}}
+            div.header.product-name {{p.name}}
             div.meta
               MQ(:nutrients="p.mq" v-if='p.mq')
               div.ui.label.tiny {{ category}}
               div.price-row
-                span(:class="($root.badges)?'mrp':'price'") {{ p.price.value }}
-                span.price(v-if="$root.badges") {{ p.price.discounted }}
-                span.ui.circular.tiny.label.bCoins(v-if="$root.badges") {{ p.price.coins }}
+                span(:aria-label="'MRP: Rs. '+p.price.value" :class="($root.badges)?'mrp':'price'") {{ p.price.value }}
+                span.price(v-if="$root.badges" :aria-label="'Max discounted price: Rs. '+p.price.discounted") {{ p.price.discounted }}
+                span.ui.circular.tiny.label.bCoins(v-if="$root.badges" :aria-label="'Coin Discount= '+p.price.coins") {{ p.price.coins }}
                 div(style="height:50px" v-else)
             button.cta-button.ui.fluid.primary.button(v-on:click="addCart($event, p)" :class="{'loading disabled':p.loaders}")  Add to cart
       

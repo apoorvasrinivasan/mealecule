@@ -98,8 +98,4 @@ export default {
 }
 </script>
 
-<style scoped>
-td{
-  text-transform: capitalize;
-}
-</style>
+<style scoped src="@/assets/css/pdp.css"></style>

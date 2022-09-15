@@ -1,12 +1,14 @@
 <template>
   <nav aria-label="Main menu" class="ui menu" :class="{'secondary':currentRouteName == 'home'}">
-    <router-link to="/" class=''>
-      <img  src="/logowhitesmall.png"  v-if="currentRouteName == 'home'" class="logo" alt="mealecule logo"/>
-      <img  src="/logosmall.png" class="logo" v-else alt="mealecule logo"/>
+    <router-link to="/" class=''  v-if="currentRouteName == 'home'">
+      <img  src="/logowhitesmall.png"  class="logo" alt="mealecule logo"/>
     </router-link>
-    <router-link to="/game" class='item'>Play Game</router-link>
+    <router-link to="/" class='' v-else >
+      <img  src="/logosmall.png" class="logo" alt="mealecule logo"/>
+    </router-link>
+    <router-link to="/game" class='item'><span class="lg">Play </span>Game</router-link>
     <div id="dropdown" tabindex=0 aria-label="Shop By Categories" role="button" class='ui dropdown item' v-if="categories.length">
-    Online Supermarket
+    <span class="lg">Online  Super</span>market
     <i class="dropdown icon" aria-hidden="true"></i>
     <div class="menu" aria-hidden="true">
       <router-link :to="{name:'CatList'}" class="item" >All Categories</router-link>
@@ -22,11 +24,11 @@
     
     <div class="right menu" > 
     <div class=" item promo-bar" v-if="filteredCartMq">
-      <span  class="ui label promo-bar-item tiny" v-for="k,v, ind in filteredCartMq" :key="k" :style="'background-color:'+ $root.colors[ind]">
+      <span  class="ui label lg promo-bar-item tiny" v-for="k,v, ind in filteredCartMq" :key="k" :style="'background-color:'+ $root.colors[ind]">
       {{ Math.floor(k)}}g {{v}} 
       </span>
     </div>
-    <div class="item"> <span class="ui circular bCoins tiny yellow label"> {{ total_coins || 0}} </span> </div>
+    <div class="item" :aria-label="'Coins earned: '+total_coins || 0"> <span class="ui circular bCoins tiny yellow label"> {{ total_coins || 0}} </span> </div>
     
       <router-link to="/login" class='item' aria-label = "Login" v-if="!isLogged">Login</router-link>
       <router-link :to="{name:'MyAccount'}" aria-label = "My Account" class="item" v-if="isLogged">
@@ -45,7 +47,8 @@
 
 <script src="@/assets/js/app.js"></script>
 
-<style>
+<style scoped>
+
 .site-content {
   margin-top: 54px;
 }
@@ -69,11 +72,14 @@ nav{
     width: 100%;
     filter: grayscale(0.3);
   }
+   .lg{
+    display: none;
+  }
 }
 .home-banner {
   background:url('assets/images/leaf.webp') no-repeat #dff7ce;
   background-attachment: fixed;
-  background-size: contain;
+  background-size: 500px auto;
   width:100%;
   height:100vh;
   margin-top: -54px;

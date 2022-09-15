@@ -94,7 +94,7 @@ export default {
           i.price.discounted = i.price.value - i.price.coins;
           return i
         });
-        
+        vm.brands.sort()
         vm.mealecules = [...vm.$root.preferredMealecule, 'calories'];
       },
       (data) => {

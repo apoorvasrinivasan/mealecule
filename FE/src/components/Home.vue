@@ -50,7 +50,7 @@ div.home-page
 						p Win 10% off on all products with bronze badge, 15% off with silver badge and 20% off with gold badge.
 						router-link(to="/game") View More
 	section#categories.categories
-			router-link(to="/plp/gluten"  aria-label="go to Gluten category ").glutenFree.cat-images
+			router-link(to="/plp/gluten"  aria-label="go to Gluten Free  category ").glutenFree.cat-images
 				div.ui.header Gluten Free
 			router-link(to="/plp/vegan" aria-label="go to Vegan category ").vegan.cat-images
 				div.ui.header Vegan

@@ -10,8 +10,8 @@ export default {
       reg_error: '',
       passerror:false,
       ulogin:{
-        uid:'test19919@yahoo.com',
-        password:'Test@123'
+        uid:'',
+        password:''
       },
       user:{
         titleCode:'mr',

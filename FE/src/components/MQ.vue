@@ -18,7 +18,7 @@
     </g>
   </svg>
 
-<div class="mq-data">
+<div class="mq-data" aria-hidden="false">
 <template v-for="(item, index) in mqdata" :key="index">
     <span :style="'border-left-color:'+item.color"> {{ item.key }}</span>
     <span> {{  item.value }}g</span>

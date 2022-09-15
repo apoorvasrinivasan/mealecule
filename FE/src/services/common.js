@@ -6,6 +6,7 @@ export default {
     let heading = document.createElement('div');
     let button = document.createElement('button');
     div.classList.add('alertBox');
+    div.setAttribute('aria-modal','true');
     alert.classList.add('alert');
     heading.classList = "ui header small teal".split();
     heading.innerHTML = "Alert";

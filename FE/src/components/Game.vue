@@ -4,9 +4,9 @@ div.ui.error.message.mobile-error
 div.gamearea
   div#score
     div.ui.label.huge Score: {{ score }} 
-    div.ui.huge.circular.label.bCoins {{coins}}
+    div.ui.huge.circular.label.bCoins(:aria-label="'Coins earned' + coins") {{coins}}
     h3.ui.heading.red Avoid
-    img.rule-images(v-for="img in mq_images" :src="require('../assets/images/' + img+'.png')")
+    img.rule-images(:aria-label = "img" v-for="img in mq_images" :src="require('../assets/images/' + img+'.png')")
     
   div#gameArea(:class="{'active':!gamepaused}")
     div#obst
