@@ -43,9 +43,10 @@ export default {
 
         let absmaxCoins = Math.ceil((.30) * carttotal);
         discount = (discount)? discount : ((vm.$root.disc/100) * carttotal) ;
+        discount = Math.ceil(discount);
         total = (total) ? total : carttotal - discount;
         vm.price = {
-          discount: Math.ceil(discount),
+          discount: discount,
           carttotal: carttotal,
           total: total,
           tax: tax,

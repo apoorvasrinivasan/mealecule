@@ -108,7 +108,7 @@ export default {
         p.loaders = true;
       e.preventDefault();
       User.addToCart(p.code, (data)=>{
-        vm.loaders.atc = false;
+        p.loaders = false;
         vm.$root.cart ++;
         vm.$root.cartMQ = data.mealeculeQuotientData;
       }),(()=>{
