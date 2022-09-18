@@ -40,7 +40,7 @@ div.plp
       div.three.wide.column
         div.ui.segment.cta-box
             div.ui.label.green.ribbon {{product.stock.stockLevelStatus}} 
-            div(style="margin-top:24px")
+            div.price-segment
               span.mrp-label MRP
               span.price {{product.price.value }}
             

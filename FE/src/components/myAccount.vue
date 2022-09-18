@@ -115,7 +115,7 @@ div.myaccount
   margin-top: auto;
 }
 @media screen and (max-width:800px){
-  .accounts-cards{
+  .ui.cards.accounts-cards{
     display: grid;
     grid-template-columns: 90%;
     justify-content: center;

@@ -57,7 +57,7 @@ div.cart
           span Coins Discount
           span.price {{ price.discount }}
           small You can get upto Rs. {{ price.maxDiscount }} discount. 
-          router-link(style="font-size:.6em" to="/") learn more
+          router-link(style="font-size:.6em; text-align:right" to="/") learn more
           span.total Total
           span.total.price {{price.total }}
         div.ui.form.user-add

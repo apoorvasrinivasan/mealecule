@@ -35,7 +35,7 @@
   margin-left: 10px;
   vertical-align: middle;
 }
-.cta-box {
+.ui.segment.cta-box {
   position: fixed;
   top:  84px;
 }
@@ -59,14 +59,24 @@
   color: var(--lightgrey);
 }
 
+.price-segment {
+  margin-top: 24px;
+}
 @media screen and (max-width:  800px){
+  .ui.container {
+    margin-bottom: 64px;
+  }
   .ui.segment.cta-box {
-    bottom: 0;
+    bottom: 48px;
     height: fit-content;
+    
     left: 0;
     top: unset;
     width: 100%;
     z-index: 5;
+  }
+  .price-segment{
+    margin-top:  0;
   }
   .ui.grid.product{
     display: grid;

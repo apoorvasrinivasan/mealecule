@@ -152,7 +152,7 @@ export default {
          }
       })
    },
-   addToCart(p ,success){
+   addToCart(p ,success, error){
       let user = JSON.parse(localStorage.userData);
       let url = USER_BASE_URL + user.uid + '/carts/current/entries?code='+p;
       let that = this;
@@ -170,6 +170,7 @@ export default {
          error:function(response){
             that.accessHandler(response);
             Common.Alert('Couldn\'t add to cart');
+            error();
          }
       })
    },

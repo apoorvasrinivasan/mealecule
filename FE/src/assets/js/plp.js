@@ -111,7 +111,7 @@ export default {
         p.loaders = false;
         vm.$root.cart ++;
         vm.$root.cartMQ = data.mealeculeQuotientData;
-      }),(()=>{
+      },()=>{
         p.loaders = false;
       });
     }

@@ -1,10 +1,8 @@
 <template>
   <nav aria-label="Main menu" class="ui menu" :class="{'secondary':currentRouteName == 'home'}">
-    <router-link to="/" class=''  v-if="currentRouteName == 'home'">
-      <img  src="/logowhitesmall.png"  class="logo" alt="mealecule logo"/>
-    </router-link>
-    <router-link to="/" class='' v-else >
-      <img  src="/logosmall.png" class="logo" alt="mealecule logo"/>
+    <router-link to="/" class=''  >
+      <img  src="/logowhitesmall.png"  v-if="currentRouteName == 'home'" class="logo" alt="mealecule logo"/>
+      <img  src="/logosmall.png" v-else  class="logo" alt="mealecule logo"/>
     </router-link>
     <router-link to="/game" class='item'><span class="lg">Play </span>Game</router-link>
     <div id="dropdown" tabindex=0 aria-label="Shop By Categories" role="button" class='ui dropdown item' v-if="categories.length">
@@ -75,6 +73,20 @@ nav{
    .lg{
     display: none;
   }
+  
+nav.ui.menu > .right.menu {
+    position: fixed;
+    bottom: 0;
+    display: grid;
+    background: white;
+    border: 1px solid red;
+    grid-template-columns: 65% 10% 10% 9%;
+    justify-content: space-between;
+  }
+  .promo-bar {
+    padding:  5px 0 !important;
+  }
+
 }
 .home-banner {
   background:url('assets/images/leaf.webp') no-repeat #dff7ce;
@@ -97,8 +109,10 @@ nav{
   bottom:  20px;
 }
 img.logo {
-    height: 25px;
+    height: 21px;
     margin-top: 8px;
     margin-left: 8px;
+    width:  90px;
+    max-width: unset;
 }
 </style>
