@@ -147,6 +147,9 @@
     font-size:  1.5rem;
     font-weight: 700;
   }
+  .product-card>.content {
+    justify-content: unset;
+  }
 
   .ui.cards {
     justify-content: center;

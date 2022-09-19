@@ -39,7 +39,6 @@ div.myaccount
         div.ui.field
           label Age
           input(v-model="user.age")
-        div {{ loaders.info }}
         button.ui.primary.fluid.button(:disabled="inform_disabled || loaders.info" v-on:click="saveVitals()" :class="{'loading':loaders.info}") 
           | Save   
           div.ui.circular.label.tiny.bCoins 20
