@@ -49,7 +49,6 @@ div.plp
                 span.price(v-if="$root.badges" :aria-label="'Max discounted price: Rs. '+p.price.discounted") {{ p.price.discounted }}
                 span.ui.circular.tiny.label.bCoins(v-if="$root.badges" :aria-label="'Coin Discount= '+p.price.coins") {{ p.price.coins }}
                 div(style="height:50px" v-else)
-                div {{ p.loaders }}
             button.cta-button.ui.fluid.primary.button(v-on:click="addCart($event, p)" :class="{'loading disabled':p.loaders}")  Add to cart
       
   div.ui.message(v-if="products.length==0 && !loaders.page") Sorry no products found 
