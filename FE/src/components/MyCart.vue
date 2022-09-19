@@ -5,17 +5,15 @@ div.cart
     | Your cart is empty. 
     router-link(to="/categories") Shop for products.
 
-  div.ui.grid.cart-grid(v-if = 'cartitems.length')
+  div.cart-grid(v-if = 'cartitems.length')
     div
       h3.ui.header.teal {{ cartitems.length }} items
       ul.carts
         li.cartitems(v-for ="c in cartitems")
           div.ui.image
               img(:src="'api'+c.product.imageURL")
-          div
+          div.product-name
               router-link.productname(:to="{name:'pdp', params:{code:c.product.code}}") {{ c.product.name }}
-              br
-              span Entry {{ c.entryNumber}}
               br
               span {{ c.product.weightInG}}g
           div

@@ -53,6 +53,9 @@
   margin-right: 10px;
   padding: 5px 10px;
 }
+.select-box select:focus-within {
+  outline: 1px solid var(--yellow);
+}
 .select-box:before {
     content: "sort by";
     position: absolute;
@@ -74,6 +77,7 @@
 .product-card > .content {
   display: grid;
   grid-gap: 10px;
+  justify-content: space-between;
 }
 .price-row {
   width:50%;
@@ -93,7 +97,7 @@
   color:  #222;
   /*color: var(--red);*/
 }
-.cta-button{
+.ui.button.cta-button{
   margin-top: auto;
 }
 .mq{

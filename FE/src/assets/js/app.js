@@ -17,14 +17,14 @@ export default {
         let mq = {}
         if(this.cartMQ) {
           for (let k in this.cartMQ){
-           if (pm.indexOf(k) > -1) mq[k] = this.cartMQ[k]
+            if (pm.indexOf(k) > -1) mq[k] = this.cartMQ[k];
           }
         }
         else
           pm.map((i)=>{
             mq[i] = 0;
           })
-       return mq;
+      return mq;
     },
     disc() {
       // what % discount will the user get

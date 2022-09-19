@@ -99,6 +99,10 @@
   margin-left: 10px;
   font-size: .5em;
 }
+.ui.compact.selection.dropdown {
+    min-width: 55px;
+    padding: 3px;
+}
 @media screen and (max-width: 800px) {
   .ui.divider{display:none;}
   .ui.action.input{

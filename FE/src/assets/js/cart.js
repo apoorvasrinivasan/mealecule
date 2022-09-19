@@ -187,7 +187,6 @@ export default {
         vm.orderplacing = false;
         vm.$root.cart = -1;
         vm.$root.total_coins = parseInt(vm.$root.total_coins) -   parseInt(vm.price.discount);
-        alert(vm.$root.total_coins)
         vm.$router.push('/myAccount')
 
       });

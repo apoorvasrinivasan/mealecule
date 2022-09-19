@@ -35,9 +35,9 @@ div.home-page
 				div.offer-card
 						div.image.earn-coins(aria-hidden="true")
 						div.ui.header.tiny Earn Coins
-						p Collect B Coins on site by activating your user profile, setting essential body vitals and your peference of MQ to help us serve you better. Redeem these coins and win exciting discounts on all your favourite products.
+						p Collect BCoins on site by activating your user profile, setting essential body vitals and your peference of MQ to help us serve you better. Redeem these coins and win exciting discounts on all your favourite products.
 
-						router-link(to="/game") View More
+						router-link(to="/myAccount") View More
 				div.offer-card
 						div.image.mq
 						div.ui.header.tiny(aria-hidden="true") Mealecular Quotient

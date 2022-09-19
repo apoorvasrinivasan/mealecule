@@ -20,9 +20,9 @@
     </div>
     </div>
     
-    <div class="right menu" > 
+    <div class="right menu" > {{ filteredCartMq.length }}
     <div class=" item promo-bar" v-if="filteredCartMq">
-      <span  class="ui label lg promo-bar-item tiny" v-for="k,v, ind in filteredCartMq" :key="k" :style="'background-color:'+ $root.colors[ind]">
+      <span  class="ui label lg promo-bar-item tiny" v-for="k,v, ind in filteredCartMq" :key="ind" :style="'background-color:'+ $root.colors[ind]">
       {{ Math.floor(k)}}g {{v}} 
       </span>
     </div>
@@ -79,9 +79,13 @@ nav.ui.menu > .right.menu {
     bottom: 0;
     display: grid;
     background: white;
-    border: 1px solid red;
+    box-shadow: 0 -1px 2px 0 #ccc;
     grid-template-columns: 65% 10% 10% 9%;
     justify-content: space-between;
+    width: 100%;
+  }
+  .ui.menu .item>.bCoins.label{
+    margin-left: 0;
   }
   .promo-bar {
     padding:  5px 0 !important;

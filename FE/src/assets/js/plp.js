@@ -84,7 +84,8 @@ export default {
         if(data.products.length == 0) return
           vm.products = data.products.map((i)=>{
             vm.facetDatas = data.facetDatas.filter((i)=>{
-              i.val = Math.ceil(i.maxValue);
+              i.val = i.maxValue;
+              i.maxValue = Math.ceil(i.maxValue);
               return i.maxValue >=1;
             })
           if(vm.brands.indexOf(i.manufacturer) < 0)

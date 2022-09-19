@@ -76,14 +76,16 @@ export default {
       let user = this.user;
       vm.loaders.info=true;
       User.updateUser(user, ()=>{
-        localStorage.userData = JSON.stringify(user)
+        localStorage.userData = JSON.stringify(user);
+        vm.loaders.info=false;
         User.addCoins(vm.coins+20, (data)=>{
           vm.coins = data.coins;
           vm.badges = data.badge.level
           vm.$root.total_coins = data.coins
-          vm.loaders.info=false;
           Common.Alert('Saved. you receive 20 Coins');
-        })
+        });
+      },()=>{
+        vm.loaders.info=false;
       });
 
     },
@@ -117,6 +119,7 @@ export default {
       let chartData={x:[],sData:{}, series:[]}
       await User.userOrders(this.user).then((data)=>{
           vm.orderHistory = data.orders; 
+          if(data.orders.length ==0 ) return;
           vm.orderHistory.map((i)=>{
             i.placed = new Date(i.placed)
             chartData.x.push(i.placed.toDateString());
@@ -140,18 +143,19 @@ export default {
           }
       });
       
-      Highcharts.chart('orders', {
-          chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'My MQ history'
-        },
-        xAxis:{
-          categories: chartData.x
-        },
-        series: chartData.series
-      });
+      if(vm.orderHistory.length)
+        Highcharts.chart('orders', {
+            chart: {
+              type: 'column'
+          },
+          title: {
+              text: 'My MQ history'
+          },
+          xAxis:{
+            categories: chartData.x
+          },
+          series: chartData.series
+        });
     }
   }
 }
